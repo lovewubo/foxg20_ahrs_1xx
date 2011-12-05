@@ -383,6 +383,16 @@ int main(int argc, char *argv[])
 		send.number_of_packet ++;
 		send.end='*';
 		send.init='#';
+		send.init1='s';
+		send.init2='n';
+		send.vel_X=0;
+		send.vel_Y=0;
+		send.vel_Z=0;
+		send.q1_dot=0;
+		send.q2_dot=0;
+		send.q3_dot=0;
+		send.q4_dot=0;
+
 		send.crc=crccal(send);
 		usleep(1000);
 

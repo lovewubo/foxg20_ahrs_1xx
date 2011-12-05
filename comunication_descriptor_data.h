@@ -40,21 +40,13 @@
 struct _data_AHRS_Struct
 {
 	char init;
-	/******data recive IMU & status********/
-	//status imu  & gps
-	float latitude;
-	float longitude;
-	float vel_gps;//m/s
-	float altitudine;//m
+	char init1;
+	char init2;
 	//deg
 	float roll;
 	float pitch;
 	float yaw;
 
-	float q1;
-	float q2;
-	float q3;
-	float q4;
 	//g
 	float Acc_X;
 	float Acc_Y;
@@ -63,10 +55,31 @@ struct _data_AHRS_Struct
 	float gyro_X;
 	float gyro_Y;
 	float gyro_Z;
-
+	//mag
 	float mag_X;
 	float mag_Y;
 	float mag_Z;
+	//vel
+	float vel_X;
+	float vel_Y;
+	float vel_Z;
+	//quaternioni
+	float q1;
+	float q2;
+	float q3;
+	float q4;
+	//quat derivati
+	float q1_dot;
+	float q2_dot;
+	float q3_dot;
+	float q4_dot;
+	/******data recive IMU & status********/
+	//status imu  & gps
+	float latitude;
+	float longitude;
+	float vel_gps;//m/s
+	float altitudine;//m
+
 	/*dati aria*/
 	float static_pressure;
 	float tic;
@@ -76,8 +89,8 @@ struct _data_AHRS_Struct
  	int satellite_number;
 	int number_of_packet;		//number to packet optional
 	int id_dispositivo;
-	char end;
 	int crc;
+	char end;
 
 };
 

@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'lpf0'.
  *
- * Model version                  : 1.25
+ * Model version                  : 1.30
  * Simulink Coder version         : 8.0 (R2011a) 09-Mar-2011
  * TLC version                    : 8.0 (Feb  3 2011)
- * C/C++ source code generated on : Tue Nov 01 12:44:21 2011
+ * C/C++ source code generated on : Sun Dec 18 15:19:41 2011
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -39,6 +39,12 @@ typedef struct {
   real_T Gain;                         /* '<S1>/Gain' */
   real_T Gain1;                        /* '<S1>/Gain1' */
   real_T Gain2;                        /* '<S1>/Gain2' */
+  real_T Gain6;                        /* '<S1>/Gain6' */
+  real_T Gain7;                        /* '<S1>/Gain7' */
+  real_T Gain8;                        /* '<S1>/Gain8' */
+  real_T Gain3;                        /* '<S1>/Gain3' */
+  real_T Gain4;                        /* '<S1>/Gain4' */
+  real_T Gain5;                        /* '<S1>/Gain5' */
   real_T Stage2;                       /* '<S19>/Stage2' */
   real_T Stage1;                       /* '<S19>/Stage1' */
 } BlockIO_lpf0;
@@ -70,26 +76,53 @@ typedef struct {
   real_T Memory4_PreviousInput;        /* '<S1>/Memory4' */
   real_T Memory5_PreviousInput;        /* '<S1>/Memory5' */
   real_T Memory6_PreviousInput;        /* '<S1>/Memory6' */
-  real_T Memory8_PreviousInput;        /* '<S1>/Memory8' */
   real_T Memory7_PreviousInput;        /* '<S1>/Memory7' */
+  real_T Memory8_PreviousInput;        /* '<S1>/Memory8' */
   real_T Memory9_PreviousInput;        /* '<S1>/Memory9' */
   real_T Memory10_PreviousInput;       /* '<S1>/Memory10' */
   real_T Memory11_PreviousInput;       /* '<S1>/Memory11' */
-  real_T Memory12_PreviousInput;       /* '<S1>/Memory12' */
-  real_T Memory13_PreviousInput;       /* '<S1>/Memory13' */
   real_T Memory14_PreviousInput;       /* '<S1>/Memory14' */
   real_T Memory15_PreviousInput;       /* '<S1>/Memory15' */
-  real_T Memory17_PreviousInput;       /* '<S1>/Memory17' */
   real_T Memory16_PreviousInput;       /* '<S1>/Memory16' */
-  real_T Memory26_PreviousInput;       /* '<S1>/Memory26' */
+  real_T Memory17_PreviousInput;       /* '<S1>/Memory17' */
+  real_T Memory12_PreviousInput;       /* '<S1>/Memory12' */
+  real_T Memory13_PreviousInput;       /* '<S1>/Memory13' */
+  real_T Memory36_PreviousInput;       /* '<S1>/Memory36' */
+  real_T Memory37_PreviousInput;       /* '<S1>/Memory37' */
+  real_T Memory38_PreviousInput;       /* '<S1>/Memory38' */
+  real_T Memory39_PreviousInput;       /* '<S1>/Memory39' */
+  real_T Memory40_PreviousInput;       /* '<S1>/Memory40' */
+  real_T Memory41_PreviousInput;       /* '<S1>/Memory41' */
+  real_T Memory42_PreviousInput;       /* '<S1>/Memory42' */
+  real_T Memory43_PreviousInput;       /* '<S1>/Memory43' */
+  real_T Memory44_PreviousInput;       /* '<S1>/Memory44' */
+  real_T Memory45_PreviousInput;       /* '<S1>/Memory45' */
+  real_T Memory46_PreviousInput;       /* '<S1>/Memory46' */
+  real_T Memory47_PreviousInput;       /* '<S1>/Memory47' */
+  real_T Memory48_PreviousInput;       /* '<S1>/Memory48' */
+  real_T Memory49_PreviousInput;       /* '<S1>/Memory49' */
+  real_T Memory50_PreviousInput;       /* '<S1>/Memory50' */
+  real_T Memory51_PreviousInput;       /* '<S1>/Memory51' */
+  real_T Memory52_PreviousInput;       /* '<S1>/Memory52' */
+  real_T Memory53_PreviousInput;       /* '<S1>/Memory53' */
   real_T Memory18_PreviousInput;       /* '<S1>/Memory18' */
   real_T Memory19_PreviousInput;       /* '<S1>/Memory19' */
   real_T Memory20_PreviousInput;       /* '<S1>/Memory20' */
   real_T Memory21_PreviousInput;       /* '<S1>/Memory21' */
   real_T Memory22_PreviousInput;       /* '<S1>/Memory22' */
   real_T Memory23_PreviousInput;       /* '<S1>/Memory23' */
-  real_T Memory25_PreviousInput;       /* '<S1>/Memory25' */
   real_T Memory24_PreviousInput;       /* '<S1>/Memory24' */
+  real_T Memory25_PreviousInput;       /* '<S1>/Memory25' */
+  real_T Memory26_PreviousInput;       /* '<S1>/Memory26' */
+  real_T Memory27_PreviousInput;       /* '<S1>/Memory27' */
+  real_T Memory28_PreviousInput;       /* '<S1>/Memory28' */
+  real_T Memory29_PreviousInput;       /* '<S1>/Memory29' */
+  real_T Memory30_PreviousInput;       /* '<S1>/Memory30' */
+  real_T Memory31_PreviousInput;       /* '<S1>/Memory31' */
+  real_T Memory32_PreviousInput;       /* '<S1>/Memory32' */
+  real_T Memory33_PreviousInput;       /* '<S1>/Memory33' */
+  real_T Memory34_PreviousInput;       /* '<S1>/Memory34' */
+  real_T Memory35_PreviousInput;       /* '<S1>/Memory35' */
   int32_T Stage1_CIRCBUFFIDX;          /* '<S11>/Stage1' */
   int32_T Stage2_CIRCBUFFIDX;          /* '<S11>/Stage2' */
   int32_T Stage1_CIRCBUFFIDX_n;        /* '<S12>/Stage1' */
@@ -156,20 +189,20 @@ struct Parameters_lpf0_ {
   real_T Memory5_X0;                   /* Expression: 0
                                         * Referenced by: '<S1>/Memory5'
                                         */
-  real_T Memory6_X0;                   /* Expression: 0
-                                        * Referenced by: '<S1>/Memory6'
-                                        */
-  real_T Memory8_X0;                   /* Expression: 0
-                                        * Referenced by: '<S1>/Memory8'
-                                        */
-  real_T Memory7_X0;                   /* Expression: 0
-                                        * Referenced by: '<S1>/Memory7'
-                                        */
   real_T Stage1_RTP1COEFF[7];          /* Expression: NumCoeffs
                                         * Referenced by: '<S11>/Stage1'
                                         */
   real_T Stage2_RTP1COEFF[40];         /* Expression: NumCoeffs
                                         * Referenced by: '<S11>/Stage2'
+                                        */
+  real_T Memory6_X0;                   /* Expression: 0
+                                        * Referenced by: '<S1>/Memory6'
+                                        */
+  real_T Memory7_X0;                   /* Expression: 0
+                                        * Referenced by: '<S1>/Memory7'
+                                        */
+  real_T Memory8_X0;                   /* Expression: 0
+                                        * Referenced by: '<S1>/Memory8'
                                         */
   real_T Memory9_X0;                   /* Expression: 0
                                         * Referenced by: '<S1>/Memory9'
@@ -180,11 +213,11 @@ struct Parameters_lpf0_ {
   real_T Memory11_X0;                  /* Expression: 0
                                         * Referenced by: '<S1>/Memory11'
                                         */
-  real_T Memory12_X0;                  /* Expression: 0
-                                        * Referenced by: '<S1>/Memory12'
+  real_T Stage1_RTP1COEFF_p[7];        /* Expression: NumCoeffs
+                                        * Referenced by: '<S12>/Stage1'
                                         */
-  real_T Memory13_X0;                  /* Expression: 0
-                                        * Referenced by: '<S1>/Memory13'
+  real_T Stage2_RTP1COEFF_d[40];       /* Expression: NumCoeffs
+                                        * Referenced by: '<S12>/Stage2'
                                         */
   real_T Memory14_X0;                  /* Expression: 0
                                         * Referenced by: '<S1>/Memory14'
@@ -192,20 +225,95 @@ struct Parameters_lpf0_ {
   real_T Memory15_X0;                  /* Expression: 0
                                         * Referenced by: '<S1>/Memory15'
                                         */
-  real_T Memory17_X0;                  /* Expression: 0
-                                        * Referenced by: '<S1>/Memory17'
-                                        */
   real_T Memory16_X0;                  /* Expression: 0
                                         * Referenced by: '<S1>/Memory16'
                                         */
-  real_T Stage1_RTP1COEFF_p[7];        /* Expression: NumCoeffs
-                                        * Referenced by: '<S12>/Stage1'
+  real_T Memory17_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory17'
                                         */
-  real_T Stage2_RTP1COEFF_d[40];       /* Expression: NumCoeffs
-                                        * Referenced by: '<S12>/Stage2'
+  real_T Memory12_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory12'
                                         */
-  real_T Memory26_X0;                  /* Expression: 0
-                                        * Referenced by: '<S1>/Memory26'
+  real_T Memory13_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory13'
+                                        */
+  real_T Stage1_RTP1COEFF_g[7];        /* Expression: NumCoeffs
+                                        * Referenced by: '<S13>/Stage1'
+                                        */
+  real_T Stage2_RTP1COEFF_m[40];       /* Expression: NumCoeffs
+                                        * Referenced by: '<S13>/Stage2'
+                                        */
+  real_T Memory36_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory36'
+                                        */
+  real_T Memory37_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory37'
+                                        */
+  real_T Memory38_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory38'
+                                        */
+  real_T Memory39_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory39'
+                                        */
+  real_T Memory40_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory40'
+                                        */
+  real_T Memory41_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory41'
+                                        */
+  real_T Stage1_RTP1COEFF_h[7];        /* Expression: NumCoeffs
+                                        * Referenced by: '<S14>/Stage1'
+                                        */
+  real_T Stage2_RTP1COEFF_i[40];       /* Expression: NumCoeffs
+                                        * Referenced by: '<S14>/Stage2'
+                                        */
+  real_T Memory42_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory42'
+                                        */
+  real_T Memory43_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory43'
+                                        */
+  real_T Memory44_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory44'
+                                        */
+  real_T Memory45_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory45'
+                                        */
+  real_T Memory46_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory46'
+                                        */
+  real_T Memory47_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory47'
+                                        */
+  real_T Stage1_RTP1COEFF_gn[7];       /* Expression: NumCoeffs
+                                        * Referenced by: '<S15>/Stage1'
+                                        */
+  real_T Stage2_RTP1COEFF_h[40];       /* Expression: NumCoeffs
+                                        * Referenced by: '<S15>/Stage2'
+                                        */
+  real_T Memory48_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory48'
+                                        */
+  real_T Memory49_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory49'
+                                        */
+  real_T Memory50_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory50'
+                                        */
+  real_T Memory51_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory51'
+                                        */
+  real_T Memory52_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory52'
+                                        */
+  real_T Memory53_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory53'
+                                        */
+  real_T Stage1_RTP1COEFF_a[7];        /* Expression: NumCoeffs
+                                        * Referenced by: '<S16>/Stage1'
+                                        */
+  real_T Stage2_RTP1COEFF_p[40];       /* Expression: NumCoeffs
+                                        * Referenced by: '<S16>/Stage2'
                                         */
   real_T Memory18_X0;                  /* Expression: 0
                                         * Referenced by: '<S1>/Memory18'
@@ -225,47 +333,53 @@ struct Parameters_lpf0_ {
   real_T Memory23_X0;                  /* Expression: 0
                                         * Referenced by: '<S1>/Memory23'
                                         */
-  real_T Memory25_X0;                  /* Expression: 0
-                                        * Referenced by: '<S1>/Memory25'
-                                        */
-  real_T Memory24_X0;                  /* Expression: 0
-                                        * Referenced by: '<S1>/Memory24'
-                                        */
-  real_T Stage1_RTP1COEFF_g[7];        /* Expression: NumCoeffs
-                                        * Referenced by: '<S13>/Stage1'
-                                        */
-  real_T Stage2_RTP1COEFF_m[40];       /* Expression: NumCoeffs
-                                        * Referenced by: '<S13>/Stage2'
-                                        */
-  real_T Stage1_RTP1COEFF_h[7];        /* Expression: NumCoeffs
-                                        * Referenced by: '<S14>/Stage1'
-                                        */
-  real_T Stage2_RTP1COEFF_i[40];       /* Expression: NumCoeffs
-                                        * Referenced by: '<S14>/Stage2'
-                                        */
-  real_T Stage1_RTP1COEFF_gn[7];       /* Expression: NumCoeffs
-                                        * Referenced by: '<S15>/Stage1'
-                                        */
-  real_T Stage2_RTP1COEFF_h[40];       /* Expression: NumCoeffs
-                                        * Referenced by: '<S15>/Stage2'
-                                        */
-  real_T Stage1_RTP1COEFF_a[7];        /* Expression: NumCoeffs
-                                        * Referenced by: '<S16>/Stage1'
-                                        */
-  real_T Stage2_RTP1COEFF_p[40];       /* Expression: NumCoeffs
-                                        * Referenced by: '<S16>/Stage2'
-                                        */
   real_T Stage1_RTP1COEFF_e[6];        /* Expression: NumCoeffs
                                         * Referenced by: '<S17>/Stage1'
                                         */
   real_T Stage2_RTP1COEFF_pd[29];      /* Expression: NumCoeffs
                                         * Referenced by: '<S17>/Stage2'
                                         */
+  real_T Memory24_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory24'
+                                        */
+  real_T Memory25_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory25'
+                                        */
+  real_T Memory26_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory26'
+                                        */
+  real_T Memory27_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory27'
+                                        */
+  real_T Memory28_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory28'
+                                        */
+  real_T Memory29_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory29'
+                                        */
   real_T Stage1_RTP1COEFF_hv[6];       /* Expression: NumCoeffs
                                         * Referenced by: '<S18>/Stage1'
                                         */
   real_T Stage2_RTP1COEFF_f[29];       /* Expression: NumCoeffs
                                         * Referenced by: '<S18>/Stage2'
+                                        */
+  real_T Memory30_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory30'
+                                        */
+  real_T Memory31_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory31'
+                                        */
+  real_T Memory32_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory32'
+                                        */
+  real_T Memory33_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory33'
+                                        */
+  real_T Memory34_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory34'
+                                        */
+  real_T Memory35_X0;                  /* Expression: 0
+                                        * Referenced by: '<S1>/Memory35'
                                         */
   real_T Stage1_RTP1COEFF_o[6];        /* Expression: NumCoeffs
                                         * Referenced by: '<S19>/Stage1'
@@ -281,6 +395,24 @@ struct Parameters_lpf0_ {
                                         */
   real32_T Gain2_Gain;                 /* Computed Parameter: Gain2_Gain
                                         * Referenced by: '<S1>/Gain2'
+                                        */
+  real32_T Gain6_Gain;                 /* Computed Parameter: Gain6_Gain
+                                        * Referenced by: '<S1>/Gain6'
+                                        */
+  real32_T Gain7_Gain;                 /* Computed Parameter: Gain7_Gain
+                                        * Referenced by: '<S1>/Gain7'
+                                        */
+  real32_T Gain8_Gain;                 /* Computed Parameter: Gain8_Gain
+                                        * Referenced by: '<S1>/Gain8'
+                                        */
+  real32_T Gain3_Gain;                 /* Computed Parameter: Gain3_Gain
+                                        * Referenced by: '<S1>/Gain3'
+                                        */
+  real32_T Gain4_Gain;                 /* Computed Parameter: Gain4_Gain
+                                        * Referenced by: '<S1>/Gain4'
+                                        */
+  real32_T Gain5_Gain;                 /* Computed Parameter: Gain5_Gain
+                                        * Referenced by: '<S1>/Gain5'
                                         */
 };
 

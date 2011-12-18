@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'EKF'.
  *
- * Model version                  : 1.378
+ * Model version                  : 1.411
  * Simulink Coder version         : 8.0 (R2011a) 09-Mar-2011
  * TLC version                    : 8.0 (Feb  3 2011)
- * C/C++ source code generated on : Tue Nov 01 13:07:00 2011
+ * C/C++ source code generated on : Sun Dec 18 14:10:18 2011
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 9

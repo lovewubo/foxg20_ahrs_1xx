@@ -109,7 +109,7 @@
 
   if(config_lookup_float(&cfg, "MAG21", &loaddata.MAG21))
     printf("MAG21: %f\n", loaddata.MAG21);
-  if(config_lookup_float(&cfg, "MAG12", &loaddata.MAG22))
+  if(config_lookup_float(&cfg, "MAG22", &loaddata.MAG22))
     printf("MAG22: %f\n", loaddata.MAG22);
   if(config_lookup_float(&cfg, "MAG23", &loaddata.MAG23))
     printf("MAG23: %f\n", loaddata.MAG23);

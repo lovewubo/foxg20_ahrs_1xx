@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'lpf0'.
  *
- * Model version                  : 1.25
+ * Model version                  : 1.30
  * Simulink Coder version         : 8.0 (R2011a) 09-Mar-2011
  * TLC version                    : 8.0 (Feb  3 2011)
- * C/C++ source code generated on : Tue Nov 01 12:44:21 2011
+ * C/C++ source code generated on : Sun Dec 18 15:19:41 2011
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -74,7 +74,7 @@ int_T main(int_T argc, const char_T *argv[])
   lpf0_initialize();
 
   /* Attach rt_OneStep to a timer or interrupt service routine with
-   * period 0.003571428 seconds (the model's base sample time) here.  The
+   * period 0.00434 seconds (the model's base sample time) here.  The
    * call syntax for rt_OneStep is
    *
    *  rt_OneStep();

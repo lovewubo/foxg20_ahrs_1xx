@@ -254,9 +254,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x=datasensor.acc_X[0];
 		lpf0_U.acc_y=datasensor.acc_Y[0];
 		lpf0_U.acc_z=datasensor.acc_Z[0];
-		lpf0_U.gyro_x=datasensor.gyro_X[0]/DegToRadIMU;
-		lpf0_U.gyro_y=datasensor.gyro_Y[0]/DegToRadIMU;
-		lpf0_U.gyro_z=datasensor.gyro_Z[0]/DegToRadIMU;
+		lpf0_U.gyro_x=datasensor.gyro_X[0]/(2*DegToRadIMU);
+		lpf0_U.gyro_y=datasensor.gyro_Y[0]/(2*DegToRadIMU);
+		lpf0_U.gyro_z=datasensor.gyro_Z[0]/(2*DegToRadIMU);
 		lpf0_U.mag_x=datasensor.mag_X[0];
 		lpf0_U.mag_y=datasensor.mag_Y[0];
 		lpf0_U.mag_z=datasensor.mag_Z[0];
@@ -266,9 +266,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x=datasensor.acc_X[1];
 		lpf0_U.acc_y=datasensor.acc_Y[1];
 		lpf0_U.acc_z=datasensor.acc_Z[1];
-		lpf0_U.gyro_x=datasensor.gyro_X[1]/DegToRadIMU;
-		lpf0_U.gyro_y=datasensor.gyro_Y[1]/DegToRadIMU;
-		lpf0_U.gyro_z=datasensor.gyro_Z[1]/DegToRadIMU;
+		lpf0_U.gyro_x=datasensor.gyro_X[1]/(2*DegToRadIMU);
+		lpf0_U.gyro_y=datasensor.gyro_Y[1]/(2*DegToRadIMU);
+		lpf0_U.gyro_z=datasensor.gyro_Z[1]/(2*DegToRadIMU);
 		lpf0_U.mag_x=datasensor.mag_X[1];
 		lpf0_U.mag_y=datasensor.mag_Y[1];
 		lpf0_U.mag_z=datasensor.mag_Z[1];
@@ -278,9 +278,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x=datasensor.acc_X[2];
 		lpf0_U.acc_y=datasensor.acc_Y[2];
 		lpf0_U.acc_z=datasensor.acc_Z[2];
-		lpf0_U.gyro_x=datasensor.gyro_X[2]/DegToRadIMU;
-		lpf0_U.gyro_y=datasensor.gyro_Y[2]/DegToRadIMU;
-		lpf0_U.gyro_z=datasensor.gyro_Z[2]/DegToRadIMU;
+		lpf0_U.gyro_x=datasensor.gyro_X[2]/(2*DegToRadIMU);
+		lpf0_U.gyro_y=datasensor.gyro_Y[2]/(2*DegToRadIMU);
+		lpf0_U.gyro_z=datasensor.gyro_Z[2]/(2*DegToRadIMU);
 		lpf0_U.mag_x=datasensor.mag_X[2];
 		lpf0_U.mag_y=datasensor.mag_Y[2];
 		lpf0_U.mag_z=datasensor.mag_Z[2];
@@ -353,6 +353,10 @@ int main(int argc, char *argv[])
 			send.q2=(double)EKF_Y.quaternioni[1];
 			send.q3=(double)EKF_Y.quaternioni[2];
 			send.q4=(double)EKF_Y.quaternioni[3];
+			send.q1_dot=(double)EKF_Y.quat_dot[0];
+			send.q2_dot=(double)EKF_Y.quat_dot[1];
+			send.q3_dot=(double)EKF_Y.quat_dot[2];
+			send.q4_dot=(double)EKF_Y.quat_dot[3];
 		}
 		/*slow for debug*/
 		if((int)load_data.debug_mode==1){sleep(1);}
@@ -385,14 +389,10 @@ int main(int argc, char *argv[])
 		send.init='#';
 		send.init1='s';
 		send.init2='n';
+		send.init3='y';
 		send.vel_X=0;
 		send.vel_Y=0;
 		send.vel_Z=0;
-		send.q1_dot=0;
-		send.q2_dot=0;
-		send.q3_dot=0;
-		send.q4_dot=0;
-
 		send.crc=crccal(send);
 		usleep(1000);
 

@@ -42,6 +42,7 @@ struct _data_AHRS_Struct
 	char init;
 	char init1;
 	char init2;
+	char init3;
 	//deg
 	float roll;
 	float pitch;

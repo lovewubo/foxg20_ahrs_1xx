@@ -105,7 +105,10 @@ int main(int argc, char *argv[])
   memset(&send,0,sizeof(send));
   NavInputs_t gpsData1;
   int cnt_gps=0;
+  int cnt_baro=0;
+  int statusbaro=0; 
   int update_tmp_cnt=0;
+  float tmp_altitude=0,altitude=0;
   //float degtorad=0.017453292;
   /*global data and inizializzation*/
   /*inizialize kalman*/
@@ -244,7 +247,24 @@ int main(int argc, char *argv[])
 	{
 	printf("lat %f lon %f vel %f  altitude %f \n",send.latitude,send.longitude,send.vel_gps,send.altitudine);
 	}
+	//aggiornamento altitudine
+	cnt_baro ++;
+	if(cnt_baro>TMP_PRESS_TIMEOUTCOUNT)
+	{
+		cnt_baro=0;
+		tmp_altitude=readaltitude_press(fd_iduec ,statusbaro);
 
+		if((int)load_data.debug_mode==1)
+		{
+			printf("altitude %f \n",altitude);
+		}
+		statusbaro ++;
+		if(statusbaro>4){statusbaro=0;}
+
+		
+	}	
+	if(tmp_altitude>1){altitude=tmp_altitude;}	
+	send.altitudine=altitude;
 	/******************IMU D7*************************/
 	if((int)load_data.imu_type==1)
 	{

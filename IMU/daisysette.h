@@ -53,8 +53,9 @@ gain mag
 2=1.9gauss
 3=2.5Gauss
 */
-#define GAIN_MAG 	1
+#define GAIN_MAG 	1	
 #define HMC5883L  	1
+#define BMP085 		1
 
 
 #define LIS331DLH 	1
@@ -89,6 +90,7 @@ float* self_collect_accel_sample(int fd);
 float * self_calibrate_gyro_d7(int fd);
 float* self_collect_mag_sample(int fd);
 int readtemp(int fd);
+float readaltitude_press(int fd ,int azione);
 
 
 #endif

@@ -146,6 +146,25 @@
 
 #define sensivity_tmp 280 
 
+//BMP085
+#define BMP085_ADDRESS 0x77  // I2C address of BMP085
+//variabili sensore di pressione
+const unsigned char OSS = 0;  // Oversampling Setting
+static int ac1;
+static int ac2; 
+static int ac3; 
+static unsigned int ac4;
+static unsigned int ac5;
+static unsigned int ac6;
+static int b1; 
+static int b2;
+static int mb;
+static int mc;
+static int md;
+static long b5; 
+static int temp_u;
+static unsigned long press_u;
+
 
 int sensivity1g_acc_cal=17000; //1000 =1g for calibration
 
@@ -161,6 +180,8 @@ void set_d7_debug_mode(int mode)
 
 void set_d7_initialize(int fd)
 	{
+	unsigned char buf;
+	int temp;
 	//set gyro
 	#if(ITG3200==1)
 		setdevicei2c(fd, ITG3200_ADDR);
@@ -219,6 +240,71 @@ void set_d7_initialize(int fd)
 		writebytei2c(fd,HMC5883L_REGB,HMC5883L_REGB_CONF_2_5GA);
 		#endif
 		writebytei2c(fd,HMC5883L_REG_MODE,HMC5883L_REG_MODE_CONF);
+	#endif
+	#if(BMP085==1)
+	setdevicei2c(fd, BMP085_ADDRESS);
+	buf=readbytei2c(fd, 0xAA);
+	ac1 = buf<<8;
+	buf=readbytei2c(fd, 0xAB);
+	ac1 |= buf;
+	if(ac1>32768)
+		{ac1=ac1-65535;}
+	buf=readbytei2c(fd, 0xAC);
+	ac2 = buf<<8;
+	buf=readbytei2c(fd, 0xAD);
+	ac2 |= buf;
+	if(ac2>32768)
+		{ac2=ac2-65535;}
+	buf=readbytei2c(fd, 0xAE);
+	ac3 = buf<<8;
+	buf=readbytei2c(fd, 0xAF);
+	ac3 |= buf;
+	if(ac3>32768)
+		{ac3=ac3-65535;}
+	buf=readbytei2c(fd, 0xB0);
+	ac4 = buf<<8;
+	buf=readbytei2c(fd, 0xB1);
+	ac4 |= buf;
+	buf=readbytei2c(fd, 0xB2);
+	ac5 = buf<<8;
+	buf=readbytei2c(fd, 0xB3);
+	ac5 |= buf;
+	buf=readbytei2c(fd, 0xB4);
+	ac6 = buf<<8;
+	buf=readbytei2c(fd, 0xB5);
+	ac6 |= buf;
+	buf=readbytei2c(fd, 0xB6);
+	b1 = buf<<8;
+	buf=readbytei2c(fd, 0xB7);
+	b1 |= buf;
+	if(b1>32768)
+		{b1=b1-65535;}
+	buf=readbytei2c(fd, 0xB8);
+	b2 = buf<<8;
+	buf=readbytei2c(fd, 0xB9);
+	b2 |= buf;
+	if(b2>32768)
+		{b2=b2-65535;}
+	buf=readbytei2c(fd, 0xBA);
+	mb = buf<<8;
+	buf=readbytei2c(fd, 0xBB);
+	mb |= buf;
+	if(mb>32767)
+		{mb=mb-65535;}
+	buf=readbytei2c(fd, 0xBC);
+	mc = buf<<8;
+	buf=readbytei2c(fd, 0xBD);
+	mc |= buf;
+	if(mc>32768)
+		{mc=mc-65535;}
+	buf=readbytei2c(fd, 0xBE);
+	md = buf<<8;
+	buf=readbytei2c(fd, 0xBF);
+	md |= buf;
+	if(md>32768)
+		{md=md-65535;}
+	printf("ac1 %d ac2 %d , ac3 %d , ac4 %d , ac5 %d ,ac6 %d ,b1 %d , b2 %d , mb %d ,mc %d , md %d , b5 %d",ac1,ac2,ac3,ac4,ac5,ac6,b1,b2,mb,mc,md,b5);
+
 	#endif
 	}
 
@@ -776,4 +862,92 @@ int readtemp(int fd)
 	temp = buf<<8;
 	#endif
 return temp/sensivity_tmp;
+}
+
+
+float readaltitude_press(int fd ,int azione)
+{
+	
+
+	short temperature;
+	long x1, x2, x3, b3, b6, p;
+	unsigned long b4, b7;
+	long x1p, x2p;
+	float pressione;
+	unsigned char buf;
+	if(azione==0)
+	{
+		//printf("azione 0 \n");
+		setdevicei2c(fd, BMP085_ADDRESS);
+		//richiedo aggiornamento temperature
+		writebytei2c(fd,0xF4,0x2E);
+		return -10000;
+	}
+	//leggo temperatura
+	if(azione==1)
+	{
+
+		setdevicei2c(fd, BMP085_ADDRESS);
+		buf=readbytei2c(fd, 0xF6);
+		temp_u = buf<<8;
+		buf=readbytei2c(fd, 0xF7);
+		temp_u |= buf;
+		//printf("azione 1 leggo temp  %d \n",temp_u );
+		return -10000;
+	}
+
+	//richiedo aggiornamento pressione
+	if(azione==2)
+	{
+		//printf("azione 2 \n");
+		setdevicei2c(fd, BMP085_ADDRESS);
+		writebytei2c(fd,0xF4,0x34 + (OSS<<6));
+		return -10000;
+	}
+	if(azione==3)
+	{
+
+		//printf("ac1 %d ac2 %d , ac3 %d , ac4 %d , ac5 %d ,ac6 %d ,b1 %d , b2 %d , mb %d ,mc %d , md %d , b5 %d",ac1,ac2,ac3,ac4,ac5,ac6,b1,b2,mb,mc,md,b5);
+		setdevicei2c(fd, BMP085_ADDRESS);
+		buf=readbytei2c(fd, 0xF6);
+		press_u = buf<<16;
+		buf=readbytei2c(fd, 0xF7);
+		press_u|= buf<<8;
+		buf=readbytei2c(fd, 0xF8);
+		press_u |= buf;
+		press_u = press_u >> (8-OSS);
+		//printf("azione 3 leggo press  %ld \n",press_u );
+		x1p = (((long)temp_u - (long)ac6)*(long)ac5) >> 15;
+		x2p = ((long)mc << 11)/(x1p + md);
+		b5 = x1p + x2p;
+		temperature= ((b5 + 8)>>4);
+		//printf("1 temperature %d \n",temperature);
+
+		b6 = b5 - 4000;
+		// Calculate B3
+		x1 = (b2 * (b6 * b6)>>12)>>11;
+		x2 = (ac2 * b6)>>11;
+		x3 = x1 + x2;
+		b3 = (((((long)ac1)*4 + x3)<<OSS) + 2)>>2;
+		// Calculate B4
+		x1 = (ac3 * b6)>>13;
+		x2 = (b1 * ((b6 * b6)>>12))>>16;
+		x3 = ((x1 + x2) + 2)>>2;
+		b4 = (ac4 * (unsigned long)(x3 + 32768))>>15;
+
+		b7 = ((unsigned long)(press_u - b3) * (50000>>OSS));
+		if (b7 < 0x80000000)
+		p = (b7<<1)/b4;
+		else
+		p = (b7/b4)<<1;
+		x1 = (p>>8) * (p>>8);
+		x1 = (x1 * 3038)>>16;
+		x2 = (-7357 * p)>>16;
+		printf("1\n");
+		p += (x1 + x2 + 3791)>>4;
+		pressione =((float)p)/100;
+		//printf("1 %f  altitudine%f\n",pressione, (float)(44330*(1-pow((pressione/1013.25),(1/5.255)))));
+		return (float)(44330*(1-pow((pressione/1013.25),(1/5.255))));
+	}
+
 }

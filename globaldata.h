@@ -2,8 +2,6 @@
 #define __GLOBALDATA_H__
 
 
-#define ZEROPROPELLERPWM 800
-
 #define LATITUDINE_FAKE   44.4939
 #define LONGITUDINE_FAKE  11.3718
 #define ALTITUDINE_FAKE  15
@@ -30,7 +28,7 @@ char gps_port[20]="/dev/ttyS3";
   float dev_std_accell=0.0001;
   float dev_std_mag=0.1;
   #define GPSTIMEOUTCOUNT 75
-  #define TMP_PRESS_TIMEOUTCOUNT 75
+  #define TMP_PRESS_TIMEOUTCOUNT 30
   #define GADGETPORT "/dev/ttyGS0"
 
 

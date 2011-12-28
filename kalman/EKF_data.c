@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'EKF'.
  *
- * Model version                  : 1.411
+ * Model version                  : 1.474
  * Simulink Coder version         : 8.0 (R2011a) 09-Mar-2011
  * TLC version                    : 8.0 (Feb  3 2011)
- * C/C++ source code generated on : Sun Dec 18 14:10:18 2011
+ * C/C++ source code generated on : Tue Dec 27 14:06:11 2011
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 9
@@ -333,6 +333,11 @@ Parameters_EKF EKF_P = {
 
   { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
   0.0,
+  0.0,
+  1.0,
+  -1.0,
+  1.0,
+  0.0,
   9.7803267714,
   1.0,
   0.00193185138639,
@@ -362,9 +367,6 @@ Parameters_EKF EKF_P = {
   0.017453292519943295,
   1.0,
   1.0E-5,
-  0.0,
-  0.0,
-  0.0,
   0.5,
 
   { 0.0, 0.0, 0.0 },
@@ -379,7 +381,6 @@ Parameters_EKF EKF_P = {
   180.0,
   0.0,
   5.0,
-  0.25F,
   1,
   1,
   1,

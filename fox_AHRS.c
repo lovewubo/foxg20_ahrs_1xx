@@ -259,11 +259,11 @@ int main(int argc, char *argv[])
 			printf("altitude %f \n",altitude);
 		}
 		statusbaro ++;
-		if(statusbaro>4){statusbaro=0;}
+		if(statusbaro>3){statusbaro=0;}
 
 		
 	}	
-	if(tmp_altitude>1){altitude=tmp_altitude;}	
+	if(tmp_altitude>-500){altitude=tmp_altitude;}	
 	send.altitudine=altitude;
 	/******************IMU D7*************************/
 	if((int)load_data.imu_type==1)
@@ -274,9 +274,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x=datasensor.acc_X[0];
 		lpf0_U.acc_y=datasensor.acc_Y[0];
 		lpf0_U.acc_z=datasensor.acc_Z[0];
-		lpf0_U.gyro_x=datasensor.gyro_X[0]/(2*DegToRadIMU);
-		lpf0_U.gyro_y=datasensor.gyro_Y[0]/(2*DegToRadIMU);
-		lpf0_U.gyro_z=datasensor.gyro_Z[0]/(2*DegToRadIMU);
+		lpf0_U.gyro_x=datasensor.gyro_X[0]/(75*DegToRadIMU);
+		lpf0_U.gyro_y=datasensor.gyro_Y[0]/(75*DegToRadIMU);
+		lpf0_U.gyro_z=datasensor.gyro_Z[0]/(75*DegToRadIMU);
 		lpf0_U.mag_x=datasensor.mag_X[0];
 		lpf0_U.mag_y=datasensor.mag_Y[0];
 		lpf0_U.mag_z=datasensor.mag_Z[0];
@@ -286,9 +286,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x=datasensor.acc_X[1];
 		lpf0_U.acc_y=datasensor.acc_Y[1];
 		lpf0_U.acc_z=datasensor.acc_Z[1];
-		lpf0_U.gyro_x=datasensor.gyro_X[1]/(2*DegToRadIMU);
-		lpf0_U.gyro_y=datasensor.gyro_Y[1]/(2*DegToRadIMU);
-		lpf0_U.gyro_z=datasensor.gyro_Z[1]/(2*DegToRadIMU);
+		lpf0_U.gyro_x=datasensor.gyro_X[1]/(75*DegToRadIMU);
+		lpf0_U.gyro_y=datasensor.gyro_Y[1]/(75*DegToRadIMU);
+		lpf0_U.gyro_z=datasensor.gyro_Z[1]/(75*DegToRadIMU);
 		lpf0_U.mag_x=datasensor.mag_X[1];
 		lpf0_U.mag_y=datasensor.mag_Y[1];
 		lpf0_U.mag_z=datasensor.mag_Z[1];
@@ -298,9 +298,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x=datasensor.acc_X[2];
 		lpf0_U.acc_y=datasensor.acc_Y[2];
 		lpf0_U.acc_z=datasensor.acc_Z[2];
-		lpf0_U.gyro_x=datasensor.gyro_X[2]/(2*DegToRadIMU);
-		lpf0_U.gyro_y=datasensor.gyro_Y[2]/(2*DegToRadIMU);
-		lpf0_U.gyro_z=datasensor.gyro_Z[2]/(2*DegToRadIMU);
+		lpf0_U.gyro_x=datasensor.gyro_X[2]/(75*DegToRadIMU);
+		lpf0_U.gyro_y=datasensor.gyro_Y[2]/(75*DegToRadIMU);
+		lpf0_U.gyro_z=datasensor.gyro_Z[2]/(75*DegToRadIMU);
 		lpf0_U.mag_x=datasensor.mag_X[2];
 		lpf0_U.mag_y=datasensor.mag_Y[2];
 		lpf0_U.mag_z=datasensor.mag_Z[2];
@@ -342,6 +342,7 @@ int main(int argc, char *argv[])
 			EKF_U.gyro[0]=lpf0_Y.gyro_x_f*DegToRadIMU;
 			EKF_U.gyro[1]=lpf0_Y.gyro_y_f*DegToRadIMU;
 			EKF_U.gyro[2]=lpf0_Y.gyro_z_f*DegToRadIMU;
+			EKF_U.tau=load_data.tau_comp_filter;
 
 			if(deltatime>0.01&&deltatime<0.06)
 			{
@@ -414,7 +415,7 @@ int main(int argc, char *argv[])
 		send.vel_Y=0;
 		send.vel_Z=0;
 		send.crc=crccal(send);
-		usleep(1000);
+		usleep(200);
 
 	}
 	if(sk>=0)

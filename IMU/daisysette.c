@@ -476,7 +476,7 @@ datasensincomp myupdatesensor(int fd){
 	int mag[3],mag1[3];
 	float magf[3],mag1f[3];
 	//read magneto
-	usleep(55);
+	usleep(60);
 	#if(HMC5883L==1)
 		//1
 		read_hmc883l(fd,mag);
@@ -500,7 +500,7 @@ datasensincomp myupdatesensor(int fd){
 		#endif
 	#endif
 
-	usleep(55);
+	usleep(60);
 	/******1*****/
 	#if(ITG3200==1)
 		read_itg3200(fd , gyro);
@@ -534,7 +534,7 @@ datasensincomp myupdatesensor(int fd){
 			gyrof[3]=gyrof[3]*SENSIVITY_L3G4200D_2000DPS;
 		#endif
 	#endif
-	usleep(55);
+	usleep(60);
 	#if(LIS331DLH==1)
 		read_lis331dlh(fd ,accell);
 		accellf[0]=(float)(accell[0]);
@@ -545,7 +545,7 @@ datasensincomp myupdatesensor(int fd){
 		accellf[2]=accellf[2]/(LIS331DLH_SENSIVITY );
 	#endif
 
-	usleep(55);
+	usleep(60);
 	/******2*****/
 	#if(ITG3200==1)
 		read_itg3200(fd , gyro1);
@@ -578,7 +578,7 @@ datasensincomp myupdatesensor(int fd){
 			gyro1f[3]=gyro1f[3]*SENSIVITY_L3G4200D_2000DPS;
 		#endif
 	#endif
-	usleep(55);
+	usleep(60);
 	#if(LIS331DLH==1)
 		read_lis331dlh(fd ,accell1);
 		accell1f[0]=(float)(accell1[0]);
@@ -589,7 +589,7 @@ datasensincomp myupdatesensor(int fd){
 		accell1f[2]=accell1f[2]/(LIS331DLH_SENSIVITY );
 	#endif
 
-	usleep(55);
+	usleep(60);
 	/******3*****/
 	#if(ITG3200==1)
 		read_itg3200(fd , gyro2);
@@ -622,7 +622,7 @@ datasensincomp myupdatesensor(int fd){
 		#endif
 
 	#endif
-	usleep(55);
+	usleep(60);
 	#if(LIS331DLH==1)
 		read_lis331dlh(fd ,accell2);
 		accell2f[0]=(float)(accell2[0]);
@@ -632,7 +632,7 @@ datasensincomp myupdatesensor(int fd){
 		accell2f[1]=accell2f[1]/(LIS331DLH_SENSIVITY );
 		accell2f[2]=accell2f[2]/(LIS331DLH_SENSIVITY );
 	#endif
-	usleep(55);
+	usleep(60);
 	
 	//read magneto
 	#if(HMC5883L==1)

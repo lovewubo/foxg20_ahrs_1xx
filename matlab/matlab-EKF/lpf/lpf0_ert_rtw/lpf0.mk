@@ -89,7 +89,7 @@ ALT_MATLAB_ROOT         = C:\PROGRA~1\MATLAB\R2011a
 MATLAB_BIN              = C:\Program Files\MATLAB\R2011a\bin
 ALT_MATLAB_BIN          = C:\PROGRA~1\MATLAB\R2011a\bin
 MASTER_ANCHOR_DIR       = 
-START_DIR               = C:\Users\Fede\Desktop\nuovo-18-dic\FedericoLolli-foxg20_ahrs_1xx-e3cc2ae\matlab\matlab-EKF\lpf
+START_DIR               = C:\Users\Fede\Desktop\FedericoLolli-foxg20_ahrs_1xx-b6f59af\matlab\matlab-EKF\lpf
 S_FUNCTIONS             = 
 S_FUNCTIONS_LIB         = 
 NUMST                   = 1
@@ -172,7 +172,6 @@ MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\rtw\c\src\ext_mode\common
 
 MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(START_DIR)\lpf0_ert_rtw
 MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(START_DIR)
-MATLAB_INCLUDES = $(MATLAB_INCLUDES);$(MATLAB_ROOT)\toolbox\dsp\include
 
 INCLUDE = .;$(RELATIVE_PATH_TO_ANCHOR);$(MATLAB_INCLUDES);$(INCLUDE)
 

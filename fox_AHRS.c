@@ -281,29 +281,29 @@ int main(int argc, char *argv[])
 		lpf0_U.mag_y=datasensor.mag_Y[0];
 		lpf0_U.mag_z=datasensor.mag_Z[0];
 		  /* Step the model */
- 		 lpf0_step();
+ 		 
 		/*aggiorno filtro passabasso*/
-		lpf0_U.acc_x=datasensor.acc_X[1];
-		lpf0_U.acc_y=datasensor.acc_Y[1];
-		lpf0_U.acc_z=datasensor.acc_Z[1];
-		lpf0_U.gyro_x=datasensor.gyro_X[1]/(75*DegToRadIMU);
-		lpf0_U.gyro_y=datasensor.gyro_Y[1]/(75*DegToRadIMU);
-		lpf0_U.gyro_z=datasensor.gyro_Z[1]/(75*DegToRadIMU);
-		lpf0_U.mag_x=datasensor.mag_X[1];
-		lpf0_U.mag_y=datasensor.mag_Y[1];
-		lpf0_U.mag_z=datasensor.mag_Z[1];
+		lpf0_U.acc_x1=datasensor.acc_X[1];
+		lpf0_U.acc_y1=datasensor.acc_Y[1];
+		lpf0_U.acc_z1=datasensor.acc_Z[1];
+		lpf0_U.gyro_x1=datasensor.gyro_X[1]/(75*DegToRadIMU);
+		lpf0_U.gyro_y1=datasensor.gyro_Y[1]/(75*DegToRadIMU);
+		lpf0_U.gyro_z1=datasensor.gyro_Z[1]/(75*DegToRadIMU);
+		lpf0_U.mag_x1=datasensor.mag_X[1];
+		lpf0_U.mag_y1=datasensor.mag_Y[1];
+		lpf0_U.mag_z1=datasensor.mag_Z[1];
 		  /* Step the model */
- 		 lpf0_step();
+ 		
 		/*aggiorno filtro passabasso*/
-		lpf0_U.acc_x=datasensor.acc_X[2];
-		lpf0_U.acc_y=datasensor.acc_Y[2];
-		lpf0_U.acc_z=datasensor.acc_Z[2];
-		lpf0_U.gyro_x=datasensor.gyro_X[2]/(75*DegToRadIMU);
-		lpf0_U.gyro_y=datasensor.gyro_Y[2]/(75*DegToRadIMU);
-		lpf0_U.gyro_z=datasensor.gyro_Z[2]/(75*DegToRadIMU);
-		lpf0_U.mag_x=datasensor.mag_X[2];
-		lpf0_U.mag_y=datasensor.mag_Y[2];
-		lpf0_U.mag_z=datasensor.mag_Z[2];
+		lpf0_U.acc_x2=datasensor.acc_X[2];
+		lpf0_U.acc_y2=datasensor.acc_Y[2];
+		lpf0_U.acc_z2=datasensor.acc_Z[2];
+		lpf0_U.gyro_x2=datasensor.gyro_X[2]/(75*DegToRadIMU);
+		lpf0_U.gyro_y2=datasensor.gyro_Y[2]/(75*DegToRadIMU);
+		lpf0_U.gyro_z2=datasensor.gyro_Z[2]/(75*DegToRadIMU);
+		lpf0_U.mag_x2=datasensor.mag_X[2];
+		lpf0_U.mag_y2=datasensor.mag_Y[2];
+		lpf0_U.mag_z2=datasensor.mag_Z[2];
 		  /* Step the model */
  		 lpf0_step();
 			if((int)load_data.debug_mode==1)

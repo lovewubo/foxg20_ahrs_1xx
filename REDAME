@@ -4,3 +4,5 @@ add baro use and altitude
 28122011
 fixed kalman
 add complementar filter
+29122011
+changed low pass filter

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.481"
+    ComputedModelVersion    "1.490"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -37,9 +37,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Fede"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Dec 28 12:17:07 2011"
-  RTWModifiedTimeStamp	  246974642
-  ModelVersionFormat	  "1.%<AutoIncrement:481>"
+  LastModifiedDate	  "Sat Dec 31 11:55:34 2011"
+  RTWModifiedTimeStamp	  247231178
+  ModelVersionFormat	  "1.%<AutoIncrement:490>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -634,6 +634,17 @@ Model {
   }
   BlockParameterDefaults {
     Block {
+      BlockType		      Abs
+      ZeroCross		      on
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
       BlockType		      BusCreator
       Inputs		      "4"
       DisplayOption	      "none"
@@ -908,7 +919,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "962"
+    SIDHighWatermark	    "994"
     Block {
       BlockType		      Sum
       Name		      "Add"
@@ -946,7 +957,7 @@ Model {
       System {
 	Name			"EKF"
 	Location		[2, 82, 1331, 698]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	212
 	ScreenColor		"white"
@@ -4287,7 +4298,7 @@ Model {
 	  Name			  "QUEST_Pqq"
 	  SID			  "139"
 	  Ports			  [6, 2]
-	  Position		  [535, 114, 670, 201]
+	  Position		  [535, 118, 670, 207]
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -4297,8 +4308,8 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "QUEST_Pqq"
-	    Location		    [-4, 82, 1342, 722]
-	    Open		    off
+	    Location		    [-6, 50, 1344, 760]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -5238,14 +5249,14 @@ Model {
 	    Line {
 	      SrcBlock		      "Demux2"
 	      SrcPort		      1
-	      Points		      [25, 0]
+	      Points		      [30, 0]
 	      Branch {
-		Points			[30, 0]
+		Points			[25, 0]
 		DstBlock		"Mux"
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, -25; -115, 0; 0, 220]
+		Points			[0, -40; -195, 0; 0, 235]
 		DstBlock		"MATLAB Function1"
 		DstPort			2
 	      }
@@ -5253,13 +5264,13 @@ Model {
 	    Line {
 	      SrcBlock		      "Demux2"
 	      SrcPort		      2
-	      Points		      [50, 0]
+	      Points		      [15, 0]
 	      Branch {
 		DstBlock		"Mux"
 		DstPort			2
 	      }
 	      Branch {
-		Points			[0, -65; -155, 0; 0, 270]
+		Points			[0, -70; -185, 0; 0, 275]
 		DstBlock		"MATLAB Function1"
 		DstPort			3
 	      }
@@ -6300,7 +6311,7 @@ Model {
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "complementar_filter"
-	  SID			  "835"
+	  SID			  "963"
 	  Ports			  [5, 1]
 	  Position		  [745, 192, 870, 278]
 	  MinAlgLoopOccurrences	  off
@@ -6312,8 +6323,8 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "complementar_filter"
-	    Location		    [-2, 82, 1344, 739]
-	    Open		    off
+	    Location		    [2, 82, 1348, 715]
+	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
@@ -6328,22 +6339,22 @@ Model {
 	    Block {
 	      BlockType		      Inport
 	      Name		      "quat_in"
-	      SID		      "837"
+	      SID		      "964"
 	      Position		      [335, 518, 365, 532]
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
 	      BlockType		      Inport
 	      Name		      "tau"
-	      SID		      "839"
-	      Position		      [335, 443, 365, 457]
+	      SID		      "965"
+	      Position		      [230, 443, 260, 457]
 	      Port		      "2"
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
 	      BlockType		      Inport
 	      Name		      "gyro-in"
-	      SID		      "840"
+	      SID		      "966"
 	      Position		      [185, 173, 215, 187]
 	      Port		      "3"
 	      IconDisplay	      "Port number"
@@ -6351,7 +6362,7 @@ Model {
 	    Block {
 	      BlockType		      Inport
 	      Name		      "quat_stimato"
-	      SID		      "915"
+	      SID		      "967"
 	      Position		      [305, 218, 335, 232]
 	      Port		      "4"
 	      IconDisplay	      "Port number"
@@ -6359,17 +6370,24 @@ Model {
 	    Block {
 	      BlockType		      Inport
 	      Name		      "dt"
-	      SID		      "917"
+	      SID		      "968"
 	      Position		      [510, 263, 540, 277]
 	      Port		      "5"
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
+	      BlockType		      Abs
+	      Name		      "Abs"
+	      SID		      "969"
+	      Position		      [795, 545, 825, 575]
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
 	      BlockType		      Sum
 	      Name		      "Add"
-	      SID		      "843"
+	      SID		      "970"
 	      Ports		      [2, 1]
-	      Position		      [435, 392, 465, 423]
+	      Position		      [445, 392, 475, 423]
 	      Inputs		      "+-"
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -6378,7 +6396,7 @@ Model {
 	    Block {
 	      BlockType		      Sum
 	      Name		      "Add1"
-	      SID		      "845"
+	      SID		      "971"
 	      Ports		      [2, 1]
 	      Position		      [825, 222, 855, 253]
 	      InputSameDT	      off
@@ -6386,15 +6404,47 @@ Model {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
+	      BlockType		      Sum
+	      Name		      "Add2"
+	      SID		      "972"
+	      Ports		      [2, 1]
+	      Position		      [335, 442, 365, 473]
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add3"
+	      SID		      "973"
+	      Ports		      [2, 1]
+	      Position		      [730, 542, 760, 573]
+	      Inputs		      "+-"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add4"
+	      SID		      "974"
+	      Ports		      [4, 1]
+	      Position		      [890, 523, 950, 582]
+	      Inputs		      "++++"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
 	      BlockType		      Constant
 	      Name		      "Constant"
-	      SID		      "842"
+	      SID		      "975"
 	      Position		      [335, 385, 365, 415]
 	    }
 	    Block {
 	      BlockType		      Demux
 	      Name		      "Demux"
-	      SID		      "852"
+	      SID		      "976"
 	      Ports		      [1, 3]
 	      Position		      [255, 133, 260, 197]
 	      ShowName		      off
@@ -6402,11 +6452,145 @@ Model {
 	      DisplayOption	      "bar"
 	    }
 	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux1"
+	      SID		      "977"
+	      Ports		      [1, 4]
+	      Position		      [850, 525, 855, 590]
+	      ShowName		      off
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "MATLAB Function1"
+	      SID		      "978"
+	      Ports		      [1, 1]
+	      Position		      [985, 531, 1055, 579]
+	      LibraryVersion	      "1.32"
+	      ErrorFcn		      "Stateflow.Translate.translate"
+	      PermitHierarchicalResolution "ExplicitOnly"
+	      TreatAsAtomicUnit	      on
+	      MinAlgLoopOccurrences   off
+	      PropExecContextOutsideSubsystem off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      Opaque		      off
+	      RequestExecContextInheritance off
+	      MaskHideContents	      off
+	      MaskType		      "Stateflow"
+	      MaskDescription	      "Embedded MATLAB block"
+	      MaskSelfModifiable      on
+	      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('p"
+	      "rivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'fcn']);"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      off
+	      MaskIconRotate	      "none"
+	      MaskPortRotate	      "default"
+	      MaskIconUnits	      "normalized"
+	      System {
+		Name			"MATLAB Function1"
+		Location		[257, 457, 812, 717]
+		Open			off
+		ModelBrowserVisibility	off
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		SIDHighWatermark	"17"
+		Block {
+		  BlockType		  Inport
+		  Name			  "u"
+		  SID			  "978::1"
+		  Position		  [20, 101, 40, 119]
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Demux
+		  Name			  " Demux "
+		  SID			  "978::15"
+		  Ports			  [1, 1]
+		  Position		  [270, 160, 320, 200]
+		  Outputs		  "1"
+		}
+		Block {
+		  BlockType		  S-Function
+		  Name			  " SFunction "
+		  SID			  "978::14"
+		  Tag			  "Stateflow S-Function ekffede 17"
+		  Ports			  [1, 2]
+		  Position		  [180, 100, 230, 160]
+		  FunctionName		  "sf_sfun"
+		  PortCounts		  "[1 2]"
+		  EnableBusSupport	  on
+		  Port {
+		    PortNumber		    2
+		    Name		    "y"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
+		  BlockType		  Terminator
+		  Name			  " Terminator "
+		  SID			  "978::17"
+		  Position		  [460, 171, 480, 189]
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "y"
+		  SID			  "978::5"
+		  Position		  [460, 101, 480, 119]
+		  IconDisplay		  "Port number"
+		}
+		Line {
+		  SrcBlock		  "u"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "y"
+		  Labels		  [0, 0; 0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  2
+		  DstBlock		  "y"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  " Demux "
+		  SrcPort		  1
+		  DstBlock		  " Terminator "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  " SFunction "
+		  SrcPort		  1
+		  DstBlock		  " Demux "
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Memory
+	      Name		      "Memory"
+	      SID		      "979"
+	      Position		      [530, 560, 560, 590]
+	      BlockRotation	      270
+	      BlockMirror	      on
+	      NamePlacement	      "alternate"
+	    }
+	    Block {
 	      BlockType		      Mux
 	      Name		      "Mux"
-	      SID		      "851"
+	      SID		      "980"
 	      Ports		      [3, 1]
-	      Position		      [350, 139, 355, 201]
+	      Position		      [375, 134, 380, 196]
 	      ShowName		      off
 	      Inputs		      "3"
 	      DisplayOption	      "bar"
@@ -6414,7 +6598,7 @@ Model {
 	    Block {
 	      BlockType		      Product
 	      Name		      "Product"
-	      SID		      "834"
+	      SID		      "981"
 	      Ports		      [2, 1]
 	      Position		      [755, 208, 785, 252]
 	      InputSameDT	      off
@@ -6424,7 +6608,7 @@ Model {
 	    Block {
 	      BlockType		      Product
 	      Name		      "Product1"
-	      SID		      "844"
+	      SID		      "982"
 	      Ports		      [2, 1]
 	      Position		      [770, 302, 800, 333]
 	      InputSameDT	      off
@@ -6434,7 +6618,7 @@ Model {
 	    Block {
 	      BlockType		      Product
 	      Name		      "Product2"
-	      SID		      "918"
+	      SID		      "983"
 	      Ports		      [2, 1]
 	      Position		      [590, 202, 620, 233]
 	      InputSameDT	      off
@@ -6444,7 +6628,7 @@ Model {
 	    Block {
 	      BlockType		      Saturate
 	      Name		      "Saturation"
-	      SID		      "924"
+	      SID		      "984"
 	      Ports		      [1, 1]
 	      Position		      [685, 205, 715, 235]
 	      InputPortMap	      "u0"
@@ -6455,7 +6639,7 @@ Model {
 	    Block {
 	      BlockType		      Sum
 	      Name		      "Sum"
-	      SID		      "920"
+	      SID		      "985"
 	      Ports		      [2, 1]
 	      Position		      [645, 210, 665, 230]
 	      ShowName		      off
@@ -6468,7 +6652,7 @@ Model {
 	    Block {
 	      BlockType		      SubSystem
 	      Name		      "quat_derivative1"
-	      SID		      "825"
+	      SID		      "990"
 	      Ports		      [2, 1]
 	      Position		      [420, 164, 515, 231]
 	      LibraryVersion	      "1.32"
@@ -6507,18 +6691,18 @@ Model {
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
-		SIDHighWatermark	"19"
+		SIDHighWatermark	"18"
 		Block {
 		  BlockType		  Inport
 		  Name			  "gyro"
-		  SID			  "825::1"
+		  SID			  "990::1"
 		  Position		  [20, 101, 40, 119]
 		  IconDisplay		  "Port number"
 		}
 		Block {
 		  BlockType		  Inport
 		  Name			  "quat"
-		  SID			  "825::18"
+		  SID			  "990::18"
 		  Position		  [20, 136, 40, 154]
 		  Port			  "2"
 		  IconDisplay		  "Port number"
@@ -6526,7 +6710,7 @@ Model {
 		Block {
 		  BlockType		  Demux
 		  Name			  " Demux "
-		  SID			  "825::15"
+		  SID			  "990::15"
 		  Ports			  [1, 1]
 		  Position		  [270, 180, 320, 220]
 		  Outputs		  "1"
@@ -6534,8 +6718,8 @@ Model {
 		Block {
 		  BlockType		  S-Function
 		  Name			  " SFunction "
-		  SID			  "825::14"
-		  Tag			  "Stateflow S-Function ekffede 17"
+		  SID			  "990::14"
+		  Tag			  "Stateflow S-Function ekffede 19"
 		  Ports			  [2, 2]
 		  Position		  [180, 100, 230, 180]
 		  FunctionName		  "sf_sfun"
@@ -6551,13 +6735,13 @@ Model {
 		Block {
 		  BlockType		  Terminator
 		  Name			  " Terminator "
-		  SID			  "825::17"
+		  SID			  "990::17"
 		  Position		  [460, 191, 480, 209]
 		}
 		Block {
 		  BlockType		  Outport
 		  Name			  "quat_dot"
-		  SID			  "825::5"
+		  SID			  "990::5"
 		  Position		  [460, 101, 480, 119]
 		  IconDisplay		  "Port number"
 		}
@@ -6598,7 +6782,7 @@ Model {
 	    Block {
 	      BlockType		      Outport
 	      Name		      "q_out"
-	      SID		      "836"
+	      SID		      "991"
 	      Position		      [890, 233, 920, 247]
 	      IconDisplay	      "Port number"
 	    }
@@ -6609,33 +6793,33 @@ Model {
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "tau"
-	      SrcPort		      1
-	      Points		      [40, 0]
-	      Branch {
-		Points			[0, -35]
-		DstBlock		"Add"
-		DstPort			2
-	      }
-	      Branch {
-		Points			[305, 0; 0, -140]
-		DstBlock		"Product1"
-		DstPort			1
-	      }
-	    }
-	    Line {
 	      SrcBlock		      "Add"
 	      SrcPort		      1
-	      Points		      [235, 0; 0, -170]
+	      Points		      [225, 0; 0, -170]
 	      DstBlock		      "Product"
 	      DstPort		      2
 	    }
 	    Line {
 	      SrcBlock		      "quat_in"
 	      SrcPort		      1
-	      Points		      [355, 0; 0, -200]
-	      DstBlock		      "Product1"
-	      DstPort		      2
+	      Points		      [175, 0]
+	      Branch {
+		DstBlock		"Memory"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[100, 0]
+		Branch {
+		  Points		  [80, 0; 0, -200]
+		  DstBlock		  "Product1"
+		  DstPort		  2
+		}
+		Branch {
+		  Points		  [0, 25]
+		  DstBlock		  "Add3"
+		  DstPort		  1
+		}
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "Product"
@@ -6666,28 +6850,27 @@ Model {
 	    Line {
 	      SrcBlock		      "Mux"
 	      SrcPort		      1
-	      Points		      [0, 10]
+	      Points		      [0, 15]
 	      DstBlock		      "quat_derivative1"
 	      DstPort		      1
 	    }
 	    Line {
 	      SrcBlock		      "Demux"
 	      SrcPort		      3
-	      Points		      [35, 0; 0, -35]
+	      Points		      [35, 0; 0, -40]
 	      DstBlock		      "Mux"
 	      DstPort		      1
 	    }
 	    Line {
 	      SrcBlock		      "Demux"
 	      SrcPort		      1
-	      Points		      [60, 0; 0, 45]
+	      Points		      [60, 0; 0, 40]
 	      DstBlock		      "Mux"
 	      DstPort		      3
 	    }
 	    Line {
 	      SrcBlock		      "Demux"
 	      SrcPort		      2
-	      Points		      [70, 0]
 	      DstBlock		      "Mux"
 	      DstPort		      2
 	    }
@@ -6736,6 +6919,86 @@ Model {
 	      SrcBlock		      "Saturation"
 	      SrcPort		      1
 	      DstBlock		      "Product"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Add2"
+	      SrcPort		      1
+	      Points		      [60, 0; 0, -15]
+	      Branch {
+		Points			[0, 55; 285, 0; 0, -190]
+		DstBlock		"Product1"
+		DstPort			1
+	      }
+	      Branch {
+		DstBlock		"Add"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "tau"
+	      SrcPort		      1
+	      DstBlock		      "Add2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Memory"
+	      SrcPort		      1
+	      Points		      [85, 0; 0, -30]
+	      DstBlock		      "Add3"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Add3"
+	      SrcPort		      1
+	      DstBlock		      "Abs"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Abs"
+	      SrcPort		      1
+	      DstBlock		      "Demux1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      1
+	      Points		      [0, -5]
+	      DstBlock		      "Add4"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      2
+	      Points		      [0, -5]
+	      DstBlock		      "Add4"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      3
+	      Points		      [0, -5]
+	      DstBlock		      "Add4"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      4
+	      Points		      [15, 0]
+	      DstBlock		      "Add4"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "MATLAB Function1"
+	      SrcPort		      1
+	      Points		      [40, 0; 0, 50; -780, 0]
+	      DstBlock		      "Add2"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Add4"
+	      SrcPort		      1
+	      DstBlock		      "MATLAB Function1"
 	      DstPort		      1
 	    }
 	  }
@@ -7066,7 +7329,7 @@ Model {
 	  SrcPort		  1
 	  Points		  [5, 0]
 	  Branch {
-	    Points		    [0, 75]
+	    Points		    [0, 80]
 	    DstBlock		    "QUEST_Pqq"
 	    DstPort		    3
 	  }
@@ -7101,7 +7364,6 @@ Model {
 	  SrcPort		  1
 	  Points		  [15, 0; 0, 5]
 	  Branch {
-	    Points		    [255, 0]
 	    DstBlock		    "QUEST_Pqq"
 	    DstPort		    4
 	  }
@@ -7126,14 +7388,14 @@ Model {
 	Line {
 	  SrcBlock		  "deviazione_std_accell"
 	  SrcPort		  1
-	  Points		  [340, 0; 0, -360]
+	  Points		  [340, 0; 0, -355]
 	  DstBlock		  "QUEST_Pqq"
 	  DstPort		  5
 	}
 	Line {
 	  SrcBlock		  "deviazione_std_magneto"
 	  SrcPort		  1
-	  Points		  [360, 0; 0, -380]
+	  Points		  [360, 0; 0, -375]
 	  DstBlock		  "QUEST_Pqq"
 	  DstPort		  6
 	}
@@ -7284,7 +7546,7 @@ Model {
 	Line {
 	  SrcBlock		  "acc-cal"
 	  SrcPort		  1
-	  Points		  [220, 0; 0, -115]
+	  Points		  [220, 0; 0, -110]
 	  DstBlock		  "QUEST_Pqq"
 	  DstPort		  1
 	}
@@ -7321,7 +7583,7 @@ Model {
 	Line {
 	  SrcBlock		  "mag-cal"
 	  SrcPort		  1
-	  Points		  [230, 0; 0, -210]
+	  Points		  [230, 0; 0, -205]
 	  DstBlock		  "QUEST_Pqq"
 	  DstPort		  2
 	}
@@ -7341,13 +7603,14 @@ Model {
 	Line {
 	  SrcBlock		  "QUEST_Pqq"
 	  SrcPort		  1
-	  Points		  [45, 0; 0, 70]
+	  Points		  [45, 0; 0, 60]
 	  DstBlock		  "complementar_filter"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "QUEST_Pqq"
 	  SrcPort		  2
+	  Points		  [0, -10]
 	  DstBlock		  "EKF_AHRS"
 	  DstPort		  4
 	}
@@ -7627,7 +7890,7 @@ Model {
 	  MaskValueString	  "0.2|0|0|1|0|0|0.05|0.09|8|0.01|0.01|0.01|0.01|0.01|0.5|0|20|0|100|0|200|0|200"
 	  System {
 	    Name		    "F,M."
-	    Location		    [-4, 82, 1325, 739]
+	    Location		    [-6, 50, 1344, 760]
 	    Open		    on
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -11935,7 +12198,7 @@ Stateflow {
     name		    "ekffede"
     created		    "14-Jul-2009 12:31:23"
     isLibrary		    0
-    firstTarget		    174
+    firstTarget		    181
     sfVersion		    75014001
   }
   chart {
@@ -14793,8 +15056,8 @@ Stateflow {
   }
   chart {
     id			    157
-    name		    "EKF/complementar_filter/quat_derivative1"
-    windowPosition	    [360.747 270 200.25 189.75]
+    name		    "EKF/complementar_filter/MATLAB Function1"
+    windowPosition	    [345.747 285 200.25 189.75]
     viewLimits		    [0 156.75 0 153.75]
     screen		    [1 1 1366 768 1.333333333333333]
     treeNode		    [0 158 0 0]
@@ -14803,14 +15066,16 @@ Stateflow {
     viewObj		    157
     machine		    1
     toolbarMode		    LIBRARY_TOOLBAR
-    ssIdHighWaterMark	    7
+    subviewS {
+    }
+    ssIdHighWaterMark	    6
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
     firstData		    161
     chartFileNumber	    17
     disableImplicitCasting  1
     eml {
-      name		      "psi_of_mag"
+      name		      "fcn"
     }
   }
   state {
@@ -14827,10 +15092,8 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function quat_dot  = psi_of_mag(gyro, quat)\nomega=[0        -gyro(1)    -gyro(2)    -gyro(3);\n "
-      "     gyro(1)       0        gyro(3)    -gyro(2);\n      gyro(2)   -gyro(3)        0       gyro(1);\n      gyro(3"
-      ")   gyro(2)     -gyro(1)        0 ];\n    \nquat_dot=0.5*omega*quat;"
-      editorLayout	      "100 M4x1[145 145 768 455]"
+      script		      "function y = fcn(u)\n%#codegen\n\nif u >1.5 \ny=0.85;\nelse\n    y=0;\n    \nend\n    "
+      editorLayout	      "100 M4x1[65 13 1080 733]"
     }
   }
   junction {
@@ -14866,7 +15129,7 @@ Stateflow {
   data {
     id			    161
     ssIdNumber		    4
-    name		    "gyro"
+    name		    "u"
     linkNode		    [157 0 162]
     scope		    INPUT_DATA
     machine		    1
@@ -14885,8 +15148,8 @@ Stateflow {
   data {
     id			    162
     ssIdNumber		    5
-    name		    "quat_dot"
-    linkNode		    [157 161 163]
+    name		    "y"
+    linkNode		    [157 161 0]
     scope		    OUTPUT_DATA
     machine		    1
     props {
@@ -14902,50 +15165,28 @@ Stateflow {
     }
     dataType		    "Inherit: Same as Simulink"
   }
-  data {
-    id			    163
-    ssIdNumber		    6
-    name		    "quat"
-    linkNode		    [157 162 0]
-    scope		    INPUT_DATA
-    machine		    1
-    props {
-      array {
-	size			"-1"
-      }
-      type {
-	method			SF_INHERITED_TYPE
-	primitive		SF_DOUBLE_TYPE
-	isSigned		1
-	wordLength		"16"
-      }
-      complexity	      SF_COMPLEX_INHERITED
-      frame		      SF_FRAME_INHERITED
-    }
-    dataType		    "Inherit: Same as Simulink"
-  }
   instance {
-    id			    164
-    name		    "EKF/complementar_filter/quat_derivative1"
+    id			    163
+    name		    "EKF/complementar_filter/MATLAB Function1"
     machine		    1
     chart		    157
   }
   chart {
-    id			    165
+    id			    164
     name		    "EKF/QUEST_Pqq/MATLAB Function1"
     windowPosition	    [330.747 300 200.25 189.75]
     viewLimits		    [0 156.75 0 153.75]
     screen		    [1 1 1366 768 1.333333333333333]
-    treeNode		    [0 166 0 0]
-    firstTransition	    168
-    firstJunction	    167
-    viewObj		    165
+    treeNode		    [0 165 0 0]
+    firstTransition	    167
+    firstJunction	    166
+    viewObj		    164
     machine		    1
     toolbarMode		    LIBRARY_TOOLBAR
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
-    firstData		    169
+    firstData		    168
     chartFileNumber	    18
     disableImplicitCasting  1
     eml {
@@ -14953,14 +15194,14 @@ Stateflow {
     }
   }
   state {
-    id			    166
+    id			    165
     labelString		    "eML_blk_kernel()"
     position		    [18 64.5 118 66]
     fontSize		    12
-    chart		    165
-    treeNode		    [165 0 0 0]
+    chart		    164
+    treeNode		    [164 0 0 0]
     superState		    SUBCHART
-    subviewer		    165
+    subviewer		    164
     ssIdNumber		    1
     type		    FUNC_STATE
     decomposition	    CLUSTER_STATE
@@ -14973,16 +15214,16 @@ Stateflow {
     }
   }
   junction {
-    id			    167
+    id			    166
     position		    [23.5747 49.5747 7]
-    chart		    165
-    linkNode		    [165 0 0]
-    subviewer		    165
+    chart		    164
+    linkNode		    [164 0 0]
+    subviewer		    164
     ssIdNumber		    3
     type		    CONNECTIVE_JUNCTION
   }
   transition {
-    id			    168
+    id			    167
     labelString		    "{eML_blk_kernel();}"
     labelPosition	    [32.125 19.875 102.544 14.964]
     fontSize		    12
@@ -14990,23 +15231,23 @@ Stateflow {
       intersection	      [0 0 1 0 23.5747 14.625 0 0]
     }
     dst {
-      id		      167
+      id		      166
       intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
     }
     midPoint		    [23.5747 24.9468]
-    chart		    165
-    linkNode		    [165 0 0]
+    chart		    164
+    linkNode		    [164 0 0]
     dataLimits		    [23.575 23.575 14.625 34.575]
-    subviewer		    165
+    subviewer		    164
     drawStyle		    SMART
     executionOrder	    1
     ssIdNumber		    2
   }
   data {
-    id			    169
+    id			    168
     ssIdNumber		    4
     name		    "mag"
-    linkNode		    [165 0 170]
+    linkNode		    [164 0 169]
     scope		    INPUT_DATA
     machine		    1
     props {
@@ -15022,10 +15263,10 @@ Stateflow {
     dataType		    "Inherit: Same as Simulink"
   }
   data {
-    id			    170
+    id			    169
     ssIdNumber		    5
     name		    "psi"
-    linkNode		    [165 169 171]
+    linkNode		    [164 168 170]
     scope		    OUTPUT_DATA
     machine		    1
     props {
@@ -15042,10 +15283,10 @@ Stateflow {
     dataType		    "Inherit: Same as Simulink"
   }
   data {
-    id			    171
+    id			    170
     ssIdNumber		    6
     name		    "phi"
-    linkNode		    [165 170 172]
+    linkNode		    [164 169 171]
     scope		    INPUT_DATA
     machine		    1
     props {
@@ -15064,10 +15305,10 @@ Stateflow {
     dataType		    "Inherit: Same as Simulink"
   }
   data {
-    id			    172
+    id			    171
     ssIdNumber		    7
     name		    "theta"
-    linkNode		    [165 171 0]
+    linkNode		    [164 170 0]
     scope		    INPUT_DATA
     machine		    1
     props {
@@ -15086,13 +15327,154 @@ Stateflow {
     dataType		    "Inherit: Same as Simulink"
   }
   instance {
-    id			    173
+    id			    172
     name		    "EKF/QUEST_Pqq/MATLAB Function1"
     machine		    1
-    chart		    165
+    chart		    164
+  }
+  chart {
+    id			    173
+    name		    "EKF/complementar_filter/quat_derivative1"
+    windowPosition	    [390.747 240 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1366 768 1.333333333333333]
+    treeNode		    [0 174 0 0]
+    firstTransition	    176
+    firstJunction	    175
+    viewObj		    173
+    machine		    1
+    toolbarMode		    LIBRARY_TOOLBAR
+    subviewS {
+    }
+    ssIdHighWaterMark	    7
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    177
+    chartFileNumber	    19
+    disableImplicitCasting  1
+    eml {
+      name		      "psi_of_mag"
+    }
+  }
+  state {
+    id			    174
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    173
+    treeNode		    [173 0 0 0]
+    superState		    SUBCHART
+    subviewer		    173
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function quat_dot  = psi_of_mag(gyro, quat)\nomega=[0        -gyro(1)    -gyro(2)    -gyro(3);\n "
+      "     gyro(1)       0        gyro(3)    -gyro(2);\n      gyro(2)   -gyro(3)        0       gyro(1);\n      gyro(3"
+      ")   gyro(2)     -gyro(1)        0 ];\n    \nquat_dot=0.5*omega*quat;"
+      editorLayout	      "100 M4x1[145 145 768 455]"
+    }
+  }
+  junction {
+    id			    175
+    position		    [23.5747 49.5747 7]
+    chart		    173
+    linkNode		    [173 0 0]
+    subviewer		    173
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    176
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      175
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    173
+    linkNode		    [173 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    173
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    177
+    ssIdNumber		    4
+    name		    "gyro"
+    linkNode		    [173 0 178]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    178
+    ssIdNumber		    5
+    name		    "quat_dot"
+    linkNode		    [173 177 179]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    179
+    ssIdNumber		    6
+    name		    "quat"
+    linkNode		    [173 178 0]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    180
+    name		    "EKF/complementar_filter/quat_derivative1"
+    machine		    1
+    chart		    173
   }
   target {
-    id			    174
+    id			    181
     name		    "sfun"
     codeFlags		    ""
     machine		    1

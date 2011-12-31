@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
 	if((int)load_data.enable_GPS==1)
 	{
 		cnt_gps ++;
-		if(cnt_gps>GPSTIMEOUTCOUNT)
+		if(cnt_gps>GPSTIMEOUTCOUNT+100)
 		{
 			cnt_gps=0;
 			send.gps=1;
@@ -274,9 +274,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x=datasensor.acc_X[0];
 		lpf0_U.acc_y=datasensor.acc_Y[0];
 		lpf0_U.acc_z=datasensor.acc_Z[0];
-		lpf0_U.gyro_x=datasensor.gyro_X[0]/(75*DegToRadIMU);
-		lpf0_U.gyro_y=datasensor.gyro_Y[0]/(75*DegToRadIMU);
-		lpf0_U.gyro_z=datasensor.gyro_Z[0]/(75*DegToRadIMU);
+		lpf0_U.gyro_x=datasensor.gyro_X[0]/(DegToRadIMU);
+		lpf0_U.gyro_y=datasensor.gyro_Y[0]/(DegToRadIMU);
+		lpf0_U.gyro_z=datasensor.gyro_Z[0]/(DegToRadIMU);
 		lpf0_U.mag_x=datasensor.mag_X[0];
 		lpf0_U.mag_y=datasensor.mag_Y[0];
 		lpf0_U.mag_z=datasensor.mag_Z[0];
@@ -286,9 +286,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x1=datasensor.acc_X[1];
 		lpf0_U.acc_y1=datasensor.acc_Y[1];
 		lpf0_U.acc_z1=datasensor.acc_Z[1];
-		lpf0_U.gyro_x1=datasensor.gyro_X[1]/(75*DegToRadIMU);
-		lpf0_U.gyro_y1=datasensor.gyro_Y[1]/(75*DegToRadIMU);
-		lpf0_U.gyro_z1=datasensor.gyro_Z[1]/(75*DegToRadIMU);
+		lpf0_U.gyro_x1=datasensor.gyro_X[1]/(DegToRadIMU);
+		lpf0_U.gyro_y1=datasensor.gyro_Y[1]/(DegToRadIMU);
+		lpf0_U.gyro_z1=datasensor.gyro_Z[1]/(DegToRadIMU);
 		lpf0_U.mag_x1=datasensor.mag_X[1];
 		lpf0_U.mag_y1=datasensor.mag_Y[1];
 		lpf0_U.mag_z1=datasensor.mag_Z[1];
@@ -298,9 +298,9 @@ int main(int argc, char *argv[])
 		lpf0_U.acc_x2=datasensor.acc_X[2];
 		lpf0_U.acc_y2=datasensor.acc_Y[2];
 		lpf0_U.acc_z2=datasensor.acc_Z[2];
-		lpf0_U.gyro_x2=datasensor.gyro_X[2]/(75*DegToRadIMU);
-		lpf0_U.gyro_y2=datasensor.gyro_Y[2]/(75*DegToRadIMU);
-		lpf0_U.gyro_z2=datasensor.gyro_Z[2]/(75*DegToRadIMU);
+		lpf0_U.gyro_x2=datasensor.gyro_X[2]/(DegToRadIMU);
+		lpf0_U.gyro_y2=datasensor.gyro_Y[2]/(DegToRadIMU);
+		lpf0_U.gyro_z2=datasensor.gyro_Z[2]/(DegToRadIMU);
 		lpf0_U.mag_x2=datasensor.mag_X[2];
 		lpf0_U.mag_y2=datasensor.mag_Y[2];
 		lpf0_U.mag_z2=datasensor.mag_Z[2];
@@ -339,9 +339,9 @@ int main(int argc, char *argv[])
 			EKF_U.mag[1]=lpf0_Y.mag_y_f;
 			EKF_U.mag[2]=lpf0_Y.mag_z_f;
 			//i gyro devono essere trasformati in radianti
-			EKF_U.gyro[0]=lpf0_Y.gyro_x_f*DegToRadIMU;
-			EKF_U.gyro[1]=lpf0_Y.gyro_y_f*DegToRadIMU;
-			EKF_U.gyro[2]=lpf0_Y.gyro_z_f*DegToRadIMU;
+			EKF_U.gyro[0]=lpf0_Y.gyro_x_f;
+			EKF_U.gyro[1]=lpf0_Y.gyro_y_f;
+			EKF_U.gyro[2]=lpf0_Y.gyro_z_f;
 			EKF_U.tau=load_data.tau_comp_filter;
 
 			if(deltatime>0.01&&deltatime<0.06)
@@ -358,10 +358,10 @@ int main(int argc, char *argv[])
 			send.pitch=(double)EKF_Y.eulero[1];
 			send.yaw=(double)EKF_Y.eulero[2];
 			//caso in cui sia negativo lo converto 0-360
-			if(send.yaw<0)
+			/*if(send.yaw<0)
 			{
 		 	 send.yaw= 360 + send.yaw;
-			}
+			}*/
 			//debug controllo dati filtrati
 			if((int)load_data.debug_mode==1)
 			{
@@ -415,7 +415,7 @@ int main(int argc, char *argv[])
 		send.vel_Y=0;
 		send.vel_Z=0;
 		send.crc=crccal(send);
-		usleep(200);
+		usleep(100);
 
 	}
 	if(sk>=0)

@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'EKF'.
  *
- * Model version                  : 1.474
+ * Model version                  : 1.490
  * Simulink Coder version         : 8.0 (R2011a) 09-Mar-2011
  * TLC version                    : 8.0 (Feb  3 2011)
- * C/C++ source code generated on : Tue Dec 27 14:06:11 2011
+ * C/C++ source code generated on : Sat Dec 31 11:56:09 2011
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 9
@@ -346,7 +346,6 @@ void EKF_step(void)
   int32_T r;
   static const int8_T b[9] = { 1, 0, 0, 0, 1, 0, 0, 0, 1 };
 
-  real_T rtb_Add;
   real_T rtb_fcn2;
   real_T rtb_UnitConversion_j;
   real_T rtb_gphih;
@@ -357,7 +356,6 @@ void EKF_step(void)
   real_T rtb_Gain;
   boolean_T rtb_LogicalOperator;
   real_T rtb_Product_d;
-  real_T rtb_Product1;
   int32_T s49_iter;
   real_T rtb_Gain1[3];
   real_T rtb_MatrixConcatenate[12];
@@ -366,8 +364,7 @@ void EKF_step(void)
   int32_T s98_iter;
   real_T rtb_b2;
   real_T rtb_a2;
-  real_T rtb_q;
-  real_T rtb_d;
+  real_T rtb_Sum1_g;
   real_T rtb_Sum4;
   int32_T s57_iter;
   real_T rtb_TmpSignalConversionAtSFun_a[3];
@@ -380,6 +377,7 @@ void EKF_step(void)
   real_T rtb_TmpSignalConversionAtspm1In[13];
   real_T rtb_Memory1[49];
   real_T rtb_Memory[7];
+  real_T rtb_Saturation[4];
   real_T rtb_q_matrix[16];
   real_T rtb_MatrixMultiply2[16];
   real_T rtb_Product4_l[28];
@@ -387,7 +385,6 @@ void EKF_step(void)
   real_T rtb_Sum_h[49];
   real_T rtb_Sum_l[49];
   real_T rtb_tc_old[169];
-  real_T UnitDelay2_DSTATE[4];
   real_T Assignment_f[169];
   real_T Assignment[169];
   int32_T i;
@@ -401,22 +398,23 @@ void EKF_step(void)
   real_T rtb_MatrixConcatenate_0[16];
   real_T rtb_MatrixConcatenate_1[16];
   real_T rtb_MatrixConcatenate_a_0[28];
-  real_T UnitDelay2_DSTATE_0[4];
+  real_T rtb_b[4];
+  real_T rtb_Saturation_0[4];
   real_T rtb_Sum_h_0[49];
   real_T rtb_Sum_l_0[49];
   real_T tmp_0[13];
   real_T rtb_sincos_o1_m_idx;
   real_T rtb_sincos_o1_m_idx_0;
+  real_T rtb_u_o_idx;
   real_T rtb_gyrounbiased_idx;
   real_T rtb_gyrounbiased_idx_0;
   real_T rtb_gyrounbiased_idx_1;
   real_T rtb_sincos_o1_idx;
-  real_T rtb_sincos_o2_idx;
   real_T rtb_Sum1_d_idx;
   real_T rtb_Sum1_d_idx_0;
   real_T rtb_Sum1_d_idx_1;
   real_T rtb_Sum1_d_idx_2;
-  real_T rtb_u_o_idx;
+  real_T rtb_sincos_o2_i_idx;
   real_T rtb_u_o_idx_0;
   real_T rtb_u_o_idx_1;
   real_T rtb_u_o_idx_2;
@@ -464,7 +462,7 @@ void EKF_step(void)
   rtb_gyrounbiased_idx_0 = rtb_Add1[1] - EKF_U.Gyro_Cal[1];
   rtb_gyrounbiased_idx_1 = rtb_Add1[2] - EKF_U.Gyro_Cal[2];
 
-  /* SignalConversion: '<S106>/TmpSignal ConversionAt SFunction Inport1' incorporates:
+  /* SignalConversion: '<S107>/TmpSignal ConversionAt SFunction Inport1' incorporates:
    *  MATLAB Function Block: '<S10>/quat_derivative1'
    */
   rtb_Add1[0] = rtb_gyrounbiased_idx_1;
@@ -473,9 +471,9 @@ void EKF_step(void)
 
   /* MATLAB Function Block: '<S10>/quat_derivative1' */
 
-  /* MATLAB Function 'EKF/complementar_filter/quat_derivative1': '<S106>:1' */
-  /* '<S106>:1:2' */
-  /* '<S106>:1:7' */
+  /* MATLAB Function 'EKF/complementar_filter/quat_derivative1': '<S107>:1' */
+  /* '<S107>:1:2' */
+  /* '<S107>:1:7' */
   rtb_MatrixConcatenate_0[0] = 0.0;
   rtb_MatrixConcatenate_0[4] = -rtb_Add1[0];
   rtb_MatrixConcatenate_0[8] = -rtb_Add1[1];
@@ -510,12 +508,12 @@ void EKF_step(void)
    *  Memory: '<S1>/Memory1'
    */
   for (qY_3 = 0; qY_3 < 4; qY_3++) {
-    rtb_d = rtb_MatrixConcatenate_1[qY_3 + 12] *
+    rtb_sincos_o2_i_idx = rtb_MatrixConcatenate_1[qY_3 + 12] *
       EKF_DWork.Memory1_PreviousInput_m[3] + (rtb_MatrixConcatenate_1[qY_3 + 8] *
       EKF_DWork.Memory1_PreviousInput_m[2] + (rtb_MatrixConcatenate_1[qY_3 + 4] *
       EKF_DWork.Memory1_PreviousInput_m[1] + rtb_MatrixConcatenate_1[qY_3] *
       EKF_DWork.Memory1_PreviousInput_m[0]));
-    UnitDelay2_DSTATE_0[qY_3] = rtb_d;
+    rtb_b[qY_3] = rtb_sincos_o2_i_idx;
   }
 
   /* End of Product: '<S10>/Product2' */
@@ -525,20 +523,24 @@ void EKF_step(void)
    *  Memory: '<S1>/Memory1'
    *  Product: '<S10>/Product2'
    */
-  rtb_u_o_idx = UnitDelay2_DSTATE_0[0] * EKF_U.dt +
-    EKF_DWork.Memory1_PreviousInput_m[0];
-  rtb_u_o_idx_0 = UnitDelay2_DSTATE_0[1] * EKF_U.dt +
-    EKF_DWork.Memory1_PreviousInput_m[1];
-  rtb_u_o_idx_1 = UnitDelay2_DSTATE_0[2] * EKF_U.dt +
-    EKF_DWork.Memory1_PreviousInput_m[2];
-  rtb_u_o_idx_2 = UnitDelay2_DSTATE_0[3] * EKF_U.dt +
-    EKF_DWork.Memory1_PreviousInput_m[3];
+  rtb_u_o_idx_0 = rtb_b[0] * EKF_U.dt + EKF_DWork.Memory1_PreviousInput_m[0];
+  rtb_u_o_idx_1 = rtb_b[1] * EKF_U.dt + EKF_DWork.Memory1_PreviousInput_m[1];
+  rtb_u_o_idx_2 = rtb_b[2] * EKF_U.dt + EKF_DWork.Memory1_PreviousInput_m[2];
+  rtb_u_o_idx = rtb_b[3] * EKF_U.dt + EKF_DWork.Memory1_PreviousInput_m[3];
 
-  /* Sum: '<S10>/Add' incorporates:
-   *  Constant: '<S10>/Constant'
-   *  Inport: '<Root>/tau'
-   */
-  rtb_Add = EKF_P.Constant_Value_j - EKF_U.tau;
+  /* Saturate: '<S10>/Saturation' */
+  rtb_Saturation[0] = rtb_u_o_idx_0 >= EKF_P.Saturation_UpperSat ?
+    EKF_P.Saturation_UpperSat : rtb_u_o_idx_0 <= EKF_P.Saturation_LowerSat ?
+    EKF_P.Saturation_LowerSat : rtb_u_o_idx_0;
+  rtb_Saturation[1] = rtb_u_o_idx_1 >= EKF_P.Saturation_UpperSat ?
+    EKF_P.Saturation_UpperSat : rtb_u_o_idx_1 <= EKF_P.Saturation_LowerSat ?
+    EKF_P.Saturation_LowerSat : rtb_u_o_idx_1;
+  rtb_Saturation[2] = rtb_u_o_idx_2 >= EKF_P.Saturation_UpperSat ?
+    EKF_P.Saturation_UpperSat : rtb_u_o_idx_2 <= EKF_P.Saturation_LowerSat ?
+    EKF_P.Saturation_LowerSat : rtb_u_o_idx_2;
+  rtb_Saturation[3] = rtb_u_o_idx >= EKF_P.Saturation_UpperSat ?
+    EKF_P.Saturation_UpperSat : rtb_u_o_idx <= EKF_P.Saturation_LowerSat ?
+    EKF_P.Saturation_LowerSat : rtb_u_o_idx;
 
   /* MATLAB Function Block: '<S1>/acc-cal' incorporates:
    *  Inport: '<Root>/Accel_Cal'
@@ -682,7 +684,7 @@ void EKF_step(void)
 
   /* Trigonometry: '<S52>/sincos' */
   rtb_sincos_o1_idx = sin(rtb_sincos_o1_m_idx_0);
-  rtb_sincos_o2_idx = cos(rtb_sincos_o1_m_idx_0);
+  rtb_u_o_idx_0 = cos(rtb_sincos_o1_m_idx_0);
 
   /* Outputs for Enabled SubSystem: '<S47>/Convert from geodetic to  spherical coordinates ' incorporates:
    *  EnablePort: '<S51>/Enable'
@@ -707,13 +709,13 @@ void EKF_step(void)
       rtb_Product_d = (real_T)s98_iter;
 
       /* UnitDelay: '<S98>/Unit Delay1' */
-      rtb_d = EKF_DWork.UnitDelay1_DSTATE[0];
-      rtb_sincos_o1_m_idx_0 = EKF_DWork.UnitDelay1_DSTATE[1];
+      rtb_sincos_o2_i_idx = EKF_DWork.UnitDelay1_DSTATE[0];
+      rtb_u_o_idx = EKF_DWork.UnitDelay1_DSTATE[1];
 
       /* Switch: '<S98>/cp[m-1] sp[m-1]' */
       if (!(rtb_Product_d > EKF_P.cpm1spm1_Threshold)) {
-        rtb_d = EKF_B.cp2;
-        rtb_sincos_o1_m_idx_0 = EKF_B.sp2;
+        rtb_sincos_o2_i_idx = EKF_B.cp2;
+        rtb_u_o_idx = EKF_B.sp2;
       }
 
       /* End of Switch: '<S98>/cp[m-1] sp[m-1]' */
@@ -722,7 +724,7 @@ void EKF_step(void)
        *  Product: '<S98>/Product1'
        *  Product: '<S98>/Product2'
        */
-      rtb_a2 = rtb_d * EKF_B.sp2 + rtb_sincos_o1_m_idx_0 * EKF_B.cp2;
+      rtb_fcn2 = rtb_sincos_o2_i_idx * EKF_B.sp2 + rtb_u_o_idx * EKF_B.cp2;
       for (i = 0; i < 11; i++) {
         /* Assignment: '<S98>/Assignment' incorporates:
          *  Constant: '<S98>/Constant'
@@ -744,20 +746,21 @@ void EKF_step(void)
       }
 
       /* Assignment: '<S98>/Assignment' */
-      EKF_B.Assignment[(int32_T)rtb_Product_d - 1] = rtb_a2;
+      EKF_B.Assignment[(int32_T)rtb_Product_d - 1] = rtb_fcn2;
 
       /* Sum: '<S98>/Sum1' incorporates:
        *  Product: '<S98>/Product3'
        *  Product: '<S98>/Product8'
        */
-      rtb_q = rtb_d * EKF_B.cp2 - rtb_sincos_o1_m_idx_0 * EKF_B.sp2;
+      rtb_sincos_o1_m_idx = rtb_sincos_o2_i_idx * EKF_B.cp2 - rtb_u_o_idx *
+        EKF_B.sp2;
 
       /* Assignment: '<S98>/Assignment1' */
-      EKF_B.Assignment1[(int32_T)rtb_Product_d - 1] = rtb_q;
+      EKF_B.Assignment1[(int32_T)rtb_Product_d - 1] = rtb_sincos_o1_m_idx;
 
       /* Update for UnitDelay: '<S98>/Unit Delay1' */
-      EKF_DWork.UnitDelay1_DSTATE[0] = rtb_q;
-      EKF_DWork.UnitDelay1_DSTATE[1] = rtb_a2;
+      EKF_DWork.UnitDelay1_DSTATE[0] = rtb_sincos_o1_m_idx;
+      EKF_DWork.UnitDelay1_DSTATE[1] = rtb_fcn2;
     }
 
     /* End of Outputs for SubSystem: '<S51>/For Iterator Subsystem' */
@@ -794,7 +797,7 @@ void EKF_step(void)
   rtb_Product_d = rtb_sincos_o1_idx * rtb_sincos_o1_idx;
 
   /* Product: '<S52>/Product1' */
-  rtb_Product1 = rtb_sincos_o2_idx * rtb_sincos_o2_idx;
+  rtb_sincos_o1_m_idx = rtb_u_o_idx_0 * rtb_u_o_idx_0;
 
   /* Outputs for Enabled SubSystem: '<S47>/Convert from geodetic to  spherical coordinates' incorporates:
    *  EnablePort: '<S50>/Enable'
@@ -815,17 +818,18 @@ void EKF_step(void)
      *  Sum: '<S93>/Sum'
      *  Sum: '<S93>/Sum1'
      */
-    rtb_q = sqrt(rtb_a2 - (rtb_a2 - rtb_b2) * rtb_Product_d);
+    rtb_fcn2 = sqrt(rtb_a2 - (rtb_a2 - rtb_b2) * rtb_Product_d);
 
     /* Product: '<S50>/Product1' */
-    rtb_fcn2 = rtb_q * rtb_Gain;
+    rtb_Sum1_g = rtb_fcn2 * rtb_Gain;
 
     /* Sqrt: '<S92>/sqrt' incorporates:
      *  Product: '<S92>/Product10'
      *  Product: '<S92>/Product9'
      *  Sum: '<S92>/Sum7'
      */
-    rtb_d = sqrt(rtb_Product1 * rtb_a2 + rtb_b2 * rtb_Product_d);
+    rtb_sincos_o1_m_idx_0 = sqrt(rtb_sincos_o1_m_idx * rtb_a2 + rtb_b2 *
+      rtb_Product_d);
 
     /* Product: '<S95>/a4' */
     rtb_Sum4 = rtb_a2 * rtb_a2;
@@ -842,19 +846,19 @@ void EKF_step(void)
      *  Sum: '<S95>/Sum9'
      */
     EKF_B.sqrt_g = sqrt((rtb_Sum4 - (rtb_Sum4 - rtb_b2 * rtb_b2) * rtb_Product_d)
-                        / (rtb_q * rtb_q) + (EKF_P.Gain_Gain_n * rtb_fcn2 +
-      rtb_Gain * rtb_Gain));
+                        / (rtb_fcn2 * rtb_fcn2) + (EKF_P.Gain_Gain_n *
+      rtb_Sum1_g + rtb_Gain * rtb_Gain));
 
     /* Product: '<S90>/Product11' incorporates:
      *  Sum: '<S90>/Sum8'
      */
-    EKF_B.Product11 = (rtb_Gain + rtb_d) / EKF_B.sqrt_g;
+    EKF_B.Product11 = (rtb_Gain + rtb_sincos_o1_m_idx_0) / EKF_B.sqrt_g;
 
     /* Sum: '<S94>/Sum2' */
-    rtb_Sum4 = rtb_a2 + rtb_fcn2;
+    rtb_Sum4 = rtb_a2 + rtb_Sum1_g;
 
     /* Sum: '<S94>/Sum1' */
-    rtb_fcn2 += rtb_b2;
+    rtb_Sum1_g += rtb_b2;
 
     /* Product: '<S91>/Product4' incorporates:
      *  Product: '<S91>/Product3'
@@ -863,15 +867,15 @@ void EKF_step(void)
      *  Sqrt: '<S91>/sqrt'
      *  Sum: '<S91>/Sum3'
      */
-    EKF_B.Product4 = rtb_sincos_o1_idx / sqrt(rtb_Sum4 * rtb_Sum4 / (rtb_fcn2 *
-      rtb_fcn2) * rtb_Product1 + rtb_Product_d);
+    EKF_B.Product4 = rtb_sincos_o1_idx / sqrt(rtb_Sum4 * rtb_Sum4 / (rtb_Sum1_g *
+      rtb_Sum1_g) * rtb_sincos_o1_m_idx + rtb_Product_d);
 
     /* Product: '<S96>/Product12' incorporates:
      *  Product: '<S96>/Product1'
      *  Sum: '<S96>/Sum1'
      */
-    EKF_B.Product12 = (rtb_a2 - rtb_b2) / (EKF_B.sqrt_g * rtb_d) *
-      rtb_sincos_o2_idx * rtb_sincos_o1_idx;
+    EKF_B.Product12 = (rtb_a2 - rtb_b2) / (EKF_B.sqrt_g * rtb_sincos_o1_m_idx_0)
+      * rtb_u_o_idx_0 * rtb_sincos_o1_idx;
 
     /* Sqrt: '<S97>/sqrt' incorporates:
      *  Constant: '<S97>/Constant'
@@ -887,32 +891,32 @@ void EKF_step(void)
   /* Product: '<S47>/aor' incorporates:
    *  Constant: '<S47>/re'
    */
-  rtb_fcn2 = EKF_P.re_Value / EKF_B.sqrt_g;
+  rtb_b2 = EKF_P.re_Value / EKF_B.sqrt_g;
 
   /* Outputs for Iterator SubSystem: '<S47>/Compute magnetic vector in spherical coordinates' incorporates:
    *  ForIterator: '<S49>/For Iterator'
    */
   /* InitializeConditions for UnitDelay: '<S49>/Unit Delay' */
-  rtb_Product1 = EKF_P.UnitDelay_X0_c;
+  rtb_a2 = EKF_P.UnitDelay_X0_c;
 
   /* InitializeConditions for UnitDelay: '<S49>/Unit Delay2' */
-  UnitDelay2_DSTATE[0] = EKF_P.UnitDelay2_X0_e[0];
-  UnitDelay2_DSTATE[1] = EKF_P.UnitDelay2_X0_e[1];
-  UnitDelay2_DSTATE[2] = EKF_P.UnitDelay2_X0_e[2];
-  UnitDelay2_DSTATE[3] = EKF_P.UnitDelay2_X0_e[3];
+  rtb_u_o_idx_0 = EKF_P.UnitDelay2_X0_e[0];
+  rtb_u_o_idx_1 = EKF_P.UnitDelay2_X0_e[1];
+  rtb_u_o_idx_2 = EKF_P.UnitDelay2_X0_e[2];
+  rtb_u_o_idx = EKF_P.UnitDelay2_X0_e[3];
   for (s49_iter = 1; s49_iter <= EKF_P.ForIterator_IterationLimit_l; s49_iter++)
   {
     /* Switch: '<S49>/ar(n)' incorporates:
      *  Product: '<S47>/ar'
      */
     if (!(s49_iter > EKF_P.arn_Threshold)) {
-      rtb_Product1 = rtb_fcn2 * rtb_fcn2;
+      rtb_a2 = rtb_b2 * rtb_b2;
     }
 
     /* End of Switch: '<S49>/ar(n)' */
 
     /* Product: '<S49>/Product8' */
-    rtb_Product1 *= rtb_fcn2;
+    rtb_a2 *= rtb_b2;
 
     /* Sum: '<S49>/Sum' incorporates:
      *  Constant: '<S49>/Constant'
@@ -1165,8 +1169,8 @@ void EKF_step(void)
             /* Product: '<S75>/Product' incorporates:
              *  Selector: '<S75>/Selector1'
              */
-            rtb_Product_d = EKF_DWork.UnitDelay_DSTATE_d[(s49_iter - 1) * 13 +
-              s98_iter] * EKF_B.Product4;
+            rtb_sincos_o1_m_idx = EKF_DWork.UnitDelay_DSTATE_d[(s49_iter - 1) *
+              13 + s98_iter] * EKF_B.Product4;
 
             /* Sum: '<S84>/Sum2' incorporates:
              *  Constant: '<S84>/Constant1'
@@ -1187,9 +1191,10 @@ void EKF_step(void)
              *  Sum: '<S84>/Sum2'
              */
             if ((real_T)(qY_0 >= qY_4) > EKF_P.Switch_Threshold) {
-              rtb_a2 = EKF_DWork.UnitDelay_DSTATE_d[(qY_1 - 1) * 13 + s98_iter];
+              rtb_Product_d = EKF_DWork.UnitDelay_DSTATE_d[(qY_1 - 1) * 13 +
+                s98_iter];
             } else {
-              rtb_a2 = EKF_P.Constant_Value_gy;
+              rtb_Product_d = EKF_P.Constant_Value_gy;
             }
 
             /* End of Switch: '<S75>/Switch' */
@@ -1219,7 +1224,8 @@ void EKF_step(void)
              *  Selector: '<S75>/Selector2'
              *  Sum: '<S82>/Sum'
              */
-            rtb_q = EKF_P.k1313_Value_k[((qY_1 - 1) * 13 + qY_0) - 1] * rtb_a2;
+            rtb_fcn2 = EKF_P.k1313_Value_k[((qY_1 - 1) * 13 + qY_0) - 1] *
+              rtb_Product_d;
 
             /* Gain: '<S81>/Gain' */
             s98_iter = mul_s32_s32_s32_sat(EKF_P.Gain_Gain_d, qY_4);
@@ -1264,9 +1270,9 @@ void EKF_step(void)
               }
 
               /* End of Selector: '<S75>/Selector' */
-              rtb_a2 = EKF_DWork.UnitDelay1_DSTATE_h[i - 1];
+              rtb_Product_d = EKF_DWork.UnitDelay1_DSTATE_h[i - 1];
             } else {
-              rtb_a2 = EKF_P.Constant1_Value_j;
+              rtb_Product_d = EKF_P.Constant1_Value_j;
             }
 
             /* End of Switch: '<S75>/Switch1' */
@@ -1287,8 +1293,9 @@ void EKF_step(void)
              *  Sum: '<S81>/Sum1'
              *  UnitDelay: '<S59>/Unit Delay1'
              */
-            EKF_B.Merge_j[1] = (rtb_Product_d - EKF_DWork.UnitDelay1_DSTATE_h[r
-                                - 1] * EKF_B.sqrt_h) - rtb_q;
+            EKF_B.Merge_j[1] = (rtb_sincos_o1_m_idx -
+                                EKF_DWork.UnitDelay1_DSTATE_h[r - 1] *
+                                EKF_B.sqrt_h) - rtb_fcn2;
 
             /* Selector: '<S75>/Selector' incorporates:
              *  Sum: '<S81>/Sum1'
@@ -1312,7 +1319,7 @@ void EKF_step(void)
              */
             EKF_B.Merge_j[0] = EKF_DWork.UnitDelay1_DSTATE_h[r - 1] *
               EKF_B.Product4 - EKF_P.k1313_Value_k[((qY_1 - 1) * 13 + qY_0) - 1]
-              * rtb_a2;
+              * rtb_Product_d;
 
             /* End of Outputs for SubSystem: '<S59>/If Action Subsystem2' */
           }
@@ -1551,7 +1558,7 @@ void EKF_step(void)
        *  Constant: '<S63>/Constant1'
        *  Sum: '<S57>/Sum1'
        */
-      rtb_a2 = (real_T)qY_4 + EKF_P.Constant1_Value_p;
+      rtb_fcn2 = (real_T)qY_4 + EKF_P.Constant1_Value_p;
 
       /* Selector: '<S63>/cp[m+1]' incorporates:
        *  SignalConversion: '<S63>/TmpSignal ConversionAtcp[m+1]Inport1'
@@ -1593,10 +1600,10 @@ void EKF_step(void)
          */
         EKF_B.Merge[0] = EKF_B.Sum2_j[(((int32_T)rtb_sincos_o1_m_idx - 1) * 13 +
                                        (int32_T)EKF_P.Constant_Value_ip) - 1] *
-          tmp_0[(int32_T)rtb_a2 - 1];
+          tmp_0[(int32_T)rtb_fcn2 - 1];
         EKF_B.Merge[1] = EKF_B.Sum2_j[(((int32_T)rtb_sincos_o1_m_idx - 1) * 13 +
                                        (int32_T)EKF_P.Constant_Value_ip) - 1] *
-          rtb_TmpSignalConversionAtspm1In[(int32_T)rtb_a2 - 1];
+          rtb_TmpSignalConversionAtspm1In[(int32_T)rtb_fcn2 - 1];
 
         /* End of Outputs for SubSystem: '<S63>/If Action Subsystem' */
       } else {
@@ -1610,7 +1617,7 @@ void EKF_step(void)
         rtb_sincos_o1_m_idx_0 = (real_T)qY_4 + EKF_P.Constant_Value_a;
 
         /* Selector: '<S70>/Selector' */
-        rtb_d = rtb_sincos_o1_m_idx;
+        rtb_sincos_o2_i_idx = rtb_sincos_o1_m_idx;
 
         /* Product: '<S70>/Product' incorporates:
          *  Selector: '<S63>/cp[m+1]'
@@ -1618,10 +1625,11 @@ void EKF_step(void)
          *  Selector: '<S70>/Selector'
          */
         rtb_sincos_o1_m_idx = EKF_B.Sum2_j[(((int32_T)rtb_sincos_o1_m_idx - 1) *
-          13 + (int32_T)rtb_sincos_o1_m_idx_0) - 1] * tmp_0[(int32_T)rtb_a2 - 1];
-        rtb_sincos_o1_m_idx_0 = EKF_B.Sum2_j[(((int32_T)rtb_d - 1) * 13 +
-          (int32_T)rtb_sincos_o1_m_idx_0) - 1] *
-          rtb_TmpSignalConversionAtspm1In[(int32_T)rtb_a2 - 1];
+          13 + (int32_T)rtb_sincos_o1_m_idx_0) - 1] * tmp_0[(int32_T)rtb_fcn2 -
+          1];
+        rtb_sincos_o1_m_idx_0 = EKF_B.Sum2_j[(((int32_T)rtb_sincos_o2_i_idx - 1)
+          * 13 + (int32_T)rtb_sincos_o1_m_idx_0) - 1] *
+          rtb_TmpSignalConversionAtspm1In[(int32_T)rtb_fcn2 - 1];
 
         /* Sum: '<S70>/Sum' incorporates:
          *  Constant: '<S72>/Constant'
@@ -1632,7 +1640,7 @@ void EKF_step(void)
          */
         EKF_B.Merge[0] = EKF_B.Sum2_j[((qY_4 - 1) * 13 + (int32_T)((real_T)
           s49_iter + EKF_P.Constant_Value_e)) - 1] *
-          rtb_TmpSignalConversionAtspm1In[(int32_T)rtb_a2 - 1] +
+          rtb_TmpSignalConversionAtspm1In[(int32_T)rtb_fcn2 - 1] +
           rtb_sincos_o1_m_idx;
 
         /* Sum: '<S70>/Sum1' incorporates:
@@ -1644,7 +1652,7 @@ void EKF_step(void)
          */
         EKF_B.Merge[1] = rtb_sincos_o1_m_idx_0 - EKF_B.Sum2_j[((qY_4 - 1) * 13 +
           (int32_T)((real_T)s49_iter + EKF_P.Constant_Value_e)) - 1] * tmp_0
-          [(int32_T)rtb_a2 - 1];
+          [(int32_T)rtb_fcn2 - 1];
 
         /* End of Outputs for SubSystem: '<S63>/If Action Subsystem1' */
       }
@@ -1682,7 +1690,7 @@ void EKF_step(void)
        *  Selector: '<S58>/snorm[n+m*13]'
        *  Sum: '<S62>/Sum1'
        */
-      rtb_a2 = EKF_B.Assignment_snorm[qY_2 - 1] * rtb_Product1;
+      rtb_fcn2 = EKF_B.Assignment_snorm[qY_2 - 1] * rtb_a2;
 
       /* Sum: '<S58>/Sum4' incorporates:
        *  Constant: '<S58>/Constant1'
@@ -1844,7 +1852,7 @@ void EKF_step(void)
          *  Sum: '<S61>/Sum2'
          */
         EKF_B.Product2 = rtb_TmpSignalConversionAtspm1In[(int32_T)((real_T)
-          s49_iter + EKF_P.Constant1_Value) - 1] * rtb_Product1 *
+          s49_iter + EKF_P.Constant1_Value) - 1] * rtb_a2 *
           EKF_P.Constant_Value_i * EKF_B.Merge[1];
 
         /* Update for UnitDelay: '<S61>/Unit Delay1' */
@@ -1871,7 +1879,7 @@ void EKF_step(void)
        *  UnitDelay: '<S58>/Unit Delay1'
        */
       EKF_B.Sum1 = EKF_DWork.UnitDelay1_DSTATE_d - EKF_B.Merge[0] *
-        rtb_Product_d * rtb_Product1;
+        rtb_Product_d * rtb_a2;
 
       /* Sum: '<S58>/Sum2' incorporates:
        *  Constant: '<S58>/fm'
@@ -1880,7 +1888,7 @@ void EKF_step(void)
        *  Sum: '<S58>/Sum4'
        *  UnitDelay: '<S58>/Unit Delay3'
        */
-      EKF_B.Sum2 = EKF_P.fm_Value[qY_2 - 1] * rtb_a2 * EKF_B.Merge[1] +
+      EKF_B.Sum2 = EKF_P.fm_Value[qY_2 - 1] * rtb_fcn2 * EKF_B.Merge[1] +
         EKF_DWork.UnitDelay3_DSTATE;
 
       /* Sum: '<S58>/Sum3' incorporates:
@@ -1890,7 +1898,7 @@ void EKF_step(void)
        *  Sum: '<S58>/Sum4'
        *  UnitDelay: '<S58>/Unit Delay2'
        */
-      EKF_B.Sum3 = EKF_P.fn_Value[qY_3 - 1] * rtb_a2 * EKF_B.Merge[0] +
+      EKF_B.Sum3 = EKF_P.fn_Value[qY_3 - 1] * rtb_fcn2 * EKF_B.Merge[0] +
         EKF_DWork.UnitDelay2_DSTATE_a;
 
       /* Sum: '<S58>/Sum5' incorporates:
@@ -1917,16 +1925,16 @@ void EKF_step(void)
     /* Sum: '<S49>/Sum1' incorporates:
      *  UnitDelay: '<S49>/Unit Delay2'
      */
-    rtb_Sum1_d_idx_1 = UnitDelay2_DSTATE[0] + EKF_B.Sum1;
-    rtb_Sum1_d_idx_0 = UnitDelay2_DSTATE[1] + EKF_B.Sum2;
-    rtb_Sum1_d_idx_2 = UnitDelay2_DSTATE[2] + EKF_B.Sum3;
-    rtb_Sum1_d_idx = UnitDelay2_DSTATE[3] + EKF_B.Sum5;
+    rtb_Sum1_d_idx_1 = rtb_u_o_idx_0 + EKF_B.Sum1;
+    rtb_Sum1_d_idx_0 = rtb_u_o_idx_1 + EKF_B.Sum2;
+    rtb_Sum1_d_idx_2 = rtb_u_o_idx_2 + EKF_B.Sum3;
+    rtb_Sum1_d_idx = rtb_u_o_idx + EKF_B.Sum5;
 
     /* Update for UnitDelay: '<S49>/Unit Delay2' */
-    UnitDelay2_DSTATE[0] = rtb_Sum1_d_idx_1;
-    UnitDelay2_DSTATE[1] = rtb_Sum1_d_idx_0;
-    UnitDelay2_DSTATE[2] = rtb_Sum1_d_idx_2;
-    UnitDelay2_DSTATE[3] = rtb_Sum1_d_idx;
+    rtb_u_o_idx_0 = rtb_Sum1_d_idx_1;
+    rtb_u_o_idx_1 = rtb_Sum1_d_idx_0;
+    rtb_u_o_idx_2 = rtb_Sum1_d_idx_2;
+    rtb_u_o_idx = rtb_Sum1_d_idx;
   }
 
   /* End of Outputs for SubSystem: '<S47>/Compute magnetic vector in spherical coordinates' */
@@ -1946,24 +1954,24 @@ void EKF_step(void)
    *  Product: '<S100>/Product1'
    *  Product: '<S100>/Product4'
    */
-  rtb_Product1 = (0.0 - EKF_B.Product11 * rtb_Sum1_d_idx_1) - rtb_Sum1_d_idx_2 *
+  rtb_Sum4 = (0.0 - EKF_B.Product11 * rtb_Sum1_d_idx_1) - rtb_Sum1_d_idx_2 *
     EKF_B.Product12;
 
   /* Trigonometry: '<S103>/Trigonometric Function1' */
-  rtb_Product_d = rt_atan2d_snf(rtb_fcn2, rtb_Product1);
+  rtb_Product_d = rt_atan2d_snf(rtb_fcn2, rtb_Sum4);
 
   /* Sum: '<S102>/Sum1' incorporates:
    *  Product: '<S102>/Product1'
    *  Product: '<S102>/Product4'
    */
-  rtb_b2 = EKF_B.Product12 * rtb_Sum1_d_idx_1 - rtb_Sum1_d_idx_2 *
+  rtb_Sum1_d_idx = EKF_B.Product12 * rtb_Sum1_d_idx_1 - rtb_Sum1_d_idx_2 *
     EKF_B.Product11;
 
   /* Sum: '<S103>/Sum' incorporates:
    *  Product: '<S103>/Product'
    *  Product: '<S103>/Product1'
    */
-  rtb_Product1 = rtb_fcn2 * rtb_fcn2 + rtb_Product1 * rtb_Product1;
+  rtb_Sum4 = rtb_fcn2 * rtb_fcn2 + rtb_Sum4 * rtb_Sum4;
 
   /* Gain: '<S48>/Unit Conversion' incorporates:
    *  Gain: '<S104>/Unit Conversion'
@@ -1973,43 +1981,43 @@ void EKF_step(void)
    */
   rtb_sincos_o1_m_idx = EKF_P.UnitConversion_Gain_e * rtb_Product_d *
     EKF_P.UnitConversion_Gain_ax;
-  rtb_sincos_o1_m_idx_0 = EKF_P.UnitConversion_Gain_o * rt_atan2d_snf(rtb_b2,
-    sqrt(rtb_Product1)) * EKF_P.UnitConversion_Gain_ax;
+  rtb_sincos_o1_m_idx_0 = EKF_P.UnitConversion_Gain_o * rt_atan2d_snf
+    (rtb_Sum1_d_idx, sqrt(rtb_Sum4)) * EKF_P.UnitConversion_Gain_ax;
 
   /* Trigonometry: '<S44>/sincos' */
-  rtb_d = cos(rtb_sincos_o1_m_idx);
+  rtb_sincos_o2_i_idx = cos(rtb_sincos_o1_m_idx);
   rtb_sincos_o1_m_idx = sin(rtb_sincos_o1_m_idx);
 
   /* Sum: '<S103>/Sum1' incorporates:
    *  Product: '<S103>/Product2'
    */
-  rtb_Product1 += rtb_b2 * rtb_b2;
+  rtb_Sum4 += rtb_Sum1_d_idx * rtb_Sum1_d_idx;
 
   /* Sqrt: '<S103>/sqrt' */
-  rtb_Product1 = sqrt(rtb_Product1);
+  rtb_Sum4 = sqrt(rtb_Sum4);
 
   /* Product: '<S44>/h1' incorporates:
    *  Trigonometry: '<S44>/sincos'
    */
-  rtb_b2 = cos(rtb_sincos_o1_m_idx_0) * rtb_Product1;
+  rtb_Sum1_d_idx = cos(rtb_sincos_o1_m_idx_0) * rtb_Sum4;
 
   /* Product: '<S44>/x1' */
-  rtb_a2 = rtb_d * rtb_b2;
+  rtb_Product_d = rtb_sincos_o2_i_idx * rtb_Sum1_d_idx;
 
   /* Product: '<S44>/y1' */
-  rtb_b2 *= rtb_sincos_o1_m_idx;
+  rtb_Sum1_d_idx *= rtb_sincos_o1_m_idx;
 
   /* Product: '<S44>/z1' incorporates:
    *  Trigonometry: '<S44>/sincos'
    */
-  rtb_Product1 *= sin(rtb_sincos_o1_m_idx_0);
+  rtb_Sum4 *= sin(rtb_sincos_o1_m_idx_0);
 
   /* Gain: '<S8>/Gain1' incorporates:
    *  Gain: '<S40>/Power Conversion'
    */
-  rtb_Gain1[0] = EKF_P.PowerConversion_Gain * rtb_a2 * EKF_P.Gain1_Gain;
-  rtb_Gain1[1] = EKF_P.PowerConversion_Gain * rtb_b2 * EKF_P.Gain1_Gain;
-  rtb_Gain1[2] = EKF_P.PowerConversion_Gain * rtb_Product1 * EKF_P.Gain1_Gain;
+  rtb_Gain1[0] = EKF_P.PowerConversion_Gain * rtb_Product_d * EKF_P.Gain1_Gain;
+  rtb_Gain1[1] = EKF_P.PowerConversion_Gain * rtb_Sum1_d_idx * EKF_P.Gain1_Gain;
+  rtb_Gain1[2] = EKF_P.PowerConversion_Gain * rtb_Sum4 * EKF_P.Gain1_Gain;
 
   /* SignalConversion: '<S30>/TmpSignal ConversionAt SFunction Inport3' incorporates:
    *  Constant: '<S1>/c'
@@ -2050,19 +2058,19 @@ void EKF_step(void)
   W[2] = rtb_Gain1[2] / rtb_Product_d;
 
   /* '<S30>:1:8' */
-  rtb_sincos_o2_idx = rt_powd_snf(EKF_U.deviazione_std_accell, 2.0);
+  rtb_Sum1_d_idx = rt_powd_snf(EKF_U.deviazione_std_accell, 2.0);
 
   /* '<S30>:1:9' */
   rtb_Sum4 = rt_powd_snf(EKF_U.deviazione_std_magneto, 2.0);
 
   /* '<S30>:1:10' */
-  rtb_sincos_o1_idx = 1.0 / (1.0 / rtb_sincos_o2_idx + 1.0 / rtb_Sum4);
+  rtb_sincos_o1_idx = 1.0 / (1.0 / rtb_Sum1_d_idx + 1.0 / rtb_Sum4);
 
   /* '<S30>:1:11' */
-  rtb_a2 = rtb_sincos_o1_idx / rtb_sincos_o2_idx;
+  rtb_a2 = rtb_sincos_o1_idx / rtb_Sum1_d_idx;
 
   /* '<S30>:1:12' */
-  rtb_d = rtb_sincos_o1_idx / rtb_Sum4;
+  rtb_sincos_o1_m_idx_0 = rtb_sincos_o1_idx / rtb_Sum4;
 
   /* '<S30>:1:14' */
   /* '<S30>:1:15' */
@@ -2075,10 +2083,10 @@ void EKF_step(void)
     - rtb_TmpSignalConversionAtSFun_a[0] * W[2];
   rtb_TmpSignalConversionAtSFun_0[2] = rtb_TmpSignalConversionAtSFun_a[0] * W[1]
     - rtb_TmpSignalConversionAtSFun_a[1] * W[0];
-  rtb_b2 = sqrt(2.0 * rtb_a2 * rtb_d * (EKF_dot(rtb_Add1, V) * EKF_dot
-    (rtb_TmpSignalConversionAtSFun_a, W) + EKF_norm(rtb_Add_0) * EKF_norm
-    (rtb_TmpSignalConversionAtSFun_0)) + (rt_powd_snf(rtb_a2, 2.0) + rt_powd_snf
-                 (rtb_d, 2.0)));
+  rtb_b2 = sqrt(2.0 * rtb_a2 * rtb_sincos_o1_m_idx_0 * (EKF_dot(rtb_Add1, V) *
+    EKF_dot(rtb_TmpSignalConversionAtSFun_a, W) + EKF_norm(rtb_Add_0) * EKF_norm
+                 (rtb_TmpSignalConversionAtSFun_0)) + (rt_powd_snf(rtb_a2, 2.0)
+    + rt_powd_snf(rtb_sincos_o1_m_idx_0, 2.0)));
 
   /* '<S30>:1:16' */
   for (qY_3 = 0; qY_3 < 3; qY_3++) {
@@ -2110,13 +2118,14 @@ void EKF_step(void)
 
   for (qY_3 = 0; qY_3 < 3; qY_3++) {
     S[3 * qY_3] = (rtb_TmpSignalConversionAtSFun_1[3 * qY_3] + rtb_Add_1[3 *
-                   qY_3]) * rtb_a2 + (W_0[3 * qY_3] + V_0[3 * qY_3]) * rtb_d;
+                   qY_3]) * rtb_a2 + (W_0[3 * qY_3] + V_0[3 * qY_3]) *
+      rtb_sincos_o1_m_idx_0;
     S[1 + 3 * qY_3] = (rtb_TmpSignalConversionAtSFun_1[3 * qY_3 + 1] +
                        rtb_Add_1[3 * qY_3 + 1]) * rtb_a2 + (W_0[3 * qY_3 + 1] +
-      V_0[3 * qY_3 + 1]) * rtb_d;
+      V_0[3 * qY_3 + 1]) * rtb_sincos_o1_m_idx_0;
     S[2 + 3 * qY_3] = (rtb_TmpSignalConversionAtSFun_1[3 * qY_3 + 2] +
                        rtb_Add_1[3 * qY_3 + 2]) * rtb_a2 + (W_0[3 * qY_3 + 2] +
-      V_0[3 * qY_3 + 2]) * rtb_d;
+      V_0[3 * qY_3 + 2]) * rtb_sincos_o1_m_idx_0;
   }
 
   /* '<S30>:1:17' */
@@ -2210,36 +2219,37 @@ void EKF_step(void)
     rt_powd_snf(rtb_Product_d, 2.0));
 
   /* '<S30>:1:23' */
-  rtb_Product1 = rtb_b2 - rtb_Product_d;
+  rtb_sincos_o1_m_idx = rtb_b2 - rtb_Product_d;
 
   /* '<S30>:1:24' */
-  rtb_q = (rtb_b2 + rtb_Product_d) * rtb_fcn2 - EKF_det(S);
+  rtb_Sum1_g = (rtb_b2 + rtb_Product_d) * rtb_fcn2 - EKF_det(S);
 
   /* '<S30>:1:26' */
   for (qY_3 = 0; qY_3 < 3; qY_3++) {
     for (r = 0; r < 3; r++) {
-      V_0[qY_3 + 3 * r] = ((S[3 * r + 1] * S[qY_3 + 3] + S[3 * r] * S[qY_3]) +
-                           S[3 * r + 2] * S[qY_3 + 6]) + ((real_T)b[3 * r + qY_3]
-        * rtb_fcn2 + S[3 * r + qY_3] * rtb_Product1);
+      rtb_Add_1[qY_3 + 3 * r] = ((S[3 * r + 1] * S[qY_3 + 3] + S[3 * r] * S[qY_3])
+        + S[3 * r + 2] * S[qY_3 + 6]) + ((real_T)b[3 * r + qY_3] * rtb_fcn2 + S
+        [3 * r + qY_3] * rtb_sincos_o1_m_idx);
     }
   }
 
-  rtb_sincos_o1_m_idx_0 = (rtb_TmpSignalConversionAtSFun_a[1] * rtb_Add1[2] -
-    rtb_TmpSignalConversionAtSFun_a[2] * rtb_Add1[1]) * rtb_a2 + (W[1] * V[2] -
-    W[2] * V[1]) * rtb_d;
-  rtb_sincos_o1_m_idx = (rtb_TmpSignalConversionAtSFun_a[2] * rtb_Add1[0] -
-    rtb_TmpSignalConversionAtSFun_a[0] * rtb_Add1[2]) * rtb_a2 + (W[2] * V[0] -
-    W[0] * V[2]) * rtb_d;
-  rtb_d = (rtb_TmpSignalConversionAtSFun_a[0] * rtb_Add1[1] -
-           rtb_TmpSignalConversionAtSFun_a[1] * rtb_Add1[0]) * rtb_a2 + (W[0] *
-    V[1] - W[1] * V[0]) * rtb_d;
+  rtb_u_o_idx = (rtb_TmpSignalConversionAtSFun_a[1] * rtb_Add1[2] -
+                 rtb_TmpSignalConversionAtSFun_a[2] * rtb_Add1[1]) * rtb_a2 +
+    (W[1] * V[2] - W[2] * V[1]) * rtb_sincos_o1_m_idx_0;
+  rtb_u_o_idx_0 = (rtb_TmpSignalConversionAtSFun_a[2] * rtb_Add1[0] -
+                   rtb_TmpSignalConversionAtSFun_a[0] * rtb_Add1[2]) * rtb_a2 +
+    (W[2] * V[0] - W[0] * V[2]) * rtb_sincos_o1_m_idx_0;
+  rtb_sincos_o2_i_idx = (rtb_TmpSignalConversionAtSFun_a[0] * rtb_Add1[1] -
+    rtb_TmpSignalConversionAtSFun_a[1] * rtb_Add1[0]) * rtb_a2 + (W[0] * V[1] -
+    W[1] * V[0]) * rtb_sincos_o1_m_idx_0;
   for (qY_3 = 0; qY_3 < 3; qY_3++) {
-    X[qY_3] = V_0[qY_3 + 6] * rtb_d + (V_0[qY_3 + 3] * rtb_sincos_o1_m_idx +
-      V_0[qY_3] * rtb_sincos_o1_m_idx_0);
+    X[qY_3] = rtb_Add_1[qY_3 + 6] * rtb_sincos_o2_i_idx + (rtb_Add_1[qY_3 + 3] *
+      rtb_u_o_idx_0 + rtb_Add_1[qY_3] * rtb_u_o_idx);
   }
 
   /* '<S30>:1:28' */
-  rtb_b2 = 1.0 / sqrt(rt_powd_snf(rtb_q, 2.0) + rt_powd_snf(EKF_norm(X), 2.0));
+  rtb_b2 = 1.0 / sqrt(rt_powd_snf(rtb_Sum1_g, 2.0) + rt_powd_snf(EKF_norm(X),
+    2.0));
 
   /* '<S30>:1:30' */
   rtb_TmpSignalConversionAtSFun_0[0] = rtb_TmpSignalConversionAtSFun_a[1] * W[2]
@@ -2249,26 +2259,26 @@ void EKF_step(void)
   rtb_TmpSignalConversionAtSFun_0[2] = rtb_TmpSignalConversionAtSFun_a[0] * W[1]
     - rtb_TmpSignalConversionAtSFun_a[1] * W[0];
   rtb_a2 = rt_powd_snf(EKF_norm(rtb_TmpSignalConversionAtSFun_0), -2.0);
-  rtb_fcn2 = rtb_Sum4 - rtb_sincos_o1_idx;
-  rtb_Product_d = rtb_sincos_o2_idx - rtb_sincos_o1_idx;
-  rtb_Product1 = rtb_sincos_o1_idx * EKF_dot(rtb_TmpSignalConversionAtSFun_a, W);
-  UnitDelay2_DSTATE[0] = rtb_b2 * X[0];
-  UnitDelay2_DSTATE[1] = rtb_b2 * X[1];
-  UnitDelay2_DSTATE[2] = rtb_b2 * X[2];
-  UnitDelay2_DSTATE[3] = rtb_b2 * rtb_q;
+  rtb_sincos_o1_m_idx = rtb_Sum4 - rtb_sincos_o1_idx;
+  rtb_Product_d = rtb_Sum1_d_idx - rtb_sincos_o1_idx;
+  rtb_fcn2 = rtb_sincos_o1_idx * EKF_dot(rtb_TmpSignalConversionAtSFun_a, W);
+  rtb_u_o_idx_0 = rtb_b2 * X[0];
+  rtb_u_o_idx_1 = rtb_b2 * X[1];
+  rtb_u_o_idx_2 = rtb_b2 * X[2];
+  rtb_u_o_idx = rtb_b2 * rtb_Sum1_g;
   for (qY_3 = 0; qY_3 < 3; qY_3++) {
-    V_0[3 * qY_3] = rtb_fcn2 * rtb_TmpSignalConversionAtSFun_a[0] *
-      rtb_TmpSignalConversionAtSFun_a[qY_3];
-    V_0[1 + 3 * qY_3] = rtb_fcn2 * rtb_TmpSignalConversionAtSFun_a[1] *
-      rtb_TmpSignalConversionAtSFun_a[qY_3];
-    V_0[2 + 3 * qY_3] = rtb_fcn2 * rtb_TmpSignalConversionAtSFun_a[2] *
-      rtb_TmpSignalConversionAtSFun_a[qY_3];
+    rtb_Add_1[3 * qY_3] = rtb_sincos_o1_m_idx * rtb_TmpSignalConversionAtSFun_a
+      [0] * rtb_TmpSignalConversionAtSFun_a[qY_3];
+    rtb_Add_1[1 + 3 * qY_3] = rtb_sincos_o1_m_idx *
+      rtb_TmpSignalConversionAtSFun_a[1] * rtb_TmpSignalConversionAtSFun_a[qY_3];
+    rtb_Add_1[2 + 3 * qY_3] = rtb_sincos_o1_m_idx *
+      rtb_TmpSignalConversionAtSFun_a[2] * rtb_TmpSignalConversionAtSFun_a[qY_3];
   }
 
   for (qY_3 = 0; qY_3 < 3; qY_3++) {
-    rtb_Add_1[3 * qY_3] = rtb_Product_d * W[0] * W[qY_3];
-    rtb_Add_1[1 + 3 * qY_3] = rtb_Product_d * W[1] * W[qY_3];
-    rtb_Add_1[2 + 3 * qY_3] = rtb_Product_d * W[2] * W[qY_3];
+    V_0[3 * qY_3] = rtb_Product_d * W[0] * W[qY_3];
+    V_0[1 + 3 * qY_3] = rtb_Product_d * W[1] * W[qY_3];
+    V_0[2 + 3 * qY_3] = rtb_Product_d * W[2] * W[qY_3];
   }
 
   for (qY_3 = 0; qY_3 < 3; qY_3++) {
@@ -2288,16 +2298,16 @@ void EKF_step(void)
 
   for (qY_3 = 0; qY_3 < 3; qY_3++) {
     tmp[3 * qY_3] = (((rtb_TmpSignalConversionAtSFun_1[3 * qY_3] + W_0[3 * qY_3])
-                      * rtb_Product1 + (V_0[3 * qY_3] + rtb_Add_1[3 * qY_3])) *
+                      * rtb_fcn2 + (rtb_Add_1[3 * qY_3] + V_0[3 * qY_3])) *
                      rtb_a2 + (real_T)b[3 * qY_3] * rtb_sincos_o1_idx) * 0.25;
     tmp[1 + 3 * qY_3] = (((rtb_TmpSignalConversionAtSFun_1[3 * qY_3 + 1] + W_0[3
-      * qY_3 + 1]) * rtb_Product1 + (V_0[3 * qY_3 + 1] + rtb_Add_1[3 * qY_3 + 1]))
-                         * rtb_a2 + (real_T)b[3 * qY_3 + 1] * rtb_sincos_o1_idx)
-      * 0.25;
+      * qY_3 + 1]) * rtb_fcn2 + (rtb_Add_1[3 * qY_3 + 1] + V_0[3 * qY_3 + 1])) *
+                         rtb_a2 + (real_T)b[3 * qY_3 + 1] * rtb_sincos_o1_idx) *
+      0.25;
     tmp[2 + 3 * qY_3] = (((rtb_TmpSignalConversionAtSFun_1[3 * qY_3 + 2] + W_0[3
-      * qY_3 + 2]) * rtb_Product1 + (V_0[3 * qY_3 + 2] + rtb_Add_1[3 * qY_3 + 2]))
-                         * rtb_a2 + (real_T)b[3 * qY_3 + 2] * rtb_sincos_o1_idx)
-      * 0.25;
+      * qY_3 + 2]) * rtb_fcn2 + (rtb_Add_1[3 * qY_3 + 2] + V_0[3 * qY_3 + 2])) *
+                         rtb_a2 + (real_T)b[3 * qY_3 + 2] * rtb_sincos_o1_idx) *
+      0.25;
   }
 
   memcpy((void *)&rtb_MatrixConcatenate[0], (void *)&tmp[0], 9U * sizeof(real_T));
@@ -2311,46 +2321,48 @@ void EKF_step(void)
    *  Product: '<S36>/Product3'
    *  Sum: '<S36>/Sum'
    */
-  rtb_b2 = sqrt(((UnitDelay2_DSTATE[3] * UnitDelay2_DSTATE[3] +
-                  UnitDelay2_DSTATE[0] * UnitDelay2_DSTATE[0]) +
-                 UnitDelay2_DSTATE[1] * UnitDelay2_DSTATE[1]) +
-                UnitDelay2_DSTATE[2] * UnitDelay2_DSTATE[2]);
+  rtb_Sum1_d_idx = sqrt(((rtb_u_o_idx * rtb_u_o_idx + rtb_u_o_idx_0 *
+    rtb_u_o_idx_0) + rtb_u_o_idx_1 * rtb_u_o_idx_1) + rtb_u_o_idx_2 *
+                        rtb_u_o_idx_2);
 
   /* Product: '<S34>/Product' */
-  rtb_a2 = UnitDelay2_DSTATE[3] / rtb_b2;
+  rtb_Product_d = rtb_u_o_idx / rtb_Sum1_d_idx;
 
   /* Product: '<S34>/Product1' */
-  rtb_Product1 = UnitDelay2_DSTATE[0] / rtb_b2;
+  rtb_Sum4 = rtb_u_o_idx_0 / rtb_Sum1_d_idx;
 
   /* Product: '<S34>/Product2' */
-  rtb_fcn2 = UnitDelay2_DSTATE[1] / rtb_b2;
+  rtb_fcn2 = rtb_u_o_idx_1 / rtb_Sum1_d_idx;
 
   /* Product: '<S34>/Product3' */
-  rtb_b2 = UnitDelay2_DSTATE[2] / rtb_b2;
+  rtb_Sum1_d_idx = rtb_u_o_idx_2 / rtb_Sum1_d_idx;
 
   /* Trigonometry: '<S31>/Trigonometric Function1' incorporates:
    *  Fcn: '<S31>/fcn1'
    *  Fcn: '<S31>/fcn2'
    */
-  rtb_Add1[0] = rt_atan2d_snf((rtb_fcn2 * rtb_b2 - rtb_a2 * rtb_Product1) * -2.0,
-                              ((rtb_a2 * rtb_a2 - rtb_Product1 * rtb_Product1) -
-    rtb_fcn2 * rtb_fcn2) + rtb_b2 * rtb_b2);
+  rtb_Add1[0] = rt_atan2d_snf((rtb_fcn2 * rtb_Sum1_d_idx - rtb_Product_d *
+    rtb_Sum4) * -2.0, ((rtb_Product_d * rtb_Product_d - rtb_Sum4 * rtb_Sum4) -
+                       rtb_fcn2 * rtb_fcn2) + rtb_Sum1_d_idx * rtb_Sum1_d_idx);
 
   /* Trigonometry: '<S31>/trigFcn' incorporates:
    *  Fcn: '<S31>/fcn3'
    */
-  rtb_d = (rtb_Product1 * rtb_b2 + rtb_a2 * rtb_fcn2) * 2.0;
-  rtb_Add1[1] = asin(rtb_d >= 1.0 ? 1.0 : rtb_d <= -1.0 ? -1.0 : rtb_d);
+  rtb_sincos_o2_i_idx = (rtb_Sum4 * rtb_Sum1_d_idx + rtb_Product_d * rtb_fcn2) *
+    2.0;
+  rtb_Add1[1] = asin(rtb_sincos_o2_i_idx >= 1.0 ? 1.0 : rtb_sincos_o2_i_idx <=
+                     -1.0 ? -1.0 : rtb_sincos_o2_i_idx);
 
   /* Fcn: '<S31>/fcn4' */
-  rtb_q = (rtb_Product1 * rtb_fcn2 - rtb_a2 * rtb_b2) * -2.0;
+  rtb_sincos_o1_m_idx = (rtb_Sum4 * rtb_fcn2 - rtb_Product_d * rtb_Sum1_d_idx) *
+    -2.0;
 
   /* Fcn: '<S31>/fcn5' */
-  rtb_a2 = ((rtb_a2 * rtb_a2 + rtb_Product1 * rtb_Product1) - rtb_fcn2 *
-            rtb_fcn2) - rtb_b2 * rtb_b2;
+  rtb_Product_d = ((rtb_Product_d * rtb_Product_d + rtb_Sum4 * rtb_Sum4) -
+                   rtb_fcn2 * rtb_fcn2) - rtb_Sum1_d_idx * rtb_Sum1_d_idx;
 
   /* Trigonometry: '<S31>/Trigonometric Function3' */
-  rtb_Add1[2] = rt_atan2d_snf(rtb_q, rtb_a2);
+  rtb_Add1[2] = rt_atan2d_snf(rtb_sincos_o1_m_idx, rtb_Product_d);
 
   /* Gain: '<S32>/1//2' incorporates:
    *  MATLAB Function Block: '<S5>/MATLAB Function1'
@@ -2369,81 +2381,93 @@ void EKF_step(void)
     rtb_mag_calibrate[2]) * EKF_P.u_Gain;
 
   /* Trigonometry: '<S32>/sincos' */
-  rtb_d = cos(rtb_TmpSignalConversionAtSFun_a[0]);
+  rtb_sincos_o2_i_idx = cos(rtb_TmpSignalConversionAtSFun_a[0]);
   rtb_TmpSignalConversionAtSFun_a[0] = sin(rtb_TmpSignalConversionAtSFun_a[0]);
-  rtb_sincos_o1_m_idx_0 = cos(rtb_TmpSignalConversionAtSFun_a[1]);
+  rtb_u_o_idx = cos(rtb_TmpSignalConversionAtSFun_a[1]);
   rtb_TmpSignalConversionAtSFun_a[1] = sin(rtb_TmpSignalConversionAtSFun_a[1]);
   rtb_Product_d = cos(rtb_TmpSignalConversionAtSFun_a[2]);
-  rtb_sincos_o1_m_idx = rtb_Product_d;
   rtb_TmpSignalConversionAtSFun_a[2] = sin(rtb_TmpSignalConversionAtSFun_a[2]);
 
   /* Fcn: '<S32>/q1' incorporates:
    *  Trigonometry: '<S32>/sincos'
    */
-  rtb_a2 = rtb_d * rtb_TmpSignalConversionAtSFun_a[1] *
+  rtb_b2 = rtb_sincos_o2_i_idx * rtb_TmpSignalConversionAtSFun_a[1] *
     rtb_TmpSignalConversionAtSFun_a[2] + rtb_TmpSignalConversionAtSFun_a[0] *
-    rtb_sincos_o1_m_idx_0 * rtb_Product_d;
+    rtb_u_o_idx * rtb_Product_d;
 
   /* Fcn: '<S32>/q2' incorporates:
    *  Trigonometry: '<S32>/sincos'
    */
-  rtb_q = rtb_d * rtb_TmpSignalConversionAtSFun_a[1] * rtb_Product_d -
-    rtb_TmpSignalConversionAtSFun_a[0] * rtb_sincos_o1_m_idx_0 *
+  rtb_a2 = rtb_sincos_o2_i_idx * rtb_TmpSignalConversionAtSFun_a[1] *
+    rtb_Product_d - rtb_TmpSignalConversionAtSFun_a[0] * rtb_u_o_idx *
     rtb_TmpSignalConversionAtSFun_a[2];
 
   /* Fcn: '<S32>/q3' incorporates:
    *  Trigonometry: '<S32>/sincos'
    */
-  rtb_Product_d = rtb_d * rtb_sincos_o1_m_idx_0 *
+  rtb_Sum1_g = rtb_sincos_o2_i_idx * rtb_u_o_idx *
     rtb_TmpSignalConversionAtSFun_a[2] + rtb_TmpSignalConversionAtSFun_a[0] *
     rtb_TmpSignalConversionAtSFun_a[1] * rtb_Product_d;
 
-  /* Fcn: '<S32>/q0' */
-  rtb_Product1 = rtb_d * rtb_sincos_o1_m_idx_0 * rtb_sincos_o1_m_idx -
+  /* Fcn: '<S32>/q0' incorporates:
+   *  Trigonometry: '<S32>/sincos'
+   */
+  rtb_sincos_o1_m_idx_0 = rtb_sincos_o2_i_idx * rtb_u_o_idx * rtb_Product_d -
     rtb_TmpSignalConversionAtSFun_a[0] * rtb_TmpSignalConversionAtSFun_a[1] *
     rtb_TmpSignalConversionAtSFun_a[2];
 
-  /* Sum: '<S10>/Add1' incorporates:
-   *  Inport: '<Root>/tau'
-   *  Product: '<S10>/Product'
-   *  Product: '<S10>/Product1'
-   *  Saturate: '<S10>/Saturation'
+  /* MATLAB Function Block: '<S10>/MATLAB Function1' incorporates:
+   *  Abs: '<S10>/Abs'
+   *  Memory: '<S10>/Memory'
+   *  Sum: '<S10>/Add3'
+   *  Sum: '<S10>/Add4'
    */
-  UnitDelay2_DSTATE[0] = (rtb_u_o_idx >= EKF_P.Saturation_UpperSat ?
-    EKF_P.Saturation_UpperSat : rtb_u_o_idx <= EKF_P.Saturation_LowerSat ?
-    EKF_P.Saturation_LowerSat : rtb_u_o_idx) * rtb_Add + EKF_U.tau * rtb_a2;
-  UnitDelay2_DSTATE[1] = (rtb_u_o_idx_0 >= EKF_P.Saturation_UpperSat ?
-    EKF_P.Saturation_UpperSat : rtb_u_o_idx_0 <= EKF_P.Saturation_LowerSat ?
-    EKF_P.Saturation_LowerSat : rtb_u_o_idx_0) * rtb_Add + EKF_U.tau * rtb_q;
-  UnitDelay2_DSTATE[2] = (rtb_u_o_idx_1 >= EKF_P.Saturation_UpperSat ?
-    EKF_P.Saturation_UpperSat : rtb_u_o_idx_1 <= EKF_P.Saturation_LowerSat ?
-    EKF_P.Saturation_LowerSat : rtb_u_o_idx_1) * rtb_Add + EKF_U.tau *
-    rtb_Product_d;
-  UnitDelay2_DSTATE[3] = (rtb_u_o_idx_2 >= EKF_P.Saturation_UpperSat ?
-    EKF_P.Saturation_UpperSat : rtb_u_o_idx_2 <= EKF_P.Saturation_LowerSat ?
-    EKF_P.Saturation_LowerSat : rtb_u_o_idx_2) * rtb_Add + EKF_U.tau *
-    rtb_Product1;
+
+  /* MATLAB Function 'EKF/complementar_filter/MATLAB Function1': '<S106>:1' */
+  if (((fabs(rtb_b2 - EKF_DWork.Memory_PreviousInput_l[0]) + fabs(rtb_a2 -
+         EKF_DWork.Memory_PreviousInput_l[1])) + fabs(rtb_Sum1_g -
+        EKF_DWork.Memory_PreviousInput_l[2])) + fabs(rtb_sincos_o1_m_idx_0 -
+       EKF_DWork.Memory_PreviousInput_l[3]) > 1.5) {
+    /* '<S106>:1:4' */
+    /* '<S106>:1:5' */
+    rtb_fcn2 = 0.85;
+  } else {
+    /* '<S106>:1:7' */
+    rtb_fcn2 = 0.0;
+  }
+
+  /* End of MATLAB Function Block: '<S10>/MATLAB Function1' */
+
+  /* Sum: '<S10>/Add2' incorporates:
+   *  Inport: '<Root>/tau'
+   */
+  rtb_sincos_o1_m_idx = EKF_U.tau + rtb_fcn2;
+
+  /* Sum: '<S10>/Add' incorporates:
+   *  Constant: '<S10>/Constant'
+   */
+  rtb_Product_d = EKF_P.Constant_Value_j - rtb_sincos_o1_m_idx;
 
   /* MATLAB Function Block: '<S5>/q_matrix' */
 
   /* MATLAB Function 'EKF/QUEST_Pqq/q_matrix': '<S33>:1' */
   /* '<S33>:1:3' */
-  rtb_q_matrix[0] = rtb_Product1;
-  rtb_q_matrix[4] = -rtb_Product_d;
-  rtb_q_matrix[8] = rtb_q;
-  rtb_q_matrix[12] = rtb_a2;
-  rtb_q_matrix[1] = rtb_Product_d;
-  rtb_q_matrix[5] = rtb_Product1;
-  rtb_q_matrix[9] = -rtb_a2;
-  rtb_q_matrix[13] = rtb_q;
-  rtb_q_matrix[2] = -rtb_q;
-  rtb_q_matrix[6] = rtb_a2;
-  rtb_q_matrix[10] = rtb_Product1;
-  rtb_q_matrix[14] = rtb_Product_d;
-  rtb_q_matrix[3] = -rtb_a2;
-  rtb_q_matrix[7] = -rtb_q;
-  rtb_q_matrix[11] = -rtb_Product_d;
-  rtb_q_matrix[15] = rtb_Product1;
+  rtb_q_matrix[0] = rtb_sincos_o1_m_idx_0;
+  rtb_q_matrix[4] = -rtb_Sum1_g;
+  rtb_q_matrix[8] = rtb_a2;
+  rtb_q_matrix[12] = rtb_b2;
+  rtb_q_matrix[1] = rtb_Sum1_g;
+  rtb_q_matrix[5] = rtb_sincos_o1_m_idx_0;
+  rtb_q_matrix[9] = -rtb_b2;
+  rtb_q_matrix[13] = rtb_a2;
+  rtb_q_matrix[2] = -rtb_a2;
+  rtb_q_matrix[6] = rtb_b2;
+  rtb_q_matrix[10] = rtb_sincos_o1_m_idx_0;
+  rtb_q_matrix[14] = rtb_Sum1_g;
+  rtb_q_matrix[3] = -rtb_b2;
+  rtb_q_matrix[7] = -rtb_a2;
+  rtb_q_matrix[11] = -rtb_Sum1_g;
+  rtb_q_matrix[15] = rtb_sincos_o1_m_idx_0;
 
   /* Constant: '<S5>/Constant' */
   rtb_MatrixConcatenate[9] = EKF_P.Constant_Value_n[0];
@@ -2722,17 +2746,31 @@ void EKF_step(void)
   memcpy((void *)&rtb_MatrixConcatenate_i[16], (void *)EKF_P.Rmatrix1_Value_h,
          12U * sizeof(real_T));
 
+  /* End of Outputs for SubSystem: '<S3>/Correction' */
+
+  /* Product: '<S10>/Product1' */
+  rtb_b[0] = rtb_b2;
+  rtb_b[1] = rtb_a2;
+  rtb_b[2] = rtb_Sum1_g;
+  rtb_b[3] = rtb_sincos_o1_m_idx_0;
+
+  /* Outputs for Atomic SubSystem: '<S3>/Correction' */
   /* Product: '<S18>/Product1' incorporates:
+   *  Product: '<S10>/Product'
+   *  Product: '<S10>/Product1'
    *  Product: '<S18>/Product2'
+   *  Sum: '<S10>/Add1'
    *  Sum: '<S18>/Sum'
    */
   for (qY_3 = 0; qY_3 < 4; qY_3++) {
-    rtb_d = 0.0;
+    rtb_sincos_o2_i_idx = 0.0;
     for (r = 0; r < 7; r++) {
-      rtb_d += rtb_MatrixConcatenate_i[(r << 2) + qY_3] * rtb_Memory[r];
+      rtb_sincos_o2_i_idx += rtb_MatrixConcatenate_i[(r << 2) + qY_3] *
+        rtb_Memory[r];
     }
 
-    UnitDelay2_DSTATE_0[qY_3] = UnitDelay2_DSTATE[qY_3] - rtb_d;
+    rtb_Saturation_0[qY_3] = (rtb_Saturation[qY_3] * rtb_Product_d +
+      rtb_sincos_o1_m_idx * rtb_b[qY_3]) - rtb_sincos_o2_i_idx;
   }
 
   /* End of Product: '<S18>/Product1' */
@@ -2741,10 +2779,10 @@ void EKF_step(void)
    *  Product: '<S18>/Product1'
    */
   for (qY_3 = 0; qY_3 < 7; qY_3++) {
-    rtb_Sum1_c[qY_3] = (((rtb_Product1_pl[qY_3 + 7] * UnitDelay2_DSTATE_0[1] +
-                          rtb_Product1_pl[qY_3] * UnitDelay2_DSTATE_0[0]) +
-                         rtb_Product1_pl[qY_3 + 14] * UnitDelay2_DSTATE_0[2]) +
-                        rtb_Product1_pl[qY_3 + 21] * UnitDelay2_DSTATE_0[3]) +
+    rtb_Sum1_c[qY_3] = (((rtb_Product1_pl[qY_3 + 7] * rtb_Saturation_0[1] +
+                          rtb_Product1_pl[qY_3] * rtb_Saturation_0[0]) +
+                         rtb_Product1_pl[qY_3 + 14] * rtb_Saturation_0[2]) +
+                        rtb_Product1_pl[qY_3 + 21] * rtb_Saturation_0[3]) +
       rtb_Memory[qY_3];
   }
 
@@ -2758,44 +2796,50 @@ void EKF_step(void)
    *  Product: '<S39>/Product3'
    *  Sum: '<S39>/Sum'
    */
-  rtb_q = sqrt(((rtb_Sum1_c[3] * rtb_Sum1_c[3] + rtb_Sum1_c[0] * rtb_Sum1_c[0])
-                + rtb_Sum1_c[1] * rtb_Sum1_c[1]) + rtb_Sum1_c[2] * rtb_Sum1_c[2]);
+  rtb_sincos_o1_m_idx = sqrt(((rtb_Sum1_c[3] * rtb_Sum1_c[3] + rtb_Sum1_c[0] *
+    rtb_Sum1_c[0]) + rtb_Sum1_c[1] * rtb_Sum1_c[1]) + rtb_Sum1_c[2] *
+    rtb_Sum1_c[2]);
 
   /* Product: '<S37>/Product' */
-  rtb_Product_d = rtb_Sum1_c[3] / rtb_q;
+  rtb_fcn2 = rtb_Sum1_c[3] / rtb_sincos_o1_m_idx;
 
   /* Product: '<S37>/Product1' */
-  rtb_b2 = rtb_Sum1_c[0] / rtb_q;
+  rtb_Sum1_d_idx = rtb_Sum1_c[0] / rtb_sincos_o1_m_idx;
 
   /* Product: '<S37>/Product2' */
-  rtb_a2 = rtb_Sum1_c[1] / rtb_q;
+  rtb_Product_d = rtb_Sum1_c[1] / rtb_sincos_o1_m_idx;
 
   /* Product: '<S37>/Product3' */
-  rtb_q = rtb_Sum1_c[2] / rtb_q;
+  rtb_sincos_o1_m_idx = rtb_Sum1_c[2] / rtb_sincos_o1_m_idx;
 
   /* Trigonometry: '<S6>/Trigonometric Function1' incorporates:
    *  Fcn: '<S6>/fcn1'
    *  Fcn: '<S6>/fcn2'
    */
-  rtb_Add1[0] = rt_atan2d_snf((rtb_a2 * rtb_q - rtb_Product_d * rtb_b2) * -2.0,
-                              ((rtb_Product_d * rtb_Product_d - rtb_b2 * rtb_b2)
-    - rtb_a2 * rtb_a2) + rtb_q * rtb_q);
+  rtb_Add1[0] = rt_atan2d_snf((rtb_Product_d * rtb_sincos_o1_m_idx - rtb_fcn2 *
+    rtb_Sum1_d_idx) * -2.0, ((rtb_fcn2 * rtb_fcn2 - rtb_Sum1_d_idx *
+    rtb_Sum1_d_idx) - rtb_Product_d * rtb_Product_d) + rtb_sincos_o1_m_idx *
+    rtb_sincos_o1_m_idx);
 
   /* Trigonometry: '<S6>/trigFcn' incorporates:
    *  Fcn: '<S6>/fcn3'
    */
-  rtb_d = (rtb_b2 * rtb_q + rtb_Product_d * rtb_a2) * 2.0;
-  rtb_Add1[1] = asin(rtb_d >= 1.0 ? 1.0 : rtb_d <= -1.0 ? -1.0 : rtb_d);
+  rtb_sincos_o2_i_idx = (rtb_Sum1_d_idx * rtb_sincos_o1_m_idx + rtb_fcn2 *
+    rtb_Product_d) * 2.0;
+  rtb_Add1[1] = asin(rtb_sincos_o2_i_idx >= 1.0 ? 1.0 : rtb_sincos_o2_i_idx <=
+                     -1.0 ? -1.0 : rtb_sincos_o2_i_idx);
 
   /* Fcn: '<S6>/fcn4' */
-  rtb_Product1 = (rtb_b2 * rtb_a2 - rtb_Product_d * rtb_q) * -2.0;
+  rtb_Sum4 = (rtb_Sum1_d_idx * rtb_Product_d - rtb_fcn2 * rtb_sincos_o1_m_idx) *
+    -2.0;
 
   /* Fcn: '<S6>/fcn5' */
-  rtb_Product_d = ((rtb_Product_d * rtb_Product_d + rtb_b2 * rtb_b2) - rtb_a2 *
-                   rtb_a2) - rtb_q * rtb_q;
+  rtb_fcn2 = ((rtb_fcn2 * rtb_fcn2 + rtb_Sum1_d_idx * rtb_Sum1_d_idx) -
+              rtb_Product_d * rtb_Product_d) - rtb_sincos_o1_m_idx *
+    rtb_sincos_o1_m_idx;
 
   /* Trigonometry: '<S6>/Trigonometric Function3' */
-  rtb_Add1[2] = rt_atan2d_snf(rtb_Product1, rtb_Product_d);
+  rtb_Add1[2] = rt_atan2d_snf(rtb_Sum4, rtb_fcn2);
 
   /* Outport: '<Root>/eulero' incorporates:
    *  Gain: '<S2>/Unit Conversion'
@@ -3173,6 +3217,12 @@ void EKF_step(void)
 
   /* Update for Memory: '<S53>/oalt' */
   EKF_DWork.oalt_PreviousInput = rtb_Gain;
+
+  /* Update for Memory: '<S10>/Memory' */
+  EKF_DWork.Memory_PreviousInput_l[0] = rtb_b2;
+  EKF_DWork.Memory_PreviousInput_l[1] = rtb_a2;
+  EKF_DWork.Memory_PreviousInput_l[2] = rtb_Sum1_g;
+  EKF_DWork.Memory_PreviousInput_l[3] = rtb_sincos_o1_m_idx_0;
 }
 
 /* Model initialize function */
@@ -3307,6 +3357,10 @@ void EKF_initialize(void)
   EKF_DWork.olon_PreviousInput = 0.0;
   EKF_DWork.olat_PreviousInput = 0.0;
   EKF_DWork.oalt_PreviousInput = 0.0;
+  EKF_DWork.Memory_PreviousInput_l[0] = 0.0;
+  EKF_DWork.Memory_PreviousInput_l[1] = 0.0;
+  EKF_DWork.Memory_PreviousInput_l[2] = 0.0;
+  EKF_DWork.Memory_PreviousInput_l[3] = 0.0;
 
   {
     int_T i;
@@ -3532,6 +3586,12 @@ void EKF_initialize(void)
 
     /* InitializeConditions for Memory: '<S53>/oalt' */
     EKF_DWork.oalt_PreviousInput = EKF_P.oalt_X0;
+
+    /* InitializeConditions for Memory: '<S10>/Memory' */
+    EKF_DWork.Memory_PreviousInput_l[0] = EKF_P.Memory_X0_b;
+    EKF_DWork.Memory_PreviousInput_l[1] = EKF_P.Memory_X0_b;
+    EKF_DWork.Memory_PreviousInput_l[2] = EKF_P.Memory_X0_b;
+    EKF_DWork.Memory_PreviousInput_l[3] = EKF_P.Memory_X0_b;
   }
 }
 

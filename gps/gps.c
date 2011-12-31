@@ -322,8 +322,7 @@ int getUserPosition(int fd)
 	clearNMEABuffer();
 	clearNMEAStringBuffer();
 			
-	tcflush(fd, TCIFLUSH);
-	tcflow(fd, TCION); 	
+	
 	int result = 0;					
 	nmeaBuffer[NMEA_BUFFER_LENGTH] = '\0';		/*!< termino la stringa con il carattere fine stringa 0x00.
 
@@ -339,6 +338,8 @@ int getUserPosition(int fd)
 		printf("Unable to read NMEA streaming from GPS serial.");
 		return GPS_UNABLE_TO_READ_SERIAL;
 	}	
+	tcflush(fd, TCIFLUSH);
+	tcflow(fd, TCION); 
 	
 	result = searchCompleteNMEAString(&nmeaBuffer[0]);		
 	if (result == GPS_NO_ERRORS)

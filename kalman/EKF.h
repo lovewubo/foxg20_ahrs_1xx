@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'EKF'.
  *
- * Model version                  : 1.474
+ * Model version                  : 1.490
  * Simulink Coder version         : 8.0 (R2011a) 09-Mar-2011
  * TLC version                    : 8.0 (Feb  3 2011)
- * C/C++ source code generated on : Tue Dec 27 14:06:11 2011
+ * C/C++ source code generated on : Sat Dec 31 11:56:09 2011
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 9
@@ -88,6 +88,7 @@ typedef struct {
   real_T olon_PreviousInput;           /* '<S54>/olon' */
   real_T olat_PreviousInput;           /* '<S53>/olat' */
   real_T oalt_PreviousInput;           /* '<S53>/oalt' */
+  real_T Memory_PreviousInput_l[4];    /* '<S10>/Memory' */
   real_T Product2_DWORK4[16];          /* '<S17>/Product2' */
   real_T Product2_DWORK4_k[16];        /* '<S16>/Product2' */
   uint8_T ForIterator_IterationMarker[7];/* '<S57>/For Iterator' */
@@ -394,6 +395,9 @@ struct Parameters_EKF_ {
   real_T u_Gain;                       /* Expression: 0.5
                                         * Referenced by: '<S32>/1//2'
                                         */
+  real_T Memory_X0_b;                  /* Expression: 0
+                                        * Referenced by: '<S10>/Memory'
+                                        */
   real_T Constant_Value_n[3];          /* Expression: zeros(3,1)
                                         * Referenced by: '<S5>/Constant'
                                         */
@@ -670,7 +674,8 @@ extern struct RT_MODEL_EKF *const EKF_M;
  * '<S103>' : ekffede/EKF/WMM-2010/World Magnetic Model 2010/geomag/Rotate magnetic vector components  to geodetic from spherical and  compute declination, inclination  and total intensity/Compute declination, inclination,  and total intensity
  * '<S104>' : ekffede/EKF/WMM-2010/World Magnetic Model 2010/geomag/Rotate magnetic vector components  to geodetic from spherical and  compute declination, inclination  and total intensity/Compute declination, inclination,  and total intensity/Angle Conversion1
  * '<S105>' : ekffede/EKF/WMM-2010/World Magnetic Model 2010/geomag/Rotate magnetic vector components  to geodetic from spherical and  compute declination, inclination  and total intensity/Compute declination, inclination,  and total intensity/Angle Conversion2
- * '<S106>' : ekffede/EKF/complementar_filter/quat_derivative1
+ * '<S106>' : ekffede/EKF/complementar_filter/MATLAB Function1
+ * '<S107>' : ekffede/EKF/complementar_filter/quat_derivative1
  */
 #endif                                 /* RTW_HEADER_EKF_h_ */
 

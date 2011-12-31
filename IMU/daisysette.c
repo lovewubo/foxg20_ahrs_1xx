@@ -142,7 +142,7 @@
 #define SENSIVITY_L3G4200D_500DPS		0.0175F //mdps/digit
 #define SENSIVITY_L3G4200D_2000DPS		0.0700F //mdps/digit	
 
-
+#define TMEDEL 75
 
 #define sensivity_tmp 280 
 
@@ -476,7 +476,7 @@ datasensincomp myupdatesensor(int fd){
 	int mag[3],mag1[3];
 	float magf[3],mag1f[3];
 	//read magneto
-	usleep(60);
+	usleep(TMEDEL);
 	#if(HMC5883L==1)
 		//1
 		read_hmc883l(fd,mag);
@@ -500,7 +500,7 @@ datasensincomp myupdatesensor(int fd){
 		#endif
 	#endif
 
-	usleep(60);
+	usleep(TMEDEL);
 	/******1*****/
 	#if(ITG3200==1)
 		read_itg3200(fd , gyro);
@@ -534,7 +534,7 @@ datasensincomp myupdatesensor(int fd){
 			gyrof[3]=gyrof[3]*SENSIVITY_L3G4200D_2000DPS;
 		#endif
 	#endif
-	usleep(60);
+	usleep(TMEDEL);
 	#if(LIS331DLH==1)
 		read_lis331dlh(fd ,accell);
 		accellf[0]=(float)(accell[0]);
@@ -545,7 +545,7 @@ datasensincomp myupdatesensor(int fd){
 		accellf[2]=accellf[2]/(LIS331DLH_SENSIVITY );
 	#endif
 
-	usleep(60);
+	usleep(TMEDEL);
 	/******2*****/
 	#if(ITG3200==1)
 		read_itg3200(fd , gyro1);
@@ -578,7 +578,7 @@ datasensincomp myupdatesensor(int fd){
 			gyro1f[3]=gyro1f[3]*SENSIVITY_L3G4200D_2000DPS;
 		#endif
 	#endif
-	usleep(60);
+	usleep(TMEDEL);
 	#if(LIS331DLH==1)
 		read_lis331dlh(fd ,accell1);
 		accell1f[0]=(float)(accell1[0]);
@@ -589,7 +589,7 @@ datasensincomp myupdatesensor(int fd){
 		accell1f[2]=accell1f[2]/(LIS331DLH_SENSIVITY );
 	#endif
 
-	usleep(60);
+	usleep(TMEDEL);
 	/******3*****/
 	#if(ITG3200==1)
 		read_itg3200(fd , gyro2);
@@ -622,7 +622,7 @@ datasensincomp myupdatesensor(int fd){
 		#endif
 
 	#endif
-	usleep(60);
+	usleep(TMEDEL);
 	#if(LIS331DLH==1)
 		read_lis331dlh(fd ,accell2);
 		accell2f[0]=(float)(accell2[0]);
@@ -632,7 +632,7 @@ datasensincomp myupdatesensor(int fd){
 		accell2f[1]=accell2f[1]/(LIS331DLH_SENSIVITY );
 		accell2f[2]=accell2f[2]/(LIS331DLH_SENSIVITY );
 	#endif
-	usleep(60);
+	usleep(TMEDEL);
 	
 	//read magneto
 	#if(HMC5883L==1)
@@ -943,7 +943,7 @@ float readaltitude_press(int fd ,int azione)
 		x1 = (p>>8) * (p>>8);
 		x1 = (x1 * 3038)>>16;
 		x2 = (-7357 * p)>>16;
-		printf("1\n");
+		//printf("1\n");
 		p += (x1 + x2 + 3791)>>4;
 		pressione =((float)p)/100;
 		//printf("1 %f  altitudine%f\n",pressione, (float)(44330*(1-pow((pressione/1013.25),(1/5.255)))));

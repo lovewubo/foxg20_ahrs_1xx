@@ -30,8 +30,8 @@
 
 
 int openi2c(void)
-{
-int fd;
+  {
+	int fd;
 	char filename[20];
 	sprintf(filename, "/dev/i2c-0");
 	fd = open(filename, O_RDWR);
@@ -41,27 +41,29 @@ int fd;
 	}
  
 return fd;	
-}
+  }
 
 int closei2c(int fd)
-{
-return close(fd);
-}
+  {
+	return close(fd);
+  }
 
 void setdevicei2c(int fd, char address)
-{
-if (ioctl(fd, I2C_SLAVE, address) < 0) {
+  {
+	if (ioctl(fd, I2C_SLAVE, address) < 0)
+	{
 		printf("Error i2c on slave address\n");
 		//exit(1);
 	}
-}
+  }
 
 void writebytei2c(int fd,char reg, char data)
-{
+ {
 	char buf[2];
 	buf[0] = reg;
 	buf[1] = data;
-	if ((write(fd,buf,2))!=2) {
+	if ((write(fd,buf,2))!=2) 
+	{
 		printf("Error i2c send the read command\n");
 		//exit(1);
 	}
@@ -70,9 +72,9 @@ void writebytei2c(int fd,char reg, char data)
 }
 
 char readbytei2c(int fd, char reg)
-{
-char buf[1];
-buf[0] = reg;
+  {
+	char buf[1];
+	buf[0] = reg;
 	if ((write(fd,buf,1))!=1) {
 		printf("Error i2c on select the High Byte\n");
 		//exit(1);
@@ -82,8 +84,8 @@ buf[0] = reg;
 		printf("Error i2c on read the  High Byte\n");
 		//exit(1);
 	}
-return buf[0];
-}
+	return buf[0];
+  }
 
 
 

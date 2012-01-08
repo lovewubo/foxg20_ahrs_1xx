@@ -1,7 +1,8 @@
 #include"seriallib.h"
 
-int open_serial_port_com(char serial_port[20], long int badu){
-//serial port opening
+int open_serial_port_com(char serial_port[20], long int badu)
+  {
+  //serial port opening
 	int fd;
 	struct termios oldtio, newtio;
   	fd=open(serial_port, O_RDWR | O_NOCTTY | O_NDELAY | O_NONBLOCK);
@@ -34,19 +35,21 @@ int open_serial_port_com(char serial_port[20], long int badu){
 
 	return fd;
 	//end setting serial port
-}
+  } 
 
 
 int serial_send (int fd,data_AHRS_Struct buffer)
 {
-int writed;
-writed=write(fd,(void*)&buffer, sizeof(buffer));
-tcflush(fd,TCIFLUSH);
-//printf("writed %d \n",writed);
-  if(writed==sizeof(buffer))
-     {
-
-	return 1;
+	int writed;
+	writed=write(fd,(void*)&buffer, sizeof(buffer));
+	tcflush(fd,TCIFLUSH);
+	//printf("writed %d \n",writed);
+ 	 if(writed==sizeof(buffer))
+     	{
+		return 1;
 	}
-  else{return 0;}
+ 	 else
+  	{
+		return 0;
+	}
 }

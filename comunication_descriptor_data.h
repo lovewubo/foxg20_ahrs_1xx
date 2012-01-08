@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * @author Federico Lolli <federicololli@hotmail.com>
  * @version 0.1
- * @date 18/12/2010
+ * @date 06/01/2012
  *
  * Ground Station
  * http://www.federicololli.com

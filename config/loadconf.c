@@ -18,7 +18,7 @@
  * @date 21/01/2011
  *
  * Model version                        : 0.1
- * C/C++ source on      	        : 11 03 2011
+ * C/C++ source on      	        : 06 01 2012
  *
  * 
  * 
@@ -49,17 +49,17 @@
     printf("serial port badu: %d\n",(int) loaddata.serial_port_badu);
   if((loaddata.serial_port_badu!=115200)||(loaddata.serial_port_badu!=38400)||(loaddata.serial_port_badu!=19200)||
 		(loaddata.serial_port_badu!=9600)||(loaddata.serial_port_badu!=4800))
-	{
+  {
 	loaddata.serial_port_badu=115200;
-	}
+  }
 
   if(config_lookup_int(&cfg, "badu_gps", &loaddata.badu_gps))
     printf("serial port badu: %d\n",(int) loaddata.badu_gps);
   if((loaddata.badu_gps!=115200)||(loaddata.badu_gps!=38400)||(loaddata.badu_gps!=19200)||
 		(loaddata.badu_gps!=9600)||(loaddata.badu_gps!=4800))
-	{
+  {
 	loaddata.badu_gps=115200;
-	}
+  }
 
   if(config_lookup_string(&cfg, "ip_dest_addrs", &loaddata.ip_dest_addrs))
     printf("ip dest name: %s\n", loaddata.ip_dest_addrs);
@@ -173,10 +173,8 @@
   if(config_lookup_string(&cfg, "gps_port", &loaddata.gps_port))
     printf("gps port: %s\n", loaddata.gps_port);
 
-
   if(config_lookup_float(&cfg, "kalman_delta_time", &loaddata.kalman_delta_time))
     printf("kalman_delta_time: %f\n", loaddata.kalman_delta_time);
-
 
   if(config_lookup_float(&cfg, "q_dot_max_error", &loaddata.q_dot_max_error))
     printf("q_dot_max_error: %f\n", loaddata.q_dot_max_error);
@@ -184,10 +182,8 @@
   if(config_lookup_float(&cfg, "dev_std_accell", &loaddata.dev_std_accell))
     printf("dev_std_accell: %f\n", loaddata.dev_std_accell);
 
-
   if(config_lookup_float(&cfg, "dev_std_mag", &loaddata.dev_std_mag))
     printf("dev_std_mag: %f\n", loaddata.dev_std_mag);
-
 
   if(config_lookup_int(&cfg, "debug_mode", &loaddata.debug_mode))
     printf("debug_mode: %d\n", (int) loaddata.debug_mode);
@@ -196,13 +192,13 @@
     printf("ID: %d\n", (int) loaddata.ID);
 
 
-return loaddata;
+  return loaddata;
 }
 
 
  int save_calibration( load_data_struct data_in)
  {
- static const char *output_file = "config.cfg";
+   static const char *output_file = "config.cfg";
    config_t cfg;
    config_setting_t *root, *setting;
 
@@ -210,14 +206,14 @@ return loaddata;
 
    root = config_root_setting(&cfg);
 
-  setting = config_setting_add(root, "serial_port", CONFIG_TYPE_STRING);
-  config_setting_set_string(setting,  data_in.serial_port);
+   setting = config_setting_add(root, "serial_port", CONFIG_TYPE_STRING);
+   config_setting_set_string(setting,  data_in.serial_port);
    setting = config_setting_add(root, "serial_port_badu", CONFIG_TYPE_INT);
    config_setting_set_int(setting,  data_in.serial_port_badu);
-  setting = config_setting_add(root, "ip_dest_addrs", CONFIG_TYPE_STRING);
-  config_setting_set_string(setting,  data_in.ip_dest_addrs);
-  setting = config_setting_add(root, "ip_local_addrs", CONFIG_TYPE_STRING);
-  config_setting_set_string(setting,  data_in.ip_local_addrs);
+   setting = config_setting_add(root, "ip_dest_addrs", CONFIG_TYPE_STRING);
+   config_setting_set_string(setting,  data_in.ip_dest_addrs);
+   setting = config_setting_add(root, "ip_local_addrs", CONFIG_TYPE_STRING);
+   config_setting_set_string(setting,  data_in.ip_local_addrs);
    setting = config_setting_add(root, "destination_port", CONFIG_TYPE_INT);
    config_setting_set_int(setting,  data_in.destination_port);
    setting = config_setting_add(root, "internal_port", CONFIG_TYPE_INT);
@@ -226,14 +222,14 @@ return loaddata;
    config_setting_set_int(setting,  data_in.imu_type);
    setting = config_setting_add(root, "kalman_enable", CONFIG_TYPE_INT);
    config_setting_set_int(setting,  data_in.kalman_enable);
-  setting = config_setting_add(root, "imu_port", CONFIG_TYPE_STRING);
-  config_setting_set_string(setting,  data_in.imu_port);
+   setting = config_setting_add(root, "imu_port", CONFIG_TYPE_STRING);
+   config_setting_set_string(setting,  data_in.imu_port);
    setting = config_setting_add(root, "update_rel_time", CONFIG_TYPE_INT);
    config_setting_set_int(setting,  data_in.update_rel_time);
    setting = config_setting_add(root, "enable_GPS", CONFIG_TYPE_INT);
    config_setting_set_int(setting,  data_in.enable_GPS);
-  setting = config_setting_add(root, "gps_port", CONFIG_TYPE_STRING);
-  config_setting_set_string(setting,  data_in.gps_port);
+   setting = config_setting_add(root, "gps_port", CONFIG_TYPE_STRING);
+   config_setting_set_string(setting,  data_in.gps_port);
    setting = config_setting_add(root, "badu_gps", CONFIG_TYPE_INT);
    config_setting_set_int(setting,  data_in.badu_gps);
 

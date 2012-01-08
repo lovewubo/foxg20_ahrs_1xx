@@ -18,7 +18,7 @@
  * @date 21/01/2011
  *
  * Model version                        : 0.1
- * C/C++ source on      	        : 11 03 2011
+ * C/C++ source on      	        : 06 01 2012
  *
  * 
  * 
@@ -53,28 +53,28 @@ gain mag
 2=1.9gauss
 3=2.5Gauss
 */
-#define GAIN_MAG 	1	
-#define HMC5883L  	1
-#define BMP085 		1
+#define GAIN_MAG 	 1	
+#define HMC5883L  	 1
+#define BMP085 		 1
 
+#define LIS331DLH 	 1
 
-#define LIS331DLH 	1
+#define ITG3200		 0
 
-#define ITG3200		0
-
-#define L3G4200D	1
-#define L3G4200D_LPF_HZ  1 //1:400hz lpf=50hz 2:400hz lpf=25hz 2:200hz lpf=50hz 3:200hz lpf=25hz
-#define L3G4200D_DPS  	1//1=250dps 2=500dps 3=2000dps
-#define L3G4200D_LPF2  0//secondo filtro low pass 1 attivo 0 disattivato
+#define L3G4200D	 1
+#define L3G4200D_LPF_HZ  1  //1:400hz lpf=50hz 2:400hz lpf=25hz 2:200hz lpf=50hz 3:200hz lpf=25hz
+#define L3G4200D_DPS  	 1  //1=250dps 2=500dps 3=2000dps
+#define L3G4200D_LPF2    0  //secondo filtro low pass 1 attivo 0 disattivato
 #define DegToRadIMU 57.2957795
- struct _bias_dsette
+
+struct _bias_dsette
 {
-int bias_acc_x;
-int bias_acc_y;
-int bias_acc_z;
-int bias_gyro_x;
-int bias_gyro_y;
-int bias_gyro_z;
+	int bias_acc_x;
+	int bias_acc_y;
+	int bias_acc_z;
+	int bias_gyro_x;
+	int bias_gyro_y;
+	int bias_gyro_z;
 };
 typedef _bias_dsette bias_dsette;
 

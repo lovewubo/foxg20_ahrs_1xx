@@ -1,11 +1,13 @@
 18122011_02
-fixed yaw
-add baro use and altitude
+	fixed yaw
+	add baro use and altitude
 28122011
-fixed kalman
-add complementar filter
+	fixed kalman
+	add complementar filter
 29122011
-changed low pass filter
+	changed low pass filter
 31122011
-fixed gps 
-fixed complementar filter
+	fixed gps 
+	fixed complementar filter
+06012012
+	fixed code

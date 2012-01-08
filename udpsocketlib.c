@@ -15,9 +15,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * @author Federico Lolli <federicololli@hotmail.com>
  * @version 0.1
- * @date 18/12/2010
+ * @date 06/01/2012
  *
- * Ground Station
+ * fox_ahrs
  * http://www.federicololli.com
  * 
  *  
@@ -111,8 +111,6 @@ int udp_send (int sk, data_AHRS_Struct buffer, char *ip_address, int port)
 }
 
 
-
-
 data_AHRS_Struct udp_receive (int sk, int *dimr)
 {
   int dim;
@@ -123,7 +121,7 @@ data_AHRS_Struct udp_receive (int sk, int *dimr)
                         (socklen_t *) &len_of_reply_to_socket_address)) < 0)
    {
 	*dimr=dim;
-      //error_handler ("recvfrom() [udp_receive()]");
+        //error_handler ("recvfrom() [udp_receive()]");
          return buffer;
    }
    *dimr=dim;

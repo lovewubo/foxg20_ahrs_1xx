@@ -1,5 +1,5 @@
 /*
- * File: main.c
+ * File: fox_ahrs.c
  * Autor: Federico LOlli
  *  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  * @date 21/01/2011
  *
  * Model version                        : 0.1
- * C/C++ source on      	        : 11 03 2011
+ * C/C++ source on      	        : 06 01 2011
  *
  * 
  * 
@@ -54,11 +54,12 @@
 #include "kalman/EKF.h"              /* Model's header file */
 #include "kalman/EKF_private.h"
 #include "kalman/rtwtypes.h"  
-#include "lpf/lpf0.h"                      /* Model's header file */
+#include "lpf/lpf0.h"                /* Model's header file */
 #include "lpf/rtwtypes.h" 
 /*gps*/
 #include "gps/gps.h"
-#include"seriallib.h"
+
+#include "seriallib.h"
 
 void sighandlersigterm(int sig);
 
@@ -109,7 +110,6 @@ int main(int argc, char *argv[])
   int statusbaro=0; 
   int update_tmp_cnt=0;
   float tmp_altitude=0,altitude=0;
-  //float degtorad=0.017453292;
   /*global data and inizializzation*/
   /*inizialize kalman*/
   /* Initialize model */
@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
   EKF_U.Gyro_Cal[1]=load_data.GYRO20;
   EKF_U.Gyro_Cal[2]=load_data.GYRO30;
 
-  printf("open serial port send \n");
+  printf("open serial port send dtata \n");
   fd_serial_send=open_serial_port_com(serial_port_send,(int)load_data.serial_port_badu);
   if( fd_serial_send<0)
 	{
@@ -173,14 +173,19 @@ int main(int argc, char *argv[])
 	}
 
 
-/*fine inizializzazione kalman*/
+  /*fine inizializzazione kalman*/
+  //structure data
   datasensincomp datasensor;
   /*opendevice esterni*/
   /*apertura i2c*/
-  if((int)load_data.imu_type==1){fd_iduec=openi2c();}
-  if((int)load_data.enable_GPS>0){
+  if((int)load_data.imu_type==1)
+  {
+		fd_iduec=openi2c();
+  }
+  if((int)load_data.enable_GPS>0)
+  {
 	fd_gps= open_gps(gps_port,load_data.badu_gps);
-	}
+  }
  //create soket udp stream
    if ((sk = create_udp_server (ip_local_addrs, (int)load_data.internal_port)) == 0)
    {
@@ -192,10 +197,10 @@ int main(int argc, char *argv[])
   /*collego il segnale di terminazione*/
   signal(SIGTERM,sighandlersigterm);
 
- /*ciclo principale*/
- while (1) {
-	/*global udp*/
-
+ /*main loop*/
+ while (1) 
+  {
+	
 	/*****************time************************/
     	elapTicks = (BeginTimer()-elapTicks_init)/time_divisor_clk;
 	if(elapTicks<=elapTicks_prec)
@@ -221,7 +226,8 @@ int main(int argc, char *argv[])
 		}		
 	}
 	if((int)load_data.enable_GPS==0)
-	{//fake gps		
+	{
+		//fake gps data if not avable		
 		gpsData1.lat=LATITUDINE_FAKE ;
 		gpsData1.lon=LONGITUDINE_FAKE;
 		gpsData1.heigth=ALTITUDINE_FAKE;
@@ -245,9 +251,9 @@ int main(int argc, char *argv[])
 	send.gps=gpsData1.gpsFixQuality;
 	if((int)load_data.debug_mode==1)
 	{
-	printf("lat %f lon %f vel %f  altitude %f \n",send.latitude,send.longitude,send.vel_gps,send.altitudine);
+		printf("lat %f lon %f vel %f  altitude %f \n",send.latitude,send.longitude,send.vel_gps,send.altitudine);
 	}
-	//aggiornamento altitudine
+	//update altitude
 	cnt_baro ++;
 	if(cnt_baro>TMP_PRESS_TIMEOUTCOUNT)
 	{
@@ -259,18 +265,23 @@ int main(int argc, char *argv[])
 			printf("altitude %f \n",altitude);
 		}
 		statusbaro ++;
-		if(statusbaro>3){statusbaro=0;}
-
-		
+		if(statusbaro>3)
+		{
+			statusbaro=0;
+		}
 	}	
-	if(tmp_altitude>-500){altitude=tmp_altitude;}	
+	//update altitude if data is true
+	if(tmp_altitude>-500)
+	{
+		altitude=tmp_altitude;
+	}	
 	send.altitudine=altitude;
 	/******************IMU D7*************************/
 	if((int)load_data.imu_type==1)
 	{
-		//acquisisco dati inerziali da i2c
+		//acquiring inertial data from i2c
 		datasensor = myupdatesensor(fd_iduec);
-		/*aggiorno filtro passabasso*/
+		/*update low pass filter*/
 		lpf0_U.acc_x=datasensor.acc_X[0];
 		lpf0_U.acc_y=datasensor.acc_Y[0];
 		lpf0_U.acc_z=datasensor.acc_Z[0];
@@ -280,9 +291,7 @@ int main(int argc, char *argv[])
 		lpf0_U.mag_x=datasensor.mag_X[0];
 		lpf0_U.mag_y=datasensor.mag_Y[0];
 		lpf0_U.mag_z=datasensor.mag_Z[0];
-		  /* Step the model */
- 		 
-		/*aggiorno filtro passabasso*/
+		 
 		lpf0_U.acc_x1=datasensor.acc_X[1];
 		lpf0_U.acc_y1=datasensor.acc_Y[1];
 		lpf0_U.acc_z1=datasensor.acc_Z[1];
@@ -292,9 +301,7 @@ int main(int argc, char *argv[])
 		lpf0_U.mag_x1=datasensor.mag_X[1];
 		lpf0_U.mag_y1=datasensor.mag_Y[1];
 		lpf0_U.mag_z1=datasensor.mag_Z[1];
-		  /* Step the model */
- 		
-		/*aggiorno filtro passabasso*/
+
 		lpf0_U.acc_x2=datasensor.acc_X[2];
 		lpf0_U.acc_y2=datasensor.acc_Y[2];
 		lpf0_U.acc_z2=datasensor.acc_Z[2];
@@ -304,7 +311,7 @@ int main(int argc, char *argv[])
 		lpf0_U.mag_x2=datasensor.mag_X[2];
 		lpf0_U.mag_y2=datasensor.mag_Y[2];
 		lpf0_U.mag_z2=datasensor.mag_Z[2];
-		  /* Step the model */
+		  /* Step the model lpf*/
  		 lpf0_step();
 			if((int)load_data.debug_mode==1)
 			{
@@ -338,7 +345,6 @@ int main(int argc, char *argv[])
 			EKF_U.mag[0]=lpf0_Y.mag_x_f;
 			EKF_U.mag[1]=lpf0_Y.mag_y_f;
 			EKF_U.mag[2]=lpf0_Y.mag_z_f;
-			//i gyro devono essere trasformati in radianti
 			EKF_U.gyro[0]=lpf0_Y.gyro_x_f;
 			EKF_U.gyro[1]=lpf0_Y.gyro_y_f;
 			EKF_U.gyro[2]=lpf0_Y.gyro_z_f;
@@ -425,21 +431,30 @@ int main(int argc, char *argv[])
 	}
 	if(fd_serial_send>=0){serial_send (fd_serial_send,send);}
 	if(fd_serial_gadget>=0){serial_send (fd_serial_gadget,send);}
-	}//end main loop
+  }//end main loop
 
   /*device close*/
-  //chiudo i device aperti
-  //close udp
+ 
   close_udp_socket (sk);
   EKF_terminate();
   lpf0_terminate();
 
   if((int)load_data.imu_type==1)
-	{closei2c(fd_iduec);}
+  {
+  	closei2c(fd_iduec);
+  }
   if((int)load_data.enable_GPS !=0)
-  	{close_gps(fd_gps);}
-  if(fd_serial_send>=0){close (fd_serial_send);}
-  if(fd_serial_gadget>=0){close (fd_serial_gadget);}
+  {
+	close_gps(fd_gps);
+  }
+  if(fd_serial_send>=0)
+  {
+	close (fd_serial_send);
+  }
+  if(fd_serial_gadget>=0)
+  {
+ 	close (fd_serial_gadget);
+  }
 
   return 0;
 }
@@ -452,11 +467,21 @@ void sighandlersigterm(int sig)
 	EKF_terminate();
 	lpf0_terminate();
 	if((int)load_data.imu_type==1)
-	{closei2c(fd_iduec);}
+	{
+		closei2c(fd_iduec);
+	}
 	if((int)load_data.enable_GPS !=0)
-	{close_gps(fd_gps);}
-	if(fd_serial_send>=0){close (fd_serial_send);}
-	if(fd_serial_gadget>=0){close (fd_serial_gadget);}
+	{
+		close_gps(fd_gps);
+	}
+	if(fd_serial_send>=0)
+	{
+		close (fd_serial_send);
+	}
+	if(fd_serial_gadget>=0)
+	{
+		close (fd_serial_gadget);
+	}
 	exit(1);
 }
 

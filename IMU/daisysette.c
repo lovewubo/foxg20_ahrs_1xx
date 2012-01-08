@@ -18,7 +18,7 @@
  * @date 21/01/2011
  *
  * Model version                        : 0.1
- * C/C++ source on      	        : 11 03 2011
+ * C/C++ source on      	        : 06 01 2011
  *
  * 
  * 
@@ -32,11 +32,11 @@
 #define ITG3200_ADDR 		0x69
 #define ITG3200_POWERM_W 	0x3E
 #define ITG3200_POWERM_NORMAL   0x00
-#define ITG3200_SAMPLE_DIVREG_W 	0x15
+#define ITG3200_SAMPLE_DIVREG_W 0x15
 #define ITG3200_SAMPLE_DIV_50 	0x13	//50HZ
 #define ITG3200_SAMPLE_DIV_100 	0x09	//100HZ
 #define ITG3200_SAMPLE_DIV_400 	0x01	//500HZ
-#define ITG3200_SAMPLE_DIV_1000 	0x00  //1000HZ DEF
+#define ITG3200_SAMPLE_DIV_1000 0x00    //1000HZ DEF
 
 #define ITG3200_TEMP_H 		0x1B
 #define ITG3200_TEMP_L  	0x1C
@@ -47,12 +47,12 @@
 #define ITG3200_GYROZ_H  	0x21
 #define ITG3200_GYROZ_L  	0x22
 #define ITG3200_DLPF_W 		0x16  //set filter
-#define ITG3200_DLPF_5HZ	0x1E //5hz cut filter
+#define ITG3200_DLPF_5HZ	0x1E  //5hz cut filter
 
-#define ITG3200_SENSIVITY 15.0//lsb/deg/sec
+#define ITG3200_SENSIVITY 	15.0  //lsb/deg/sec
 
 //LIS331DLH
-#define LIS331DLH_ADDR 	0x18 //alternative address
+#define LIS331DLH_ADDR 	0x18 	       //alternative address
 //#define LIS331DLH_ADDR 		0x19
 #define LIS331DLH_REG1 		0x20
 //set data acq vel
@@ -68,7 +68,7 @@
 #define LIS331DLH_ACCZ_H  	0x2D
 #define LIS331DLH_ACCZ_L  	0x2C
 
-#define LIS331DLH_SENSIVITY 1733.0 	//mg 1000count g
+#define LIS331DLH_SENSIVITY 	1733.0 	//mg 1000count g
 
 //Magnetometro HMC883L
 #define HMC5883L_ADDR 		0x1E
@@ -82,12 +82,12 @@
 #define HMC5883L_MAGY_H		0x07
 #define HMC5883L_MAGY_L		0x08
 //settaggi
-#define HMC5883L_REGA_CONF 		0x78  //data output continuos 75hz media 8 valori
+#define HMC5883L_REGA_CONF 			0x78  //data output continuos 75hz media 8 valori
 #define HMC5883L_REGB_CONF_1_3GA 		0x20  //data output 1.3Ga
 #define HMC5883L_REGB_CONF_1_9GA 		0x40  //data output 1.9Ga
 #define HMC5883L_REGB_CONF_2_5GA 		0x60  //data output 2.5Ga
 
-#define HMC5883L_REG_MODE_CONF 		0x00  //data output continuos measurement mode
+#define HMC5883L_REG_MODE_CONF 			0x00  //data output continuos measurement mode
 
 //sensibilità
 #define sensivity_LSB_Gauss_1_3		1090
@@ -142,13 +142,14 @@
 #define SENSIVITY_L3G4200D_500DPS		0.0175F //mdps/digit
 #define SENSIVITY_L3G4200D_2000DPS		0.0700F //mdps/digit	
 
-#define TMEDEL 75
+#define TMEDEL 85
 
 #define sensivity_tmp 280 
 
 //BMP085
 #define BMP085_ADDRESS 0x77  // I2C address of BMP085
-//variabili sensore di pressione
+
+//pressure sensor global variable
 const unsigned char OSS = 0;  // Oversampling Setting
 static int ac1;
 static int ac2; 
@@ -170,16 +171,15 @@ int sensivity1g_acc_cal=17000; //1000 =1g for calibration
 
 int calibration_sample =50;
 static int debug_mode_d7=0;
-//float rad_to_deg=57.2957795130823;
 
 
 void set_d7_debug_mode(int mode)
-	{
+ {
 	debug_mode_d7=mode;
-	}
+ }
 
 void set_d7_initialize(int fd)
-	{
+  {
 	unsigned char buf;
 	int temp;
 	//set gyro
@@ -306,10 +306,10 @@ void set_d7_initialize(int fd)
 	printf("ac1 %d ac2 %d , ac3 %d , ac4 %d , ac5 %d ,ac6 %d ,b1 %d , b2 %d , mb %d ,mc %d , md %d , b5 %d",ac1,ac2,ac3,ac4,ac5,ac6,b1,b2,mb,mc,md,b5);
 
 	#endif
-	}
+ }
 
 int read_l3g4200d(int fd, int *gyro)
-{
+ {
 	unsigned char buf;
 	int temp,X,Y,Z;
 
@@ -346,9 +346,9 @@ int read_l3g4200d(int fd, int *gyro)
 	gyro[2]=Y;
 	gyro[3]=Z;
 	return 1;
-}
+ }
 int read_itg3200(int fd, int *gyro)
-{
+ {
 	unsigned char buf;
 	int temp,X,Y,Z;
 	setdevicei2c(fd, ITG3200_ADDR);
@@ -385,12 +385,11 @@ int read_itg3200(int fd, int *gyro)
 	gyro[2]=Y;
 	gyro[3]=Z;
 	return 1;
-}
+ }
 
 
-int read_lis331dlh(int fd,int *accell){
-
-
+int read_lis331dlh(int fd,int *accell)
+ {
 	setdevicei2c(fd, LIS331DLH_ADDR );
 	//writebytei2c(fd,LIS331DLH_REG1,LIS331DLH_REG1_50);
 	char buf=0x00;
@@ -422,13 +421,11 @@ int read_lis331dlh(int fd,int *accell){
 	accell[2]=Zacc;
 	return 1;
 
-
 }
 
 
-int read_hmc883l(int fd,int *mag){
-
-
+int read_hmc883l(int fd,int *mag)
+ {
 	setdevicei2c(fd, HMC5883L_ADDR  );
 
 	char buf=0x00;
@@ -460,10 +457,7 @@ int read_hmc883l(int fd,int *mag){
 	mag[2]=Zmag;
 	return 1;
 
-}
-
-
-
+ }
 
 datasensincomp myupdatesensor(int fd){
 	datasensincomp temps;
@@ -726,123 +720,121 @@ datasensincomp myupdatesensor(int fd){
 
 float * self_calibrate_gyro_d7(int fd)
  {
- int gyro[4];
- long int gyrosum[4];
- gyrosum[1]=0;
- gyrosum[2]=0;
- gyrosum[3]=0;
- float gyrof[4];
-  int i;
- int div=1;
- bias_dsette ret;
- for(i=1;i<=calibration_sample;i++)
-	{
-	 memset(&gyro,0,sizeof(gyro));
-		#if(ITG3200==1)
-			read_itg3200(fd , gyro);
-		#endif
-		#if(L3G4200D==1)
-			read_l3g4200d(fd , gyro);
-		#endif
-	gyrosum[1]=gyrosum[1]+gyro[1];
-	gyrosum[2]=gyrosum[2]+gyro[2];
-	gyrosum[3]=gyrosum[3]+gyro[3];
-	div=i;
-	}
- gyrof[1]=((float)gyrosum[1])/div;
- gyrof[2]=((float)gyrosum[2])/div;
- gyrof[3]=((float)gyrosum[3])/div;
- printf("debug bias calibration gyrox %f gyroy%f gyroz %f \n",gyrof[1],gyrof[2],gyrof[3]);
- return gyrof;
+	 int gyro[4];
+	 long int gyrosum[4];
+	 gyrosum[1]=0;
+	 gyrosum[2]=0;
+	 gyrosum[3]=0;
+	 float gyrof[4];
+	 int i;
+	 int div=1;
+	 bias_dsette ret;
+	 for(i=1;i<=calibration_sample;i++)
+	 {
+		 memset(&gyro,0,sizeof(gyro));
+			#if(ITG3200==1)
+				read_itg3200(fd , gyro);
+			#endif
+			#if(L3G4200D==1)
+				read_l3g4200d(fd , gyro);
+			#endif
+		gyrosum[1]=gyrosum[1]+gyro[1];
+		gyrosum[2]=gyrosum[2]+gyro[2];
+		gyrosum[3]=gyrosum[3]+gyro[3];
+		div=i;
+	 }
+	 gyrof[1]=((float)gyrosum[1])/div;
+	 gyrof[2]=((float)gyrosum[2])/div;
+	 gyrof[3]=((float)gyrosum[3])/div;
+	 printf("debug bias calibration gyrox %f gyroy%f gyroz %f \n",gyrof[1],gyrof[2],gyrof[3]);
+ 	return gyrof;
 }
-
-
 
 
 float* self_collect_accel_sample(int fd)
  {
- int accell[3];
- float accellsum[3];
- float accell2f[3];
- accellsum[1]=0;
- accellsum[2]=0;
- accellsum[0]=0;
- int i;
- int div=1;
- for(i=1;i<=calibration_sample;i++)
+	 int accell[3];
+	 float accellsum[3];
+	 float accell2f[3];
+	 accellsum[1]=0;
+	 accellsum[2]=0;
+	 accellsum[0]=0;
+	 int i;
+	 int div=1;
+	 for(i=1;i<=calibration_sample;i++)
 	{
-	memset(&accell,0,sizeof(accell));
-	#if(LIS331DLH==1)
-		read_lis331dlh(fd ,accell);
-	#endif
-	accell2f[0]=(float)(accell[0]);
-	accell2f[1]=(float)(accell[1]);
-	accell2f[2]=(float)(accell[2]);
-	accell2f[0]=accell2f[0]/(LIS331DLH_SENSIVITY );
-	accell2f[1]=accell2f[1]/(LIS331DLH_SENSIVITY );
-	accell2f[2]=accell2f[2]/(LIS331DLH_SENSIVITY );
-	accellsum[0]=accellsum[0]+accell2f[0];
-	accellsum[2]=accellsum[2]+accell2f[2];
-	accellsum[1]=accellsum[1]+accell2f[1];
-    div=i;
+		memset(&accell,0,sizeof(accell));
+		#if(LIS331DLH==1)
+			read_lis331dlh(fd ,accell);
+		#endif
+		accell2f[0]=(float)(accell[0]);
+		accell2f[1]=(float)(accell[1]);
+		accell2f[2]=(float)(accell[2]);
+		accell2f[0]=accell2f[0]/(LIS331DLH_SENSIVITY );
+		accell2f[1]=accell2f[1]/(LIS331DLH_SENSIVITY );
+		accell2f[2]=accell2f[2]/(LIS331DLH_SENSIVITY );
+		accellsum[0]=accellsum[0]+accell2f[0];
+		accellsum[2]=accellsum[2]+accell2f[2];
+		accellsum[1]=accellsum[1]+accell2f[1];
+	    	div=i;
 	}
 
- accell2f[0]=accellsum[0]/div;
- accell2f[1]=accellsum[1]/div;
- accell2f[2]=accellsum[2]/div;
+	 accell2f[0]=accellsum[0]/div;
+	 accell2f[1]=accellsum[1]/div;
+	 accell2f[2]=accellsum[2]/div;
 
- printf("debug collected acceleration data accx %f accy %f accz %f \n",accell2f[0],accell2f[1],accell2f[2] );
- return accell2f;
+	 printf("debug collected acceleration data accx %f accy %f accz %f \n",accell2f[0],accell2f[1],accell2f[2] );
+	 return accell2f;
 }
 
 
 float* self_collect_mag_sample(int fd)
  {
- int mag[3];
- float magsum[3];
- float magf[3];
- magsum[1]=0;
- magsum[2]=0;
- magsum[0]=0;
- int i;
- int div=1;
- for(i=1;i<=calibration_sample;i++)
+	 int mag[3];
+	 float magsum[3];
+	 float magf[3];
+	 magsum[1]=0;
+	 magsum[2]=0;
+	 magsum[0]=0;
+	 int i;
+	 int div=1;
+	 for(i=1;i<=calibration_sample;i++)
 	{
-	memset(&mag,0,sizeof(mag));
-	#if(HMC5883L==1)
-		read_hmc883l(fd,mag);
-		magf[0]=(float)(mag[0]);
-		magf[1]=(float)(mag[1]);
-		magf[2]=(float)(mag[2]);
-		#if(GAIN_MAG==1)
-			magf[0]=magf[0]/sensivity_LSB_Gauss_1_3;
-			magf[1]=magf[1]/sensivity_LSB_Gauss_1_3;
-			magf[2]=-magf[2]/sensivity_LSB_Gauss_1_3;
+		memset(&mag,0,sizeof(mag));
+		#if(HMC5883L==1)
+			read_hmc883l(fd,mag);
+			magf[0]=(float)(mag[0]);
+			magf[1]=(float)(mag[1]);
+			magf[2]=(float)(mag[2]);
+			#if(GAIN_MAG==1)
+				magf[0]=magf[0]/sensivity_LSB_Gauss_1_3;
+				magf[1]=magf[1]/sensivity_LSB_Gauss_1_3;
+				magf[2]=-magf[2]/sensivity_LSB_Gauss_1_3;
+			#endif
+			#if(GAIN_MAG==2)
+				magf[0]=magf[0]/sensivity_LSB_Gauss_1_9;
+				magf[1]=magf[1]/sensivity_LSB_Gauss_1_9;
+				magf[2]=-magf[2]/sensivity_LSB_Gauss_1_9;
+			#endif
+			#if(GAIN_MAG==3)
+				magf[0]=magf[0]/sensivity_LSB_Gauss_2_5;
+				magf[1]=magf[1]/sensivity_LSB_Gauss_2_5;
+				magf[2]=-magf[2]/sensivity_LSB_Gauss_2_5;
+			#endif
 		#endif
-		#if(GAIN_MAG==2)
-			magf[0]=magf[0]/sensivity_LSB_Gauss_1_9;
-			magf[1]=magf[1]/sensivity_LSB_Gauss_1_9;
-			magf[2]=-magf[2]/sensivity_LSB_Gauss_1_9;
-		#endif
-		#if(GAIN_MAG==3)
-			magf[0]=magf[0]/sensivity_LSB_Gauss_2_5;
-			magf[1]=magf[1]/sensivity_LSB_Gauss_2_5;
-			magf[2]=-magf[2]/sensivity_LSB_Gauss_2_5;
-		#endif
-	#endif
 
-	magsum[0]=magsum[0]+magf[0];
-	magsum[2]=magsum[2]+magf[2];
-	magsum[1]=magsum[1]+magf[1];
-    div=i;
+		magsum[0]=magsum[0]+magf[0];
+		magsum[2]=magsum[2]+magf[2];
+		magsum[1]=magsum[1]+magf[1];
+	    	div=i;
 	}
 
- magf[0]=magsum[0]/div;
- magf[1]=magsum[1]/div;
- magf[2]=magsum[2]/div;
+	 magf[0]=magsum[0]/div;
+	 magf[1]=magsum[1]/div;
+	 magf[2]=magsum[2]/div;
 
- printf("debug collected mgnetic data magx %f magy %f magz %f \n",magf[0],magf[1],magf[2] );
- return magf;
+	 printf("debug collected mgnetic data magx %f magy %f magz %f \n",magf[0],magf[1],magf[2] );
+	 return magf;
 }
 
 int readtemp(int fd)
@@ -867,8 +859,6 @@ return temp/sensivity_tmp;
 
 float readaltitude_press(int fd ,int azione)
 {
-	
-
 	short temperature;
 	long x1, x2, x3, b3, b6, p;
 	unsigned long b4, b7;

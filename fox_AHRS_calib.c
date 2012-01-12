@@ -162,7 +162,7 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w1[1]=w1[1]/div;
 	calibrazione_acc_mag0_U.w1[2]=w1[2]/div;
 	calibrazione_acc_mag0_U.w1[3]=1;
-
+	printf("w1 %f  , %f , %f , %f \n",calibrazione_acc_mag0_U.w1[0],calibrazione_acc_mag0_U.w1[1],calibrazione_acc_mag0_U.w1[2],calibrazione_acc_mag0_U.w1[3]);
 	//acquisico accelerometri nella posizione basso
 	printf("Place the sensor down\n");
 	sleep(10);
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w2[1]=w2[1]/div;
 	calibrazione_acc_mag0_U.w2[2]=w2[2]/div;
 	calibrazione_acc_mag0_U.w2[3]=1;
-	
+	printf("w2 %f  , %f , %f , %f \n",calibrazione_acc_mag0_U.w2[0],calibrazione_acc_mag0_U.w2[1],calibrazione_acc_mag0_U.w2[2],calibrazione_acc_mag0_U.w2[3]);	
 	//acquisico accelerometri nella posizione lato-destro
 	printf("Place the sensor right\n");
 	sleep(10);
@@ -218,6 +218,7 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w3[1]=w3[1]/div;
 	calibrazione_acc_mag0_U.w3[2]=w3[2]/div;
 	calibrazione_acc_mag0_U.w3[3]=1;
+	printf("w3 %f  , %f , %f , %f \n",calibrazione_acc_mag0_U.w3[0],calibrazione_acc_mag0_U.w3[1],calibrazione_acc_mag0_U.w3[2],calibrazione_acc_mag0_U.w3[3]);	
 	//acquisico accelerometri nella posizione lato-sinitro
 	printf("Place the sensor left\n");
 	sleep(10);
@@ -245,6 +246,7 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w4[1]=w4[1]/div;
 	calibrazione_acc_mag0_U.w4[2]=w4[2]/div;
 	calibrazione_acc_mag0_U.w4[3]=1;
+	printf("w4 %f  , %f , %f , %f \n",calibrazione_acc_mag0_U.w4[0],calibrazione_acc_mag0_U.w4[1],calibrazione_acc_mag0_U.w4[2],calibrazione_acc_mag0_U.w4[3]);
 	//acquisico accelerometri nella posizione lato-avanti
 	printf("Place the sensor forward\n");
 	sleep(10);
@@ -272,6 +274,7 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w5[1]=w5[1]/div;
 	calibrazione_acc_mag0_U.w5[2]=w5[2]/div;
 	calibrazione_acc_mag0_U.w5[3]=1;
+	printf("w5 %f  , %f , %f , %f \n",calibrazione_acc_mag0_U.w5[0],calibrazione_acc_mag0_U.w5[1],calibrazione_acc_mag0_U.w5[2],calibrazione_acc_mag0_U.w5[3]);
 	//acquisico accelerometri nella posizione lato-indietro
 	printf("Place the sensor back\n");
 	sleep(10);
@@ -299,7 +302,7 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w6[1]=w6[1]/div;
 	calibrazione_acc_mag0_U.w6[2]=w6[2]/div;
 	calibrazione_acc_mag0_U.w6[3]=1;
-
+	printf("w6 %f  , %f , %f , %f \n",calibrazione_acc_mag0_U.w6[0],calibrazione_acc_mag0_U.w6[1],calibrazione_acc_mag0_U.w6[2],calibrazione_acc_mag0_U.w6[3]);
 	//acquisico posizione magnetometri mentre faccio ruotare su un piano
 	printf("Place the sensor up and turn on itself\n");
 	sleep(10);

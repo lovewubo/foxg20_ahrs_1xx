@@ -137,7 +137,12 @@ int main(int argc, char *argv[])
 
 	//acquisico accelerometri nella posizione top
 	printf("Place the sensor up\n");
-	sleep(5);
+	sleep(10);
+	dimensione=sizeof(recive);
+	while(dimensione==sizeof(recive))
+	{
+  		recive= udp_receive (sk, &dimensione);
+	}
 	for( i=0; i<num_cal_sample;i++)
 	{
 		while(dimensione!=sizeof(recive))
@@ -160,7 +165,12 @@ int main(int argc, char *argv[])
 
 	//acquisico accelerometri nella posizione basso
 	printf("Place the sensor down\n");
-	sleep(5);
+	sleep(10);
+	dimensione=sizeof(recive);
+	while(dimensione==sizeof(recive))
+	{
+  		recive= udp_receive (sk, &dimensione);
+	}
 	for( i=0; i<num_cal_sample;i++)
 	{
 		while(dimensione!=sizeof(recive))
@@ -183,7 +193,12 @@ int main(int argc, char *argv[])
 	
 	//acquisico accelerometri nella posizione lato-destro
 	printf("Place the sensor right\n");
-	sleep(5);
+	sleep(10);
+	dimensione=sizeof(recive);
+	while(dimensione==sizeof(recive))
+	{
+  		recive= udp_receive (sk, &dimensione);
+	}
 	for( i=0; i<num_cal_sample;i++)
 	{
 		while(dimensione!=sizeof(recive))
@@ -205,7 +220,12 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w3[3]=1;
 	//acquisico accelerometri nella posizione lato-sinitro
 	printf("Place the sensor left\n");
-	sleep(5);
+	sleep(10);
+	dimensione=sizeof(recive);
+	while(dimensione==sizeof(recive))
+	{
+  		recive= udp_receive (sk, &dimensione);
+	}
 	for( i=0; i<num_cal_sample;i++)
 	{
 		while(dimensione!=sizeof(recive))
@@ -227,7 +247,12 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w4[3]=1;
 	//acquisico accelerometri nella posizione lato-avanti
 	printf("Place the sensor forward\n");
-	sleep(5);
+	sleep(10);
+	dimensione=sizeof(recive);
+	while(dimensione==sizeof(recive))
+	{
+  		recive= udp_receive (sk, &dimensione);
+	}
 	for( i=0; i<num_cal_sample;i++)
 	{
 		while(dimensione!=sizeof(recive))
@@ -249,7 +274,12 @@ int main(int argc, char *argv[])
 	calibrazione_acc_mag0_U.w5[3]=1;
 	//acquisico accelerometri nella posizione lato-indietro
 	printf("Place the sensor back\n");
-	sleep(5);
+	sleep(10);
+	dimensione=sizeof(recive);
+	while(dimensione==sizeof(recive))
+	{
+  		recive= udp_receive (sk, &dimensione);
+	}
 	for( i=0; i<num_cal_sample;i++)
 	{
 		while(dimensione!=sizeof(recive))
@@ -272,7 +302,12 @@ int main(int argc, char *argv[])
 
 	//acquisico posizione magnetometri mentre faccio ruotare su un piano
 	printf("Place the sensor up and turn on itself\n");
-	sleep(5);
+	sleep(10);
+	dimensione=sizeof(recive);
+	while(dimensione==sizeof(recive))
+	{
+  		recive= udp_receive (sk, &dimensione);
+	}
 	for( i=0; i<num_cal_sample_mag;i++)
 	{
 		while(dimensione!=sizeof(recive))

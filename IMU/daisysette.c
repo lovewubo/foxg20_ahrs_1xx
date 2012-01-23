@@ -142,7 +142,7 @@
 #define SENSIVITY_L3G4200D_500DPS		0.0175F //mdps/digit
 #define SENSIVITY_L3G4200D_2000DPS		0.0700F //mdps/digit	
 
-#define TMEDEL 85
+#define TMEDEL 100
 
 #define sensivity_tmp 280 
 

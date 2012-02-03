@@ -19,7 +19,10 @@ CHART_SRCS 	= \
      c15_EKF.c\
      c16_EKF.c\
      c17_EKF.c\
-     c18_EKF.c
+     c18_EKF.c\
+     c19_EKF.c\
+     c20_EKF.c\
+     c21_EKF.c
 MACHINE_SRC	= EKF_sfun.c
 MACHINE_REG = EKF_sfun_registry.c
 MEX_WRAPPER =

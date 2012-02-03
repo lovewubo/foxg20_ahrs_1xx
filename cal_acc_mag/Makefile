@@ -1,6 +1,6 @@
 #CC=arm-linux-gnueabi-g++
 CC=g++
-CFLAGS=-I. -Wall
+CFLAGS=-I. -Wall -O2
 LFLAGS=-lrt
 
 OBJSTATIC = calibrazione_acc_mag0_data.o calibrazione_acc_mag0.o rtGetInf.o rtGetNaN.o rt_nonfinite.o

@@ -13,6 +13,9 @@
 #include "c16_EKF.h"
 #include "c17_EKF.h"
 #include "c18_EKF.h"
+#include "c19_EKF.h"
+#include "c20_EKF.h"
+#include "c21_EKF.h"
 
 /* Type Definitions */
 
@@ -99,6 +102,21 @@ unsigned int sf_EKF_method_dispatcher(SimStruct *simstructPtr, unsigned int
     return 1;
   }
 
+  if (chartFileNumber==19) {
+    c19_EKF_method_dispatcher(simstructPtr, method, data);
+    return 1;
+  }
+
+  if (chartFileNumber==20) {
+    c20_EKF_method_dispatcher(simstructPtr, method, data);
+    return 1;
+  }
+
+  if (chartFileNumber==21) {
+    c21_EKF_method_dispatcher(simstructPtr, method, data);
+    return 1;
+  }
+
   return 0;
 }
 
@@ -132,10 +150,10 @@ unsigned int sf_EKF_process_check_sum_call( int nlhs, mxArray * plhs[], int nrhs
       ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(0U);
       ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(0U);
     } else if (!strcmp(commandName,"makefile")) {
-      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1310696787U);
-      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1717982952U);
-      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2797991598U);
-      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1868415785U);
+      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2685937386U);
+      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(662323119U);
+      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1946306434U);
+      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1409515433U);
     } else if (nrhs==3 && !strcmp(commandName,"chart")) {
       unsigned int chartFileNumber;
       chartFileNumber = (unsigned int)mxGetScalar(prhs[2]);
@@ -224,6 +242,27 @@ unsigned int sf_EKF_process_check_sum_call( int nlhs, mxArray * plhs[], int nrhs
           break;
         }
 
+       case 19:
+        {
+          extern void sf_c19_EKF_get_check_sum(mxArray *plhs[]);
+          sf_c19_EKF_get_check_sum(plhs);
+          break;
+        }
+
+       case 20:
+        {
+          extern void sf_c20_EKF_get_check_sum(mxArray *plhs[]);
+          sf_c20_EKF_get_check_sum(plhs);
+          break;
+        }
+
+       case 21:
+        {
+          extern void sf_c21_EKF_get_check_sum(mxArray *plhs[]);
+          sf_c21_EKF_get_check_sum(plhs);
+          break;
+        }
+
        default:
         ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(0.0);
         ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(0.0);
@@ -239,10 +278,10 @@ unsigned int sf_EKF_process_check_sum_call( int nlhs, mxArray * plhs[], int nrhs
       return 0;
     }
   } else {
-    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(41900616U);
-    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2755841632U);
-    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(228922503U);
-    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2242958367U);
+    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(4193017755U);
+    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2107433802U);
+    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1371119161U);
+    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(719535932U);
   }
 
   return 1;
@@ -356,6 +395,27 @@ unsigned int sf_EKF_autoinheritance_info( int nlhs, mxArray * plhs[], int nrhs,
       {
         extern mxArray *sf_c18_EKF_get_autoinheritance_info(void);
         plhs[0] = sf_c18_EKF_get_autoinheritance_info();
+        break;
+      }
+
+     case 19:
+      {
+        extern mxArray *sf_c19_EKF_get_autoinheritance_info(void);
+        plhs[0] = sf_c19_EKF_get_autoinheritance_info();
+        break;
+      }
+
+     case 20:
+      {
+        extern mxArray *sf_c20_EKF_get_autoinheritance_info(void);
+        plhs[0] = sf_c20_EKF_get_autoinheritance_info();
+        break;
+      }
+
+     case 21:
+      {
+        extern mxArray *sf_c21_EKF_get_autoinheritance_info(void);
+        plhs[0] = sf_c21_EKF_get_autoinheritance_info();
         break;
       }
 
@@ -514,6 +574,36 @@ unsigned int sf_EKF_get_eml_resolved_functions_info( int nlhs, mxArray * plhs[],
         break;
       }
 
+     case 19:
+      {
+        extern const mxArray *sf_c19_EKF_get_eml_resolved_functions_info(void);
+        mxArray *persistentMxArray = (mxArray *)
+          sf_c19_EKF_get_eml_resolved_functions_info();
+        plhs[0] = mxDuplicateArray(persistentMxArray);
+        mxDestroyArray(persistentMxArray);
+        break;
+      }
+
+     case 20:
+      {
+        extern const mxArray *sf_c20_EKF_get_eml_resolved_functions_info(void);
+        mxArray *persistentMxArray = (mxArray *)
+          sf_c20_EKF_get_eml_resolved_functions_info();
+        plhs[0] = mxDuplicateArray(persistentMxArray);
+        mxDestroyArray(persistentMxArray);
+        break;
+      }
+
+     case 21:
+      {
+        extern const mxArray *sf_c21_EKF_get_eml_resolved_functions_info(void);
+        mxArray *persistentMxArray = (mxArray *)
+          sf_c21_EKF_get_eml_resolved_functions_info();
+        plhs[0] = mxDuplicateArray(persistentMxArray);
+        mxDestroyArray(persistentMxArray);
+        break;
+      }
+
      default:
       plhs[0] = mxCreateDoubleMatrix(0,0,mxREAL);
     }
@@ -531,7 +621,7 @@ unsigned int sf_EKF_get_eml_resolved_functions_info( int nlhs, mxArray * plhs[],
 
 void EKF_debug_initialize(void)
 {
-  _EKFMachineNumber_ = sf_debug_initialize_machine("EKF","sfun",0,12,0,0,0);
+  _EKFMachineNumber_ = sf_debug_initialize_machine("EKF","sfun",0,15,0,0,0);
   sf_debug_set_machine_event_thresholds(_EKFMachineNumber_,0,0);
   sf_debug_set_machine_data_thresholds(_EKFMachineNumber_,0);
 }

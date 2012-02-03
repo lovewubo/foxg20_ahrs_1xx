@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.36"
+    ComputedModelVersion    "1.37"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -37,9 +37,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Fede"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Dec 29 20:51:07 2011"
-  RTWModifiedTimeStamp	  247092658
-  ModelVersionFormat	  "1.%<AutoIncrement:36>"
+  LastModifiedDate	  "Fri Feb 03 19:28:19 2012"
+  RTWModifiedTimeStamp	  250198092
+  ModelVersionFormat	  "1.%<AutoIncrement:37>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -76,6 +76,7 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "lpf"
+    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -402,7 +403,7 @@ Model {
 	  $ObjectID		  11
 	  Version		  "1.11.0"
 	  SystemTargetFile	  "ert.tlc"
-	  GenCodeOnly		  off
+	  GenCodeOnly		  on
 	  MakeCommand		  "make_rtw"
 	  GenerateMakefile	  on
 	  TemplateMakefile	  "ert_default_tmf"
@@ -611,7 +612,7 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Solver"
+      CurrentDlgPage	      "Code Generation"
       ConfigPrmDlgPosition     [ 243, 69, 1123, 699 ] 
     }
     PropName		    "ConfigurationSets"

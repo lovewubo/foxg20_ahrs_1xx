@@ -25,7 +25,10 @@ CHART_SRCS 	= \
      c15_ekffede.c\
      c16_ekffede.c\
      c17_ekffede.c\
-     c18_ekffede.c
+     c18_ekffede.c\
+     c19_ekffede.c\
+     c20_ekffede.c\
+     c21_ekffede.c
 MACHINE_SRC	= ekffede_sfun.c
 MACHINE_REG = ekffede_sfun_registry.c
 MEX_WRAPPER =

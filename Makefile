@@ -8,7 +8,7 @@ OBJSTATICGPS=gps/gps.o gps/nmeap01.o
 OBJSTATICONFIG= config/loadconf.o
 OBJSTATICCALACCMAG=cal_acc_mag/calibrazione_acc_mag0_data.o cal_acc_mag/calibrazione_acc_mag0.o cal_acc_mag/rtGetInf.o cal_acc_mag/rtGetNaN.o cal_acc_mag/rt_nonfinite.o
 OBJSTATICLPF=lpf/lpf0_data.o lpf/lpf0.o
-CFLAGS =-I. -g -Wall -Wunused -lm -lncurses -lconfig++
+CFLAGS =-I. -g -Wall -Wunused -lm -lncurses -lconfig++ -O2
 
 SUBDIRS = 	IMU \
 		lpf \

@@ -8,17 +8,6 @@
 
 /* Type Definitions */
 typedef struct {
-  const char * context;
-  const char * name;
-  const char * dominantType;
-  const char * resolved;
-  uint32_T fileTimeLo;
-  uint32_T fileTimeHi;
-  uint32_T mFileTimeLo;
-  uint32_T mFileTimeHi;
-} c17_ResolvedFunctionInfo;
-
-typedef struct {
   SimStruct *S;
   int32_T c17_sfEvent;
   uint32_T chartNumber;

@@ -1,6 +1,6 @@
 #CC=arm-linux-gnueabi-g++
 CC=g++
-CFLAGS=-I. -Wall
+CFLAGS=-I. -Wall -O2
 LFLAGS=-lrt
 
 OBJSTATIC = loadconf.o

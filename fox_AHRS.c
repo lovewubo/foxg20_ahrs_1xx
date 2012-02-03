@@ -109,6 +109,7 @@ int main(int argc, char *argv[])
   int cnt_baro=0;
   int statusbaro=0; 
   int update_tmp_cnt=0;
+  long int cnt_WMM=0;
   float tmp_altitude=0,altitude=0;
   /*global data and inizializzation*/
   /*inizialize kalman*/
@@ -158,6 +159,7 @@ int main(int argc, char *argv[])
   EKF_U.Gyro_Cal[0]=load_data.GYRO10;
   EKF_U.Gyro_Cal[1]=load_data.GYRO20;
   EKF_U.Gyro_Cal[2]=load_data.GYRO30;
+  EKF_U.trig=1;
 
   printf("open serial port send dtata \n");
   fd_serial_send=open_serial_port_com(serial_port_send,(int)load_data.serial_port_badu);
@@ -369,6 +371,18 @@ int main(int argc, char *argv[])
 		 	 send.yaw= 360 + send.yaw;
 			}*/
 			//debug controllo dati filtrati
+			/**********ricalcolo solo il campo magnetico terrestre ogni tanto***********/
+			 cnt_WMM ++;
+			if(cnt_WMM>WMM_TIMEOUTCOUNT)
+			{ 
+				EKF_U.trig=1;
+				cnt_WMM=0;
+			}
+			else
+			{
+				EKF_U.trig=0;
+			}
+
 			if((int)load_data.debug_mode==1)
 			{
 			  	printf("kalman roll: %f kalman pitch: %f kalman yaw: %f \n",send.roll,send.pitch,send.yaw );

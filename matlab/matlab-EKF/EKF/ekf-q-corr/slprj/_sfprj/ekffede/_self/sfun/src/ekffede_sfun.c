@@ -19,6 +19,9 @@
 #include "c16_ekffede.h"
 #include "c17_ekffede.h"
 #include "c18_ekffede.h"
+#include "c19_ekffede.h"
+#include "c20_ekffede.h"
+#include "c21_ekffede.h"
 
 /* Type Definitions */
 
@@ -135,6 +138,21 @@ unsigned int sf_ekffede_method_dispatcher(SimStruct *simstructPtr, unsigned int
     return 1;
   }
 
+  if (chartFileNumber==19) {
+    c19_ekffede_method_dispatcher(simstructPtr, method, data);
+    return 1;
+  }
+
+  if (chartFileNumber==20) {
+    c20_ekffede_method_dispatcher(simstructPtr, method, data);
+    return 1;
+  }
+
+  if (chartFileNumber==21) {
+    c21_ekffede_method_dispatcher(simstructPtr, method, data);
+    return 1;
+  }
+
   return 0;
 }
 
@@ -168,10 +186,10 @@ unsigned int sf_ekffede_process_check_sum_call( int nlhs, mxArray * plhs[], int
       ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(0U);
       ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(0U);
     } else if (!strcmp(commandName,"makefile")) {
-      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(4129314U);
-      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(4184914582U);
-      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3206834485U);
-      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3486756321U);
+      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(37058285U);
+      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2298085022U);
+      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2227770631U);
+      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3426509817U);
     } else if (nrhs==3 && !strcmp(commandName,"chart")) {
       unsigned int chartFileNumber;
       chartFileNumber = (unsigned int)mxGetScalar(prhs[2]);
@@ -302,6 +320,27 @@ unsigned int sf_ekffede_process_check_sum_call( int nlhs, mxArray * plhs[], int
           break;
         }
 
+       case 19:
+        {
+          extern void sf_c19_ekffede_get_check_sum(mxArray *plhs[]);
+          sf_c19_ekffede_get_check_sum(plhs);
+          break;
+        }
+
+       case 20:
+        {
+          extern void sf_c20_ekffede_get_check_sum(mxArray *plhs[]);
+          sf_c20_ekffede_get_check_sum(plhs);
+          break;
+        }
+
+       case 21:
+        {
+          extern void sf_c21_ekffede_get_check_sum(mxArray *plhs[]);
+          sf_c21_ekffede_get_check_sum(plhs);
+          break;
+        }
+
        default:
         ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(0.0);
         ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(0.0);
@@ -317,10 +356,10 @@ unsigned int sf_ekffede_process_check_sum_call( int nlhs, mxArray * plhs[], int
       return 0;
     }
   } else {
-    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3821732514U);
-    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(572305653U);
-    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3300761924U);
-    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(989581283U);
+    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2379857568U);
+    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1668793446U);
+    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3750314342U);
+    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2736454040U);
   }
 
   return 1;
@@ -476,6 +515,27 @@ unsigned int sf_ekffede_autoinheritance_info( int nlhs, mxArray * plhs[], int
       {
         extern mxArray *sf_c18_ekffede_get_autoinheritance_info(void);
         plhs[0] = sf_c18_ekffede_get_autoinheritance_info();
+        break;
+      }
+
+     case 19:
+      {
+        extern mxArray *sf_c19_ekffede_get_autoinheritance_info(void);
+        plhs[0] = sf_c19_ekffede_get_autoinheritance_info();
+        break;
+      }
+
+     case 20:
+      {
+        extern mxArray *sf_c20_ekffede_get_autoinheritance_info(void);
+        plhs[0] = sf_c20_ekffede_get_autoinheritance_info();
+        break;
+      }
+
+     case 21:
+      {
+        extern mxArray *sf_c21_ekffede_get_autoinheritance_info(void);
+        plhs[0] = sf_c21_ekffede_get_autoinheritance_info();
         break;
       }
 
@@ -703,6 +763,39 @@ unsigned int sf_ekffede_get_eml_resolved_functions_info( int nlhs, mxArray *
         break;
       }
 
+     case 19:
+      {
+        extern const mxArray *sf_c19_ekffede_get_eml_resolved_functions_info
+          (void);
+        mxArray *persistentMxArray = (mxArray *)
+          sf_c19_ekffede_get_eml_resolved_functions_info();
+        plhs[0] = mxDuplicateArray(persistentMxArray);
+        mxDestroyArray(persistentMxArray);
+        break;
+      }
+
+     case 20:
+      {
+        extern const mxArray *sf_c20_ekffede_get_eml_resolved_functions_info
+          (void);
+        mxArray *persistentMxArray = (mxArray *)
+          sf_c20_ekffede_get_eml_resolved_functions_info();
+        plhs[0] = mxDuplicateArray(persistentMxArray);
+        mxDestroyArray(persistentMxArray);
+        break;
+      }
+
+     case 21:
+      {
+        extern const mxArray *sf_c21_ekffede_get_eml_resolved_functions_info
+          (void);
+        mxArray *persistentMxArray = (mxArray *)
+          sf_c21_ekffede_get_eml_resolved_functions_info();
+        plhs[0] = mxDuplicateArray(persistentMxArray);
+        mxDestroyArray(persistentMxArray);
+        break;
+      }
+
      default:
       plhs[0] = mxCreateDoubleMatrix(0,0,mxREAL);
     }
@@ -720,7 +813,7 @@ unsigned int sf_ekffede_get_eml_resolved_functions_info( int nlhs, mxArray *
 
 void ekffede_debug_initialize(void)
 {
-  _ekffedeMachineNumber_ = sf_debug_initialize_machine("ekffede","sfun",0,18,0,0,
+  _ekffedeMachineNumber_ = sf_debug_initialize_machine("ekffede","sfun",0,21,0,0,
     0);
   sf_debug_set_machine_event_thresholds(_ekffedeMachineNumber_,0,0);
   sf_debug_set_machine_data_thresholds(_ekffedeMachineNumber_,0);

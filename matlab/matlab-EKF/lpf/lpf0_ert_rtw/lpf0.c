@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'lpf0'.
  *
- * Model version                  : 1.36
+ * Model version                  : 1.37
  * Simulink Coder version         : 8.0 (R2011a) 09-Mar-2011
  * TLC version                    : 8.0 (Feb  3 2011)
- * C/C++ source code generated on : Thu Dec 29 20:51:34 2011
+ * C/C++ source code generated on : Fri Feb 03 19:28:27 2012
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic

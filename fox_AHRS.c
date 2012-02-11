@@ -204,13 +204,14 @@ int main(int argc, char *argv[])
   {
 	
 	/*****************time************************/
-    	elapTicks = (BeginTimer()-elapTicks_init)/time_divisor_clk;
-	if(elapTicks<=elapTicks_prec)
-		{
-		elapTicks=elapTicks_prec+fake_deltat;
-		}
-	deltatime=elapTicks-elapTicks_prec;
-	elapTicks_prec=elapTicks;
+    	//elapTicks = (BeginTimer()-elapTicks_init)/time_divisor_clk;
+	//if(elapTicks<=elapTicks_prec)
+	//	{
+	//	elapTicks=elapTicks_prec+fake_deltat;
+	//	}
+	//deltatime=elapTicks-elapTicks_prec;
+	//elapTicks_prec=elapTicks;
+	deltatime=fake_deltat;
 
 	if((int)load_data.debug_mode==1)	{printf("time %f deltatime %f \n ",elapTicks,deltatime);}
 

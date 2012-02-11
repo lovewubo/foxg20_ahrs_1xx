@@ -23,7 +23,7 @@ char gps_port[20]="/dev/ttyS3";
 //time
 /*timer constant*/
   double time_divisor_clk=1600000;
-  double fake_deltat=0.0125;
+  double fake_deltat=0.0120;
 //kalman
   float dev_std_accell=0.0001;
   float dev_std_mag=0.1;
